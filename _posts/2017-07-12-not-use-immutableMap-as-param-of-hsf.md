@@ -29,7 +29,9 @@ final class SingletonImmutableList<E> extends ImmutableList<E> {
 `transient`关键字表示相关字段不需要被序列化,但是hsf和dubbo是要先序列化然后再进行tcp传输的，因此参数就无法传递过去。
 
 ## 解决方案
-可以用`java.util.Collections#singletonList`, 因为 这个方法返回的`list、map、set`不会有`transient`字段。
+可以用`java.util.Collections#singletonList, 因为 这个方法返回的`list、map、set`不会有`transient`字段。
+
+---
 
 ## 相关
 transient的用途

@@ -1,5 +1,5 @@
 # ----------- CONFIGURABLE START -----------
-title:            "Palexu"
+title:            "夏日之际"
 description:      "Such theme, very cool."
 url:              https://palexu.github.io # Site url, without a slash at the end.
 signoff:          "palexu" # Your name
@@ -20,3 +20,9 @@ permalink:        /posts/:title
 defaults:
   - values:
       layout: "default"
+
+highlighter: rouge
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
