@@ -1,6 +1,6 @@
 ---
-title:Maven笔记
-date:2017-4-19 12:00:00
+title: Maven笔记
+date: 2017-4-19 12:00:00
 ---
 创建项目
 `maven archetype:generate`
