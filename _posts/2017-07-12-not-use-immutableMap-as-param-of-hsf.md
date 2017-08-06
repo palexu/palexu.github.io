@@ -5,25 +5,21 @@ date: 2017-07-12 15:27:31
 hsf的服务不能传guava的`ImmutableList`和`ImmutableMap`。
 
 ## 原因
-
+使用时，其内部实现如下：
 ```java
 public static <E> ImmutableList<E> of(E element) {
    return new SingletonImmutableList<E>(element);
  }
 ```
-
+查看`SingletonImmutableList`可以看到内部通过一个element成员变量来持有传入的变量。
 ```java
 final class SingletonImmutableList<E> extends ImmutableList<E> {
   final transient E element;
 
   SingletonImmutableList(E element) {
     this.element = checkNotNull(element);
-  }
-
-  public E get(int index) {
-    Preconditions.checkElementIndex(index, 1);
-    return element;
-  }
+  }　
+  //……
 ```
 
 `transient`关键字表示相关字段不需要被序列化,但是hsf和dubbo是要先序列化然后再进行tcp传输的，因此参数就无法传递过去。
