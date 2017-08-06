@@ -15,6 +15,9 @@ links:
     url:          /about
     external:     false
 # ------------ CONFIGURABLE END ------------
+my-title:
+  first: palexu
+  last: 技术博客
 
 permalink:        /posts/:title
 defaults:

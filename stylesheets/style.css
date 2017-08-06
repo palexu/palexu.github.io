@@ -4,10 +4,32 @@
 .top-50 { top: 50% }
 .link:hover { background: url(/images/line.png) repeat-x left bottom; }
 
+/*用于header的黑白框*/
+/*#titile-first-part {
+    padding: 0.3em 0.2em 0.1em 0.2em;
+    border: 1px solid #333;
+    color: #333;
+    background-color: white;
+}
+#titile-last-part {
+    padding: 0.3em 0.2em 0.1em 0.2em;
+    border: 1px solid #333;
+    color: white;
+    background-color: #333;
+}
+
+.header-header {
+    font-family: "Cutive Mono", monospace;
+    font-size: 3em;
+    text-align: center;
+    padding: 0.7em 0 0.3em;
+}*/
+
 /* Markdown styles */
 .markdown-body a {
   text-decoration: none;
-  color: #77c34f;
+  /*使用stormzhang的相同链接配色*/
+  color: #428bca;
 }
 .markdown-body .highlighter-rouge {
   padding: .25rem .5rem;
