@@ -6,6 +6,76 @@ tag: '缓存'
 
 > 吾常闻，非人勤以求知，乃知者勤以求人也。然吾知其谬。其知者非求人，实乃出而逐人矣。其刻深无情者，如鹰犬逐兔。
 
+目录
+1. 为什么使用缓存
+    1. 金字塔
+    2. 2-8
+
+* 从零写一个本地缓存
+    * 哈希
+    * 锁
+    * 本地缓存的设计与实现
+    * 缓存更新算法（http://blog.jobbole.com/30940/）
+        1. Least Frequently Used（LFU）
+        2. Least Recently User（LRU
+        3. Least Recently Used 2（LRU2）
+        4. Two Queues（2Q）
+        5. Adaptive Replacement Cache（ARC）
+        6. Most Recently Used（MRU）
+        7. First in First out（FIFO）
+        8. Second Chance
+        9. CLock
+        10. Simple time-based
+        11. Extended time-based expiration
+        12. Sliding time-based expiration
+        13. Random Cache
+    * 现代化的缓存更新算法
+* 本地缓存
+    * guava cache
+* 分布式缓存
+    * memcache
+    * redis
+    * 数据分片
+* spring 注解缓存
+
+案例
+1. 缓存更新的四种套路
+    1. Cache aside
+    2. Read through
+    3. Write through
+    4. Write behind caching
+2. 缓存可能遇到的问题
+    1. 无底洞问题
+    2. 穿透问题
+    3. 热点key问题
+    4. 雪崩问题
+
+参考资料
+1. 明辉，缓存那些事，https://tech.meituan.com/cache_about.html，2017-03-17 17:19
+2. 陈浩，缓存更新的套路，https://coolshell.cn/articles/17416.html，2016-07-27
+3.  jtraining，缓存、缓存算法和缓存框架简介，http://blog.jobbole.com/30940/，2013/03/30
+4. https://weibo.com/ttarticle/p/show?hmsr=toutiao.io&id=2309404022116222639373&utm_medium=toutiao.io&utm_source=toutiao.io
+5. 高可用架构 「ArchNotes」，微博数据库那些事儿：3个变迁阶段背后的设计思想，https://weibo.com/ttarticle/p/show?id=2309403948901471268848
+6. 高可用架构 「ArchNotes」，从优化性能到应对峰值流量：微博缓存服务化的设计与实践，https://weibo.com/ttarticle/p/show?id=2309404013728432540615
+7. 吳YH堅，后端的轮子（三）— 缓存，https://mp.weixin.qq.com/s__biz=MjM5ODczNTkwMA==&mid=2650107148&idx=1&sn=1f6d8610c21a55dc3490c16002ee8c1a&scene=0#wechat_redirect
+8. 谢晞鸣，缓存使用总结，https://fdx321.github.io/2016/09/09/%E7%BC%93%E5%AD%98%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93/?hmsr=toutiao.io&utm_medium=toutiao.io&utm_source=toutiao.io
+9. carlosfu，缓存使用与设计系列文章—目录，http://carlosfu.iteye.com/blog/2269678?hmsr=toutiao.io&utm_medium=toutiao.io&utm_source=toutiao.io
+10. 陈浩，分布式系统的事务处理，https://coolshell.cn/articles/10910.html
+11. 沈剑，缓存架构设计细节二三事，https://mp.weixin.qq.com/s?__biz=MjM5ODYxMDA5OQ==&mid=404087915&idx=1&sn=075664193f334874a3fc87fd4f712ebc
+12. 简直(译),现代化的缓存设计方案,http://ifeve.com/design-of-a-modern-cache/
+13. 何锦彬,本地缓存的设计和实现,http://www.cnblogs.com/springsource/p/6475070.html
+14. http://blog.csdn.net/dev_csdn/article/details/78949830
+参考书籍
+1. Redis开发与运维
+
+下次主题：
+1.一致性hash
+2.大公司在真实业务场景如何使用缓存（以微博为例）
+3.Guava Cache 实现原理：数据结构、缓存淘汰算法等
+4.现代的缓存淘汰算法
+
+---
+
 # 简介
 
 ## 为什么要使用缓存？
@@ -54,6 +124,8 @@ tag: '缓存'
 ### 缓存清空算法
 
 主要有这些：LRU（LRU2、2Q、ARC），MRU，LFU，FIFO（Second Chance），CLOCK
+
+---
 
 # 从零实现一个本地缓存
 
