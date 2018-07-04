@@ -58,7 +58,7 @@ tag: '缓存'
 5. 高可用架构 「ArchNotes」，微博数据库那些事儿：3个变迁阶段背后的设计思想，https://weibo.com/ttarticle/p/show?id=2309403948901471268848
 6. 高可用架构 「ArchNotes」，从优化性能到应对峰值流量：微博缓存服务化的设计与实践，https://weibo.com/ttarticle/p/show?id=2309404013728432540615
 7. 吳YH堅，后端的轮子（三）— 缓存，https://mp.weixin.qq.com/s__biz=MjM5ODczNTkwMA==&mid=2650107148&idx=1&sn=1f6d8610c21a55dc3490c16002ee8c1a&scene=0#wechat_redirect
-8. 谢晞鸣，缓存使用总结，https://fdx321.github.io/2016/09/09/%E7%BC%93%E5%AD%98%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93/?hmsr=toutiao.io&utm_medium=toutiao.io&utm_source=toutiao.io
+8. 谢晞鸣，缓存使用总结,https://fdx321.github.io/2016/09/09/%E7%BC%93%E5%AD%98%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93/?hmsr=toutiao.io&utm_medium=toutiao.io&utm_source=toutiao.io
 9. carlosfu，缓存使用与设计系列文章—目录，http://carlosfu.iteye.com/blog/2269678?hmsr=toutiao.io&utm_medium=toutiao.io&utm_source=toutiao.io
 10. 陈浩，分布式系统的事务处理，https://coolshell.cn/articles/10910.html
 11. 沈剑，缓存架构设计细节二三事，https://mp.weixin.qq.com/s?__biz=MjM5ODYxMDA5OQ==&mid=404087915&idx=1&sn=075664193f334874a3fc87fd4f712ebc
@@ -69,10 +69,10 @@ tag: '缓存'
 1. Redis开发与运维
 
 下次主题：
-1.一致性hash
-2.大公司在真实业务场景如何使用缓存（以微博为例）
-3.Guava Cache 实现原理：数据结构、缓存淘汰算法等
-4.现代的缓存淘汰算法
+1. 一致性hash
+2. 大公司在真实业务场景如何使用缓存（以微博为例）
+3. Guava Cache 实现原理：数据结构、缓存淘汰算法等
+4. 现代的缓存淘汰算法
 
 ---
 
@@ -109,10 +109,10 @@ tag: '缓存'
 对于分布式缓存中间件，常用的有Redis、Memcached等。
 
 > 小知识:Buffer和Cache分别是什么，它们有什么区别？
-
+>
 >1、Buffer（缓冲区）是系统两端处理速度平衡（从长时间尺度上看）时使用的。
 它的引入是为了减小短期内突发I/O的影响，起到流量整形的作用。比如生产者——消费者问题，他们产生和消耗资源的速度大体接近，加一个buffer可以抵消掉资源刚产生/消耗时的突然变化。
-
+>
 >2、Cache（缓存）则是系统两端处理速度不匹配时的一种折衷策略。因为CPU和memory之间的速度差异越来越大，所以人们充分利用数据的局部性（locality）特征，通过使用存储系统分级（memoryhierarchy）的策略来减小这种差异带来的影响。
 
 ## 常关注的缓存的属性
@@ -128,17 +128,64 @@ tag: '缓存'
 ---
 
 # 从零实现一个本地缓存
-
-1. 底层数据结构
-2. 缓存淘汰算法
-
 ## 基本款
-【图】
+使用HashMap来作为对象内部的缓存
 
-仅限于类的自身作用域内，类间无法共享缓存，且存在并发问题。
+```java
+class LocalCache{
+  private Map<String,Data> cache = new HashMap<>();
+
+  public Data get(String key){
+    Data data = null;
+
+    if(!cache.contains(key)){
+      data = getDataFromSource();
+      this.put(key,data);
+    }else{
+      data = cache.get(key);
+    }
+
+    return data;
+  }
+
+  public Data put(String key,Data data){
+    return cache.put(key,data);
+  }
+}
+```
+
+优点：开发简单
+缺点：仅限于类的自身作用域内，类间无法共享缓存，且存在并发问题。
+
+对于`类的自身作用域内`这个问题，可以使用加上`static`来解决。并且更换`HashMap`为`ConcurrentHashMap`，来解决并发对
+`Map`进行读写的问题。`ConcurrentHashMap`内部实现使用了16把读写锁（JDK7），读写效率和`HashMap`相同，
+缺点是高并发下只能做到最终一致性（即一个线程put的数据后，另一个线程可能读到老的值）
 
 ## 升级款
-【图】
+
+```java
+class LocalCache{
+  private static Map<String,Data> cache = new ConcurrentHashMap<>();
+
+  public static Data get(String key){
+    Data data = null;
+
+    if(!cache.contains(key)){
+      data = getDataFromSource();
+      this.put(key,data);
+    }else{
+      data = cache.get(key);
+    }
+
+    return data;
+  }
+
+  public static Data put(String key,Data data){
+    return cache.put(key,data);
+  }
+}
+```
+
 优点：
 静态变量实现类间可共享，进程内可共享。
 
@@ -146,41 +193,70 @@ tag: '缓存'
 缓存的实时性稍差。
 无法gc来回收占用的堆内存。
 
-## 自动款
-【图】
+因此有了下面这种利用JVM的内存回收机制实现的本地内存
 
-使用了SoftReference。
+## 自动回收内存款
+
+```java
+class LocalCache{
+  private static Map<String,SoftReference<Data>> cache = new ConcurrentHashMap<>();
+
+  public static Data get(String key){
+    SoftReference ref = (SoftReference) cache.get(key);
+
+    if(null == ref){
+      data = getDataFromSource();
+      this.put(key,data);
+    }else{
+      return ref.get();
+    }
+
+  }
+
+  public static Data put(String key,Data data){
+    SoftReference ref = (SoftReference) cache.put(key,new SoftReference(data))
+
+    if(null == ref){
+      return null;
+    }
+
+    Data old = ref.get();
+    ref.clear();
+
+    return old;
+  }
+}
+```
+
+升级款使用了SoftReference（软引用），这是Java类库中提供的。
+软引用有以下特征：
+1. 使用 get() 方法取得对象的强引用从而访问目标对象。
+2. 所指向的对象按照 JVM 的使用情况（Heap 内存是否临近阈值）来决定是否回收。
+3. 可以避免 Heap 内存不足所导致的异常。它保持对使用对象的引用，同时 JVM 依然可以在内存不够用的时候对使用对象进行回收。
+
 >Java.lang.ref 是 Java 类库中特殊的一个包.
 提供垃圾回收器密切相关的引用类。
 这些引用类对象可以指向其它对象，但它们不同于一般的引用，因为它们的存在并不防碍 Java 垃圾回收器对它们所指向的对象进行回收。
 
-软引用有以下特征：
-1.使用 get() 方法取得对象的强引用从而访问目标对象。
-2.所指向的对象按照 JVM 的使用情况（Heap 内存是否临近阈值）来决定是否回收。
-3.可以避免 Heap 内存不足所导致的异常。
+那么当内存占用过多时，JVM如何对这块内存进行回收？
+1. 先清空它的 SoftReference，这时调用SoftReference 的 get() 方法将会返回 null
+2. 调用value的 finalize() 方法，并在下一轮 GC 中对其真正进行回收。
 
-好处:
-可以保持对使用对象的引用，同时 JVM 依然可以在内存不够用的时候对使用对象进行回收。
-
-JVM如何对这块内存进行回收？
-1.先清空它的 SoftReference，这时调用SoftReference 的 get() 方法将会返回 null
-2.调用value的 finalize() 方法，并在下一轮 GC 中对其真正进行回收。
+也就是说，我们不用实现缓存淘汰算法，只需利用JVM的垃圾回收机制即可达到回收内存的目的。当然这也有坏处，
+如果Map中会存放大量数据，频繁引发JVM的GC，会导致程序性能下降。至于为什么会性能下降，以及其他关于JVM内存回收相关的细节，
+可以参考《深入理解JAVA虚拟机》一书。
 
 
-总结，以上这类缓存实现，
+## 总结
 
-优点：
+以上三种实现：基本款、升级款、内存自动回收款，具有如下优点
 1. 能直接在heap区内读写
 2. 快、方便
 
-缺点：
-1. 受heap区域影响，缓存的数据量有限
+但是它们的缺点也很明显：
+1. 受heap区域影响，缓存的数据量有限。且不同JVM中无法共享缓存。
 2. 同时缓存时间受GC影响。
 
-主要满足单机场景下的小数据量缓存需求，同时对缓存数据的变更无需太敏感感知，如配置管理、基础静态数据等场景。
-
-其实还有一个缺点，
-不在同个虚拟机的多个进程之间，
-无法对本地缓存进行实时同步。
-
-即：同步定时任务刷新具有时效性。可以考虑通过ZK统一监听资源然后通知所有关注该资源的应用。
+因此以上这些实现，主要满足单机场景下的小数据量缓存需求。
+同时也适合对缓存数据的变更无需太敏感感知，如配置管理、基础静态数据等场景（这些场景通过定时任务去刷新缓存）。
+如果对缓存新鲜度敏感，又要使用本地缓存的，可以考虑通过ZK统一监听资源然后通知所有关注该资源的应用去刷新缓存。
