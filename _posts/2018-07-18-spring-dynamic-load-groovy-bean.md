@@ -53,6 +53,7 @@ public class HelloService {
 ```
 
 第一步，需要拿到Spring上下文 `ApplicationContext`。这个有很多种实现，比如继承`ApplicationContextAware`接口等。
+
 第二步，获取到编译后的脚本，如下。
 
 ```java
