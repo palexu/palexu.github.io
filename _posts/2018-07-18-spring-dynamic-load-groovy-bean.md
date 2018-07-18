@@ -5,14 +5,23 @@ date: 2018-07-18 17:49
 
 ## 原因
 
-最近做的项目属于数据分析类型，要求数据分析功能做到快速上线。一开始技术选型的时候，使用的是Java + Groovy。 使用Groovy的原因很简单，因为 Groovy 脚本支持热加载功能。简单的数据分析工作，如一些统计、排序、过滤等，都放在Groovy里完成。需要上线新的数据分析功能时，只需要编写一个新的脚本，并热加载到Jvm中即可。
+最近做的项目属于数据分析类型，要求数据分析功能做到快速上线。该项目当前使用的语言是Java + Groovy。 使用Groovy的原因很简单，因为 Groovy 脚本支持热加载功能。项目中，简单的数据分析工作，如一些统计、排序、过滤等，都放在Groovy里完成。需要上线新的数据分析功能时，只需要编写一个新的脚本，并热加载到JVM中即可。
 
-现在希望将一些数据源访问、数据预处理的工作也放到 Groovy 脚本中完成。也就是说，Groovy 脚本需要具有访问数据源、调用rpc服务等等的功能。由于有Spring，这个功能就可以很方便地实现了。
+现在希望将一些数据源访问、数据预处理的工作也放到 Groovy 脚本中完成,并具有这样的功能：项目在线上稳定运行期间，可以通过修改数据库中的脚本来完成新产品的上线。
 
 ## 解决方案
-利用Spring对Groovy脚本进行管理。
-Groovy 脚本保存在数据库中。定时任务不断轮训数据库检测Groovy脚本的更新时间，若有更新，则读取脚本内容，并解析为`Class`。
-然后利用Spring提供的工具类`BeanDefinitionBuilder`，生成`BeanDefinition`。`BeanDefinition`中保存了Groovy脚本的meta信息，比如对其他类的依赖。接着，将`BeanDefinition`放入Spring上下文`ApplicationContext`中，并调用初始化方法，实例化Groovy脚本并对其进行依赖注入。最后，调用context.getBean("xxx")拿到该脚本。
+
+- PlanA: Java + 热加载
+- PlanB: Groovy + 热加载
+
+最终选择的方案是PlanB：让 Groovy 脚本需要具有访问数据源、调用rpc服务等等的能力。核心思路是利用Spring对Groovy脚本进行管理。
+
+1. Groovy 脚本保存在数据库中。定时任务不断轮训数据库检测Groovy脚本的更新时间，若有更新，则读取脚本内容，并解析为Class。
+2. 然后利用Spring提供的工具类BeanDefinitionBuilder，生成BeanDefinition。BeanDefinition中保存了Groovy脚本的meta信息，比如对其他类的依赖。
+3. 接着，将BeanDefinition放入Spring上下文ApplicationContext中，并调用初始化方法，对bean进行依赖注入。
+4. 最后，调用context.getBean("xxx")拿到该脚本。
+
+当然，需要注意的细节有很多，比如服务降级、安全控制等，这里就不展开说了。
 
 ![架构简图](https://ws3.sinaimg.cn/large/006tNc79gy1fte784mbcbj30hb0fvq2y.jpg)
 
@@ -52,7 +61,7 @@ public class HelloService {
 }
 ```
 
-第一步，需要拿到Spring上下文 `ApplicationContext`。这个有很多种实现，比如继承`ApplicationContextAware`接口等。
+第一步，需要拿到Spring上下文 ApplicationContext。这个有很多种实现，比如继承ApplicationContextAware接口等。
 
 第二步，获取到编译后的脚本，如下。
 
@@ -80,6 +89,7 @@ hello.run();
 //console中应当输出下面内容,此时说明HelloService已经成功注入到groovy脚本中了
 //now hello
 ```
+---
 
 ## 参考资料
 1. [Groovy 使 Spring 更出色，第 2 部分 - 在运行时改变应用程序的行为 - 用 Groovy 为 Spring 应用程序添加可动态刷新的 bean](https://www.ibm.com/developerworks/cn/java/j-groovierspring2.html)
