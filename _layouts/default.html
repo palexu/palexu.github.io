@@ -1,61 +1,86 @@
 {% assign is_post = page.date %}
 <!doctype>
 <html lang="en">
-  <head>
-    <meta name="google-site-verification" content="_ujkMPErh9_k7Fd1un4W2MnMWcSMitpMkB15Tf5RwgA" />
-    <meta content='{{ page.title }} - {{ site.title }}' name='title' />
-    <meta content='{{ page.title }} - {{ site.title }}' name='og:title' />
+<head>
+    <meta name="google-site-verification" content="_ujkMPErh9_k7Fd1un4W2MnMWcSMitpMkB15Tf5RwgA"/>
+    <meta content='{{ page.title }} - {{ site.title }}' name='title'/>
+    <meta content='{{ page.title }} - {{ site.title }}' name='og:title'/>
     <title>{{ page.title }} - {{ site.title }}</title>
     {% include head.html %}
-  </head>
-  <body class="lh-copy dark-gray pa0 f6 sans-serif bg-super-white">
-    <header class="tc mt4">
-      <!-- 这是site标题 -->
-      <!-- <p class="f4">{{ site.title }}</p> -->
-      <img src="https://ws2.sinaimg.cn/large/006tNc79gy1fteed407v3j302s02s742.jpg" alt="Home" width="53" height="59">
-      <br>
-      <a href="/" style="text-decoration: none;">
-        <span class="f5 header-header" id="titile-first-part">{{ site.my-title.first }}</span>
-        <span class="f5 header-header" id="titile-last-part">{{ site.my-title.last }}</span>
-      </a>
+</head>
+<body class="lh-copy dark-gray pa0 f6 sans-serif bg-super-white">
+<header class="tc mt4">
+    <!-- 这是site标题 -->
+    <p class="f4">{{ site.title }}</p>
+    <!--       <img src="https://ws2.sinaimg.cn/large/006tNc79gy1fteed407v3j302s02s742.jpg" alt="Home" width="53" height="59">
+          <br>
+          <a href="/" style="text-decoration: none;">
+            <span class="f5 header-header" id="titile-first-part">{{ site.my-title.first }}</span>
+            <span class="f5 header-header" id="titile-last-part">{{ site.my-title.last }}</span>
+          </a> -->
 
-    </header>
-    <div class="mw7 bg-white mt4 mb3 center br2-ns bt bb ba-ns b--light-gray">
-      <nav class="bb b--light-gray pv4 tc" aria-label="Main">
+</header>
+<div class="mw7 bg-white mt4 mb3 center br2-ns bt bb ba-ns b--light-gray">
+    <nav class="bb b--light-gray pv4 tc" aria-label="Main">
         {% for link in site.links %}
-          <a class="link f4 green hover-mid-gray mh2 pv1"
-             href="{% unless link.external %}{{ site.url }}{% endunless %}{{ link.url }}">
-             {{ link.name }}
-           </a>
+        <a class="link f4 green hover-mid-gray mh2 pv1"
+           href="{% unless link.external %}{{ site.url }}{% endunless %}{{ link.url }}">
+            {{ link.name }}
+        </a>
         {% endfor %}
-      </nav>
+    </nav>
 
-      <main class="tl f6 relative pa4 pa5-ns overflow-hidden">
+    <main class="tl f6 relative pa4 pa5-ns overflow-hidden">
         {% if page.title %}
-          <div class="mb4">
-            {% if page.date %}<div class="fw600 light-silver mt1">{{ page.date | date_to_string }}</div>{% endif %}
+        <div class="mb4">
+            {% if page.date %}
+            <div class="fw600 light-silver mt1">{{ page.date | date_to_string }}, view <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span> times.
+            </div>
+            {% endif %}
             <h1 class="ttu f3 mt0 lh-title cb mb2">
-              {% if is_post %}
-              {% endif %}
-              {{ page.title }}
+                {% if is_post %}
+                {% endif %}
+                {{ page.title }}
             </h1>
             {% if is_post and site.share %}
-              <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
-              <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-              <div class="fb-like" data-send="false" data-layout="button_count" data-width="100" data-show-faces="false" data-font="arial" data-action="like"></div>
+            <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+            <script>!function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (!d.getElementById(id)) {
+                    js = d.createElement(s);
+                    js.id = id;
+                    js.src = "//platform.twitter.com/widgets.js";
+                    fjs.parentNode.insertBefore(js, fjs);
+                }
+            }(document, "script", "twitter-wjs");</script>
+            <div class="fb-like" data-send="false" data-layout="button_count" data-width="100" data-show-faces="false"
+                 data-font="arial" data-action="like"></div>
             {% endif %}
-          </div>
+        </div>
         {% endif %}
         <div class="markdown-body">
-          {{ content }}
+            {{ content }}
         </div>
         {% if is_post %}{% include signoff.html %}{% endif %}
-      </main>
-      {% if is_post %}{% include pagination.html %}{% endif %}
-    </div>
-    <footer class="mw7 center tc pt3 pb4 silver">
-      Built with Jekyll.
-      <!-- <img src="{{ site.url }}/images/scribble2.png" alt="scribble" class="mt4 db center" /> -->
-    </footer>
-  </body>
+    </main>
+    {% if is_post %}{% include pagination.html %}{% endif %}
+</div>
+<footer class="mw7 center tc pt3 pb4 silver">
+    Built with Jekyll.
+    {% if is_post %}
+
+    {% else %}
+    <span id="busuanzi_container_site_uv">
+      uv: <span id="busuanzi_value_site_uv"><i class="fa fa-spinner fa-spin"></i></span>
+    </span>
+    <span id="busuanzi_container_site_pv">
+      pv: <span id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-spin"></i></span>
+    </span>
+    {% endif %}
+    <!-- <img src="{{ site.url }}/images/scribble2.png" alt="scribble" class="mt4 db center" /> -->
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+</footer>
+</body>
 </html>
