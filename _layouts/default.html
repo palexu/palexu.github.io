@@ -64,7 +64,7 @@
         {% if is_post %}{% include signoff.html %}{% endif %}
         {% if is_post %}
         <hr>
-        <div id="gitmentContainer"></div>
+        <div id="container"></div>
         <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
         <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
         <script>
@@ -76,7 +76,7 @@
                     client_secret: '8096f5eda89f0c278ddb12fd861e6a7840846ce8',
                 },
             });
-            gitment.render('gitmentContainer');
+            gitment.render('container')
         </script>
         {% endif %}
     </main>
