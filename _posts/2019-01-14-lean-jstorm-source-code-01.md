@@ -29,7 +29,7 @@ date: 2019-01-16 23:42
 
 下面这张图画出了tuple 的反序列化/序列化/消费/网络传输所涉及的组件: TaskReceiver, TaskTransfer, Task, NettyClient, NettyServer
 
-![image-20190116230849625](/Users/xj/code/palexu.github.io/_posts/assets/image-20190116230849625-7651329.png)
+![jstorm](https://ws3.sinaimg.cn/large/006tNc79ly1fz8tyh5i8pj30ou0oowey.jpg)
 
 
 
