@@ -9,11 +9,8 @@ p {
   margin-bottom: 23px;
 }
 
-.z-index-negative-1{
-  z-index: -1;
-}
-.z-index-positive-1{
-  z-index: 10;
+.lh-copy {
+    line-height: 1.7;
 }
 
 /*用于header的黑白框*/
