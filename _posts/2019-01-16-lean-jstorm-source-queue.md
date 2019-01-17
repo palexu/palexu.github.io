@@ -1,6 +1,6 @@
 ---
 title: JStorm 源码分析 - 高性能队列 DisruptorQueue
-date: 2019-01-17 16:13
+date: 2019-01-16 21:13
 ---
 
 在上一篇文章中( [JStorm 源码分析 - tuple 在整个拓扑中的流转过程](lean-jstorm-source-code-01)), 我们多次提到 JStorm 使用了 3 个队列来完成 tuple 的缓冲与消费. 因此这些队列的性能会制约 JStorm 的总体的吞吐量. 

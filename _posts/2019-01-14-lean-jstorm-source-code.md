@@ -6,10 +6,10 @@ date: 2019-01-14 18:42
 ## 简介
 
 本次 JStorm 源码分析文章, 主要是为在公司的内部学习分享会准备的. 
-生产环境使用的是 JStorm 2.2.1, 本次介绍的功能也以此为准(当然, 本文不会涉及到一些高级特性, 主要还是围绕 Storm 的基本功能展开). 希望阅读本文的童鞋, 最好对 Storm/JStorm 的使用有一定的了解, 知道 Spout、Bolt 的一些基本的工作原理. 如果不太了解, 本文最下方也提供了一些学习资料, 可以先花上半天时间学习一下.
+生产环境使用的是 JStorm 2.2.1, 本次介绍的功能也以此为准 ( 本文不会涉及到一些高级特性, 主要还是围绕 Storm 的基本功能展开). 希望阅读本文的童鞋, 最好对 Storm/JStorm 的使用有一定的了解, 知道 Spout、Bolt 的一些基本的工作原理. 如果不太了解, 本文最下方也提供了一些学习资料, 可以先花上半天时间学习一下.
 
 本文主要会介绍以下这些内容:
-1. tuple 在整个拓扑中的流动过程
+1. [tuple 在整个拓扑中的流动过程](lean-jstorm-source-code-01)
     1. spout / bolt 如何接受并处理消息, 然后向后发送消息?
     2. 在发给内部的 task 和外部的 task 时, 发送方式有什么区别?
 2. JStorm 如何对这个步骤进行抽象,形成不同的组件(TaskReceiver,TaskTransfer,Task,Executor)
@@ -29,14 +29,14 @@ date: 2019-01-14 18:42
 
 关键组件:
 - TaskTransfer/TaskReceiver
-- AsyncLoopThread 以及相关的类
+- [AsyncLoopThread 以及相关的类](lean-jstorm-AsyncLoopThread)
 - SystemBolt
 - TopologyContext
 - BoltExecutors
 
 依赖的库与框架
 - Metric 用于性能统计
-- LMAX Disruptor 一个高性能队列
+- [LMAX Disruptor 一个高性能队列](lean-jstorm-source-queue)
 - Netty 网络通信
 - thrift RPC通信
 
