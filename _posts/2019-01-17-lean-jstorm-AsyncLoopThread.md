@@ -21,7 +21,7 @@ com.alibaba.jstorm.callback.AsyncLoopThread
 
 主要功能：
 
-1. 封装了 Thread 的 start() 方法，对Thread做了一些常规的配置操作。
+1. 封装了 Thread 的 start() 方法，对 Thread 做了一些常规的配置操作。
 2. 自定义了一个 AsyncLoopDefaultKill 类, 用于自定义杀死进程的操作
 
 每一个 AsyncLoopThread 对象, 持有各自的 Runnable (实际是 AsyncLoopRunable )
