@@ -3,6 +3,14 @@
 <html lang="en">
 <head>
     <meta name="google-site-verification" content="_ujkMPErh9_k7Fd1un4W2MnMWcSMitpMkB15Tf5RwgA"/>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132653813-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-132653813-1');
+    </script>
     <meta content='{{ page.title }} - {{ site.title }}' name='title'/>
     <meta content='{{ page.title }} - {{ site.title }}' name='og:title'/>
     <title>{{ page.title }} - {{ site.title }}</title>
@@ -34,8 +42,7 @@
         {% if page.title %}
         <div class="mb4">
             {% if page.date %}
-            <div class="fw600 light-silver mt1">{{ page.date | date_to_string }}, view <span id="busuanzi_value_page_pv"><i class="fa fa-spinner fa-spin"></i></span> times.
-            </div>
+            <div class="fw600 light-silver mt1">{{ page.date | date_to_string }}</div>
             {% endif %}
             <h1 class="ttu f3 mt0 lh-title cb mb2">
                 {% if is_post %}
@@ -85,19 +92,7 @@
 </div>
 <footer class="mw7 center tc pt3 pb4 silver">
     Built with Jekyll.
-    {% if is_post %}
-
-    {% else %}
-    <span id="busuanzi_container_site_uv">
-      uv: <span id="busuanzi_value_site_uv"><i class="fa fa-spinner fa-spin"></i></span>
-  </span>
-  <span id="busuanzi_container_site_pv">
-      pv: <span id="busuanzi_value_site_pv"><i class="fa fa-spinner fa-spin"></i></span>
-  </span>
-  {% endif %}
   <!-- <img src="{{ site.url }}/images/scribble2.png" alt="scribble" class="mt4 db center" /> -->
-  <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
-  </script>
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 </footer>
 </body>
