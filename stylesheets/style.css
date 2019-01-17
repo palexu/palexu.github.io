@@ -4,6 +4,11 @@
 .top-50 { top: 50% }
 .link:hover { background: url(/images/line.png) repeat-x left bottom; }
 
+p {
+  margin-top: 18px;
+  margin-bottom: 23px;
+}
+
 /*用于header的黑白框*/
 /*#titile-first-part {
     padding: 0.3em 0.2em 0.1em 0.2em;
