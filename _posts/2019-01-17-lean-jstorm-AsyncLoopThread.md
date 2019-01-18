@@ -17,7 +17,7 @@ com.alibaba.jstorm.callback.AsyncLoopThread
 
 核心方法： init
 
-从上面的代码段中, 可以看到 AsyncLoopThread 的启动是去调用了持有的 Runnable#start ,实际上是 JStorm 设计的一个 Runnable 的子类 AsyncLoopRunable.
+从上面的代码段中, 可以看到 AsyncLoopThread 的启动是去调用了持有的 Runnable#start, 实际上是 JStorm 设计的一个 Runnable 的子类 AsyncLoopRunable.
 
 主要功能：
 
