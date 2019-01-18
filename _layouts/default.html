@@ -11,6 +11,8 @@
       gtag('js', new Date());
       gtag('config', 'UA-132653813-1');
     </script>
+    
+    {%if site.ads %}
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <script>
       (adsbygoogle = window.adsbygoogle || []).push({
@@ -18,6 +20,8 @@
         enable_page_level_ads: true
       });
     </script>
+    {% endif %}
+
     <meta content='{{ page.title }} - {{ site.title }}' name='title'/>
     <meta content='{{ page.title }} - {{ site.title }}' name='og:title'/>
     <title>{{ page.title }} - {{ site.title }}</title>
