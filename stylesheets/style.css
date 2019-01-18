@@ -12,6 +12,39 @@ p {
 .lh-copy {
     line-height: 1.7;
 }
+.toc-body{
+    padding-left: 0px;
+    position: relative;
+    margin-left: 0px; 
+
+    border-bottom-color:rgb(204, 204, 204);
+    border-bottom-left-radius:0px;
+    border-bottom-right-radius:0px;
+    border-bottom-style:dotted;
+    border-bottom-width:1px;
+    border-top-color:rgb(48, 48, 48);
+    border-top-left-radius:0px;
+    border-top-right-radius:0px;
+    border-top-style:none;
+    border-top-width:0px;
+}
+.toc-item {
+    display: block;
+    color: rgb(65, 131, 196);
+    orphans: 4;
+    font-size: 0.9rem;
+    word-break: normal;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-weight: 400;
+    text-decoration-color:rgb(34, 102, 153); 
+    text-decoration-style:solid;
+    text-decoration-line: none; 
+}
+.toc-item a:hover{
+    text-decoration-color:rgb(34, 102, 153);
+    text-decoration-style:solid;
+    text-decoration: underline; 
+}
 
 /*用于header的黑白框*/
 /*#titile-first-part {

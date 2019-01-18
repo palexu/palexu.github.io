@@ -55,7 +55,7 @@ threads.add(controlRvthread);
 
 #### 在第二步中: 创建并启动"维护task之间连接"的线程
 
-创建了一个 RefreshConnections .
+创建了一个 $RefreshConnections$ .
 
 <img src="https://ws2.sinaimg.cn/large/006tNc79ly1fzajh0muefj30a207i0sl.jpg" width="200px"/>
 
@@ -113,3 +113,4 @@ sd.join是说,当worker所创建的所有线程都运行结束后,worker线程�
 
 ## 运行时
 todo
+
