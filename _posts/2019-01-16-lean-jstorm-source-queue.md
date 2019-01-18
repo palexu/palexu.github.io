@@ -31,11 +31,8 @@ Storm/JStorm 就使用 Disruptor 作为队列, 来提高系统的性能. 这里�
 总结一下:
 
 - 性能比 BlockingQueue、ConcurrentQueue 快一个数量级, 原因
-
   - 无锁设计: 通过CAS实现
-
   - 对寄存器亲和: 数组
-
   - 防止GC: 使用数组而非链表
 - 建议:
   - 百万级别并发: 使用 ConcurrentQueue、BlockingQueue

@@ -52,7 +52,6 @@ threads.add(controlRvthread);
 <img src="https://ws4.sinaimg.cn/large/006tNc79ly1fzajcpu50sj30gu0c6jrd.jpg" width="300px"/>
 
 
-
 #### 在第二步中: 创建并启动"维护task之间连接"的线程
 
 创建了一个 RefreshConnections .
@@ -67,7 +66,9 @@ threads.add(controlRvthread);
 
 #### 在第三步中：创建并启动维护zk状态的线程
 
-#### 在第四步中：创建并启动发送控制信息的线程（DrainerCtrlRunable）这名字取得挺有意思的, 排水控制？
+#### 在第四步中：创建并启动发送控制信息的线程
+
+DrainerCtrlRunable 这名字取得挺有意思的, 排水控制？
 
 ![](https://ws3.sinaimg.cn/large/006tNc79ly1fzajhtzh5nj30qe05mmx9.jpg)
 
