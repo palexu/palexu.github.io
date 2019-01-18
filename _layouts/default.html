@@ -12,7 +12,7 @@
       gtag('config', 'UA-132653813-1');
     </script>
     
-    {%if site.ads %}
+    {%if site.ads and is_post%}
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <script>
       (adsbygoogle = window.adsbygoogle || []).push({
