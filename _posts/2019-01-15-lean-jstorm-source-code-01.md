@@ -48,7 +48,7 @@ tuple 在 JStorm 中的流动, 主要涉及到的有三个队列:
 
 下图是一张更加详细的高清大图了. 这张图使用黑色带箭头的实线, 画出了 tuple 的流动方向. 并且引入了 Worker、AsyncLoopThread 等新的组件
 
-![jstorm](https://ws1.sinaimg.cn/large/006tNc79ly1fz8snni3xmj30u015itxg.jpg)
+![jstorm](https://ws4.sinaimg.cn/large/006tNc79ly1fzbmk4h1asj30u00ultmf.jpg)
 
  (图片使用 OmniGraffle 绘制, 想要源文件或者高清原图的可以给我发邮件哦)
 
@@ -64,3 +64,4 @@ tuple 在 JStorm 中的流动, 主要涉及到的有三个队列:
 - 各个组件的容器 Worker
 
 后续 JStorm 会更加详细地对这些组件进行介绍! 下次见^_^
+
