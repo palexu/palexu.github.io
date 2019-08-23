@@ -11,3 +11,11 @@ Thumbs.db
 
 *.swp
 .idea
+
+.DS_Store
+Thumbs.db
+db.json
+*.log
+node_modules/
+public/
+.deploy*/
