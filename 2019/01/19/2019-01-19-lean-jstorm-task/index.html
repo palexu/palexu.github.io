@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="本篇主要介绍task的创建与运行过程文章开头, 先抛出一些疑问: 为什么TaskTransfer、TaskReceiver 要在初始化Task的时候创建, 为什么不在Worker里直接创建好? 这么做有什么好处呢? TaskTransfer/Receiver 与 Task 是1对1的关系么?  如果是,为什么? 如果不是,那设置了怎样的值, 为什么? start up bolt 发给系统 bolt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JStorm 源码分析 - Task 的启动与运行">
+<meta property="og:url" content="http://yoursite.com/2019/01/19/2019-01-19-lean-jstorm-task/index.html">
+<meta property="og:site_name" content="鲸鱼的博客">
+<meta property="og:description" content="本篇主要介绍task的创建与运行过程文章开头, 先抛出一些疑问: 为什么TaskTransfer、TaskReceiver 要在初始化Task的时候创建, 为什么不在Worker里直接创建好? 这么做有什么好处呢? TaskTransfer/Receiver 与 Task 是1对1的关系么?  如果是,为什么? 如果不是,那设置了怎样的值, 为什么? start up bolt 发给系统 bolt">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNc79ly1fzark3184pj30im09kaa6.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNc79ly1fzarn29cnbj31ei0cwmz8.jpg">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNc79ly1fzarne44coj30ly0g4wfj.jpg">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNc79ly1fzaroa3w9nj31f80fegp4.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNc79ly1fzaroih6toj31ei098gnp.jpg">
+<meta property="og:updated_time" content="2019-08-23T07:49:14.033Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JStorm 源码分析 - Task 的启动与运行">
+<meta name="twitter:description" content="本篇主要介绍task的创建与运行过程文章开头, 先抛出一些疑问: 为什么TaskTransfer、TaskReceiver 要在初始化Task的时候创建, 为什么不在Worker里直接创建好? 这么做有什么好处呢? TaskTransfer/Receiver 与 Task 是1对1的关系么?  如果是,为什么? 如果不是,那设置了怎样的值, 为什么? start up bolt 发给系统 bolt">
+<meta name="twitter:image" content="https://ws1.sinaimg.cn/large/006tNc79ly1fzark3184pj30im09kaa6.jpg">
+  <link rel="canonical" href="http://yoursite.com/2019/01/19/2019-01-19-lean-jstorm-task/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>JStorm 源码分析 - Task 的启动与运行 | 鲸鱼的博客</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">鲸鱼的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+  </ul>
+
+    
+
+</nav>
+</div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/19/2019-01-19-lean-jstorm-task/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="鲸鱼">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="鲸鱼的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">JStorm 源码分析 - Task 的启动与运行
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-01-19 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-19T00:00:00+08:00">2019-01-19</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-08-23 15:49:14" itemprop="dateModified" datetime="2019-08-23T15:49:14+08:00">2019-08-23</time>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>本篇主要介绍task的创建与运行过程</p><h2 id="文章开头-先抛出一些疑问"><a href="#文章开头-先抛出一些疑问" class="headerlink" title="文章开头, 先抛出一些疑问:"></a>文章开头, 先抛出一些疑问:</h2><ol>
+<li>为什么TaskTransfer、TaskReceiver 要在初始化Task的时候创建, 为什么不在Worker里直接创建好? 这么做有什么好处呢?</li>
+<li>TaskTransfer/Receiver 与 Task 是1对1的关系么?  如果是,为什么? 如果不是,那设置了怎样的值, 为什么?</li>
+<li>start up bolt 发给系统 bolt 是做什么用的?</li>
+<li>至于在创建拓扑时的并行度等属性, 在提交拓扑时(?确定是这个时候么?)就已经分配好了. 例如 BoltA 并行度为 3, 那么会创建3个Task对象, 每个对象都持有BoltA? 而不是一个Task 持有多个 Executor ,每个Executor使用执行bolt的业务代码 ?</li>
+<li>为什么创建executor时,要传递当前task进去,如 baseExecutor = new BoltExecutors(this) . 而不是传递必须的参数进去.这是否是为了强调task和executor之间的某种联系?如果是,那么又是什么联系呢?  在较早版本的源代码里面,是否有反映这个联系呢?</li>
+</ol><a id="more"></a>
+
+<img src="https://ws1.sinaimg.cn/large/006tNc79ly1fzark3184pj30im09kaa6.jpg" style="zoom:50%">
+
+<h2 id="创建过程"><a href="#创建过程" class="headerlink" title="创建过程:"></a>创建过程:</h2><p>和worker的启动方式类似  (JStorm对初始化方法和启动方法使用了相同风格的命名, 减少了理解成本 ^_^)</p>
+<ol>
+<li>执行 Task#new, 将必需的参数从workerData中取出<br> 比较重要的一步: 获取taskObj.<br> 是通过Common#get_task_object获取, 这个对象就是在建立拓扑时 new 出的Bolt/Spout对象 (原汁原味,没有执行过prepare)</li>
+<li>执行 Task#execute, 进行必要的初始化工作<ol>
+<li>发送“start up” bolt 给系统bolt</li>
+<li>创建 TaskTransfer. 作用是当 Bolt 中的业务代码调用 collect#emit 时, collect 内部使用 TaskTransfer 来发送消息给下游 Task. </li>
+<li>创建 Executor 并在 AsyncLoopThread 中启动 详见 jstrom executor<br> Executor 是真正运行 Bolt/Spout 的地方. <ol>
+<li>调用 Bolt/Spout#prepare 来初始化, Collector 也是在此时初始化并传递给 Bolt 的</li>
+<li>循环调用 Bolt/Spout#execute 来对消息进行处理</li>
+<li>若 Bolt/Spout 需发送消息, 需调用 Collector#emit, 消息会经过 TaskTransfer 投递给下游 Task</li>
+</ol>
+</li>
+<li>创建 TaskReceiver. 作用是反序列化其他 Worker 中的上游 Task 发来的消息 (当前 Worker 的消息在投递时没有序列化过,自然更不需要反序列化),并交由 Executor 消费.</li>
+</ol>
+</li>
+</ol>
+<p>运行过程:</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79ly1fzarn29cnbj31ei0cwmz8.jpg" alt></p>
+<p>上文写到:task启动时,创建 Executor 并在 AsyncLoopThread 中启动.<br>AsyncLoopThread 启动后, 会在 while 循环中, 不断地执行 Executor 对象的 run 方法. </p>
+<p>Executor 对象有 3 个子类, 因为篇幅有限(为了偷懒), 这里仅介绍 BoltExecutors 所作的操作, 其他子类的原理类似, 可以自己研究.</p>
+<img src="https://ws3.sinaimg.cn/large/006tNc79ly1fzarne44coj30ly0g4wfj.jpg" style="zoom:50%">
+
+
+
+<p>首先来查看 BoltExecutors 的继承关系:</p>
+<ol>
+<li>由于实现了Runnable 接口, 因此 BoltExecutors 可以被 AsyncLoopThread 执行, 可以知道 BoltExecutors 代码执行的入口是 run 方法.</li>
+<li>继承了 EventHandler 接口 (这是LMAX 开发的 Disruptor 框架中提供的一个消息消费接口), 这告诉我们 BoltExecutors 具有从DisruptorQueue 消费消息的功能.</li>
+</ol>
+<p>看run方法</p>
+<p><img src="https://ws3.sinaimg.cn/large/006tNc79ly1fzaroa3w9nj31f80fegp4.jpg" alt="FC74A2FD-5C12-4E09-BCCE-D052C5D3B53B"></p>
+<p>BoltExecutors 会在 while 循环中不断批量消费 exeQueue(DisruptorQueue) 中的消息, 且调用时传入的 eventHandler 是自身.<br>exeQueue 中存放的是待消费的消息 ( 上游Task emit的消息最终会放在这个队列中 ).<br>因此这里的 consumeBatchWhenAvailable 会调用 BoltExecutors#onEvent 方法,如下所示:</p>
+<p>代码过长,只截一部分.</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNc79ly1fzaroih6toj31ei098gnp.jpg" alt="8524F169-452F-4D92-9192-E36E6BA2D95D"></p>
+<p>BoltExecutors的onEvent 方法做了以下操作:</p>
+<ol>
+<li>当 event 为 Tuple 时, 会调用 IBolt#execute 进行处理.</li>
+<li>Tuple 的类型可能是single 或 batch, 如果是 batch, 那就 for 循环里调用 IBolt#execute</li>
+<li>实际上会做一些更加细致的判断,例如:<ol>
+<li>tuple 是否支持事务</li>
+<li>是否是 IRichBolt 所 emit 的 tuple</li>
+<li>是否是 system bolt</li>
+<li>等等</li>
+</ol>
+</li>
+<li>实际上还会通过 Metric 做一些性能的记录</li>
+</ol>
+<p>不过主要逻辑是1、2两点, 更加细致的操作, 后续有空可能会分享出来^_^.</p>
+
+    </div>
+
+    
+    
+    
+        
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>鲸鱼</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2019/01/19/2019-01-19-lean-jstorm-task/" title="JStorm 源码分析 - Task 的启动与运行">http://yoursite.com/2019/01/19/2019-01-19-lean-jstorm-task/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/01/18/2019-01-18-lean-jstorm-worker/" rel="next" title="JStorm 源码分析 - Worker 的启动与运行">
+                  <i class="fa fa-chevron-left"></i> JStorm 源码分析 - Worker 的启动与运行
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/01/19/2019-01-20-lean-jstorm-nimbus/" rel="prev" title="JStorm 源码分析 - Nimbus">
+                  JStorm 源码分析 - Nimbus <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc" data-target="post-toc-wrap">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc">
+            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#文章开头-先抛出一些疑问"><span class="nav-text">文章开头, 先抛出一些疑问:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建过程"><span class="nav-text">创建过程:</span></a></li></ol></div>
+          </div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">鲸鱼</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+        
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span>
+        
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/palexu" title="GitHub &rarr; https://github.com/palexu" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+  </div>
+
+
+
+        </div>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-diamond"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">鲸鱼</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a class="book-mark-link book-mark-link-fixed" href="#"></a>
+
+  <a href="https://github.com/palexu" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+<script src="/js/utils.js?v=7.3.0"></script><script src="/js/bookmark.js?v=7.3.0"></script>
+<script src="/js/schemes/muse.js?v=7.3.0"></script>
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/post-details.js?v=7.3.0"></script>
+
+
+</body>
+</html>
