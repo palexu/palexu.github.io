@@ -80,4 +80,4 @@ theme: next
 deploy:
   type: git
   repo: git@github.com:palexu/palexu.github.io.git
-  branch: publish
+  branch: master
