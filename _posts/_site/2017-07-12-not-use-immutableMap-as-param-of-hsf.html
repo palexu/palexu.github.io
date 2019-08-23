@@ -1,0 +1,31 @@
+<p>hsf的服务不能传guava的<code class="highlighter-rouge">ImmutableList</code>和<code class="highlighter-rouge">ImmutableMap</code>。</p>
+
+<h2 id="原因">原因</h2>
+<p>使用时，其内部实现如下：</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">ImmutableList</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="nf">of</span><span class="o">(</span><span class="n">E</span> <span class="n">element</span><span class="o">)</span> <span class="o">{</span>
+   <span class="k">return</span> <span class="k">new</span> <span class="n">SingletonImmutableList</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;(</span><span class="n">element</span><span class="o">);</span>
+ <span class="o">}</span>
+</code></pre></div></div>
+<p>查看<code class="highlighter-rouge">SingletonImmutableList</code>可以看到内部通过一个element成员变量来持有传入的变量。</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">final</span> <span class="kd">class</span> <span class="nc">SingletonImmutableList</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="kd">extends</span> <span class="n">ImmutableList</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="o">{</span>
+  <span class="kd">final</span> <span class="kd">transient</span> <span class="n">E</span> <span class="n">element</span><span class="o">;</span>
+
+  <span class="n">SingletonImmutableList</span><span class="o">(</span><span class="n">E</span> <span class="n">element</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">element</span> <span class="o">=</span> <span class="n">checkNotNull</span><span class="o">(</span><span class="n">element</span><span class="o">);</span>
+  <span class="o">}</span><span class="err">　</span>
+  <span class="c1">//……</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">transient</code>关键字表示相关字段不需要被序列化,但是hsf和dubbo是要先序列化然后再进行tcp传输的，因此参数就无法传递过去。</p>
+
+<h2 id="解决方案">解决方案</h2>
+<p>可以用<code class="highlighter-rouge">java.util.Collections#singletonList</code>, 因为 这个方法返回的<code class="highlighter-rouge">list、map、set</code>不会有<code class="highlighter-rouge">transient</code>字段。</p>
+
+<hr />
+
+<h2 id="相关">相关</h2>
+<p>transient的用途</p>
+
+<p>Q：transient关键字能实现什么？</p>
+
+<p>A：当对象被序列化时（写入字节序列到目标文件）时，transient阻止实例中那些用此关键字声明的变量持久化；当对象被反序列化时（从源文件读取字节序列进行重构），这样的实例变量值不会被持久化和恢复。例如，当反序列化对象——数据流（例如，文件）可能不存在时，原因是你的对象中存在类型为java.io.InputStream的变量，序列化时这些变量引用的输入流无法被打开。</p>
