@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+  <meta name="google-site-verification" content="_ujkMPErh9_k7Fd1un4W2MnMWcSMitpMkB15Tf5RwgA">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=-apple-system,BlinkMacSystemFont,avenir next,avenir,helvetica neue,helvetica,ubuntu,roboto,noto,segoe ui,arial,sans-serif,"PingFang SC", "Microsoft YaHei":300,300italic,400,400italic,700,700italic|0.5:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"right","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="调优前的程序运行状态机器:MacBook Pro (Retina, 13-inch, Early 2015)cpu 	2.7 GHz Intel Core i5mem 	8 GB 1867 MHz DDR3IDEA 信息IntelliJ IDEA 2019.1.4 (Ultimate Edition)Build #IU-191.8026.42, built on July 30, 2019JRE:">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JVM调优实战 - 优化2015年8G内存 Macbook Pro 上 IDEA 的打开速度">
+<meta property="og:url" content="https://palexu.github.io/2019/08/20/2019-08-20-idea-jvm/index.html">
+<meta property="og:site_name" content="Junyu&#39;s Blog">
+<meta property="og:description" content="调优前的程序运行状态机器:MacBook Pro (Retina, 13-inch, Early 2015)cpu 	2.7 GHz Intel Core i5mem 	8 GB 1867 MHz DDR3IDEA 信息IntelliJ IDEA 2019.1.4 (Ultimate Edition)Build #IU-191.8026.42, built on July 30, 2019JRE:">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://ww4.sinaimg.cn/large/006y8mN6ly1g69iiwr0l3j30ec0ddq3h.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/006y8mN6ly1g69iixp4qmj30ny03vdil.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006y8mN6ly1g69iiy7yrrj30o60470vf.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/large/006y8mN6ly1g69iizra1ij30oq047go9.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006y8mN6ly1g69ij1xqvaj31am05omyn.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/006y8mN6ly1g69ij3ab6uj30iv07bwg0.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/large/006y8mN6ly1g69ij5qt3nj30dr09b0tj.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/006y8mN6ly1g69ij4pmx4j30it09c40i.jpg">
+<meta property="og:updated_time" content="2019-10-26T05:04:44.414Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JVM调优实战 - 优化2015年8G内存 Macbook Pro 上 IDEA 的打开速度">
+<meta name="twitter:description" content="调优前的程序运行状态机器:MacBook Pro (Retina, 13-inch, Early 2015)cpu 	2.7 GHz Intel Core i5mem 	8 GB 1867 MHz DDR3IDEA 信息IntelliJ IDEA 2019.1.4 (Ultimate Edition)Build #IU-191.8026.42, built on July 30, 2019JRE:">
+<meta name="twitter:image" content="http://ww4.sinaimg.cn/large/006y8mN6ly1g69iiwr0l3j30ec0ddq3h.jpg">
+  <link rel="canonical" href="https://palexu.github.io/2019/08/20/2019-08-20-idea-jvm/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>JVM调优实战 - 优化2015年8G内存 Macbook Pro 上 IDEA 的打开速度 | Junyu's Blog</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <!-- <span class="logo-line-before"><i></i></span> -->
+        <span class="site-title">Junyu's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+  </ul>
+
+    
+
+</nav>
+</div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://palexu.github.io/2019/08/20/2019-08-20-idea-jvm/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="鲸鱼">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Junyu's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">JVM调优实战 - 优化2015年8G内存 Macbook Pro 上 IDEA 的打开速度
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-20 00:00:00" itemprop="dateCreated datePublished" datetime="2019-08-20T00:00:00+08:00">2019-08-20</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-10-26 13:04:44" itemprop="dateModified" datetime="2019-10-26T13:04:44+08:00">2019-10-26</time>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="调优前的程序运行状态"><a href="#调优前的程序运行状态" class="headerlink" title="调优前的程序运行状态"></a>调优前的程序运行状态</h2><p>机器:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">MacBook Pro (Retina, 13-inch, Early 2015)</span><br><span class="line">cpu 	2.7 GHz Intel Core i5</span><br><span class="line">mem 	8 GB 1867 MHz DDR3</span><br></pre></td></tr></table></figure><p>IDEA 信息</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">IntelliJ IDEA 2019.1.4 (Ultimate Edition)</span><br><span class="line">Build #IU-191.8026.42, built on July 30, 2019</span><br><span class="line">JRE: 1.8.0_212-release-1586-b4 x86_64</span><br><span class="line">JVM: OpenJDK 64-Bit Server VM by JetBrains s.r.o</span><br><span class="line">macOS 10.14</span><br></pre></td></tr></table></figure><a id="more"></a>
+
+
+
+
+
+<p>原始配置信息</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-Xms128m</span><br><span class="line">-Xmx750m</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 保留代码所用的Cache大小</span></span><br><span class="line"><span class="meta">#</span><span class="bash">see https://juejin.im/post/5aebf997f265da0ba76f99db</span></span><br><span class="line">-XX:ReservedCodeCacheSize=240m  </span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">Enables the use of compressed pointers (object references represented as 32 bit offsets instead of 64-bit pointers) <span class="keyword">for</span> optimized 64-bit performance with Java heap sizes less than 32gb.</span></span><br><span class="line">-XX:+UseCompressedOops</span><br><span class="line"></span><br><span class="line">-Dfile.encoding=UTF-8</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">-XX:+UseConcMarkSweepGC：设置年老代为并发收集。测试中配置这个以后，-XX:NewRatio=4的配置失效了，原因不明。所以，此时年轻代大小最好用-Xmn设置。</span></span><br><span class="line">-XX:+UseConcMarkSweepGC</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">-XX:SoftRefLRUPolicyMSPerMB=N 这个参数比较有用的，官方解释是：Soft reference在虚拟机中比在客户集中存活的更长一些。其清除频率可以用命令行参数 -XX:SoftRefLRUPolicyMSPerMB=&lt;N&gt;来控制，这可以指定每兆堆空闲空间的 soft reference 保持存活（一旦它不强可达了）的毫秒数，这意味着每兆堆中的空闲空间中的 soft reference 会（在最后一个强引用被回收之后）存活1秒钟。注意，这是一个近似的值，因为  soft reference 只会在垃圾回收时才会被清除，而垃圾回收并不总在发生。系统默认为一秒，我觉得没必要等1秒，客户集中不用就立刻清除，改为 -XX:SoftRefLRUPolicyMSPerMB=0；</span></span><br><span class="line">-XX:SoftRefLRUPolicyMSPerMB=50</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="built_in">enable</span> assert</span></span><br><span class="line"><span class="meta">#</span><span class="bash">-ea[:&lt;package name&gt;<span class="string">"..."</span> | :&lt;class name&gt; ]</span></span><br><span class="line"><span class="meta">#</span><span class="bash">上述参数就用来设置jvm是否启动断言机制（从JDK 1.4开始支持），缺省时jvm关闭断言机制。</span></span><br><span class="line"><span class="meta">#</span><span class="bash">用-ea 可打开断言机制，不加&lt;packagename&gt;和classname时运行所有包和类中的断言，如果希望只运行某些包或类中的断言，可将包名或类名加到-ea之后。例如要启动包com.wombat.fruitbat中的断言，可用命令java -ea:com.wombat.fruitbat...&lt;Main Class&gt;。</span></span><br><span class="line">-ea</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">使用标准IO缓存</span></span><br><span class="line">-Dsun.io.useCanonCaches=false</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">优先使用IPv4栈</span></span><br><span class="line">-Djava.net.preferIPv4Stack=true</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">堆内存溢出输出</span></span><br><span class="line">-XX:+HeapDumpOnOutOfMemoryError</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">HotSpot Server Compiler（C2）会用fast throw来优化这个抛出异常的地方，直接抛出一个事先分配好的、类型匹配的对象，这个对象的message和stack trace都被清空。 配置该选项,会禁止该优化, 从而打印所有异常堆栈</span></span><br><span class="line">-XX:-OmitStackTraceInFastThrow </span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">禁止字节码校验</span></span><br><span class="line">-Xverify:none </span><br><span class="line"></span><br><span class="line">-XX:ErrorFile=$USER_HOME/java_error_in_idea_%p.log</span><br><span class="line">-XX:HeapDumpPath=$USER_HOME/java_error_in_idea.hprof</span><br><span class="line">-Xbootclasspath/a:../lib/boot.jar</span><br></pre></td></tr></table></figure>
+
+<p>观察参数方式</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">jps</span><br><span class="line">jstat -gc pid 3s</span><br><span class="line">jstat -gcutil pid 3s</span><br><span class="line">jstat -gccause pid 3s</span><br><span class="line">jinfo -flag MetaspaceSize pid</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://ww4.sinaimg.cn/large/006y8mN6ly1g69iiwr0l3j30ec0ddq3h.jpg" alt="img"></p>
+<h2 id="未修改配置"><a href="#未修改配置" class="headerlink" title="未修改配置"></a>未修改配置</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-Xms128m</span><br><span class="line">-Xmx750m</span><br><span class="line">-XX:ReservedCodeCacheSize=240m</span><br><span class="line">-XX:+UseCompressedOops</span><br><span class="line">-Dfile.encoding=UTF-8</span><br><span class="line">-XX:+UseConcMarkSweepGC</span><br><span class="line">-XX:SoftRefLRUPolicyMSPerMB=50</span><br><span class="line">-ea</span><br><span class="line">-Dsun.io.useCanonCaches=false</span><br><span class="line">-Djava.net.preferIPv4Stack=true</span><br><span class="line">-XX:+HeapDumpOnOutOfMemoryError</span><br><span class="line">-XX:-OmitStackTraceInFastThrow</span><br><span class="line">-Xverify:none</span><br><span class="line"></span><br><span class="line">-XX:ErrorFile=$USER_HOME/java_error_in_idea_%p.log</span><br><span class="line">-XX:HeapDumpPath=$USER_HOME/java_error_in_idea.hprof</span><br><span class="line">-Xbootclasspath/a:../lib/boot.jar</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://ww3.sinaimg.cn/large/006y8mN6ly1g69iixp4qmj30ny03vdil.jpg" alt="Attachment.png"></p>
+<p>看到老年代容量进行了扩容(由于ms和mx不匹配)</p>
+<h2 id="第一步-调整-ms-mx-mn"><a href="#第一步-调整-ms-mx-mn" class="headerlink" title="第一步:调整 ms mx mn"></a>第一步:调整 ms mx mn</h2><p>-Xms750m<br>-Xmx750m<br>-Xmn280m</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-Xms750m</span><br><span class="line">-Xmx750m</span><br><span class="line"><span class="meta">#</span><span class="bash">设置年轻代大小为2G。整个JVM内存大小=年轻代大小 + 年老代大小 + 持久代大小。持久代一般固定大小为64m，所以增大年轻代后，将会减小年老代大小。此值对系统性能影响较大，Sun官方推荐配置为整个堆的3/8。</span></span><br><span class="line">-Xmn280m</span><br><span class="line">-XX:ReservedCodeCacheSize=240m</span><br><span class="line">-XX:+UseCompressedOops</span><br><span class="line">-Dfile.encoding=UTF-8</span><br><span class="line">-XX:+UseConcMarkSweepGC</span><br><span class="line">-XX:SoftRefLRUPolicyMSPerMB=50</span><br><span class="line">-ea</span><br><span class="line">-Dsun.io.useCanonCaches=false</span><br><span class="line">-Djava.net.preferIPv4Stack=true</span><br><span class="line">-XX:+HeapDumpOnOutOfMemoryError</span><br><span class="line">-XX:-OmitStackTraceInFastThrow</span><br><span class="line">-Xverify:none</span><br><span class="line"></span><br><span class="line">-XX:ErrorFile=$USER_HOME/java_error_in_idea_%p.log</span><br><span class="line">-XX:HeapDumpPath=$USER_HOME/java_error_in_idea.hprof</span><br><span class="line">-Xbootclasspath/a:../lib/boot.jar</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://ww1.sinaimg.cn/large/006y8mN6ly1g69iiy7yrrj30o60470vf.jpg" alt="Attachment.png"></p>
+<p>看OC这一列已经没有发生扩容行为了, 但仍然发生了FGC</p>
+<blockquote>
+<p><strong>新建/加载类导致 Metaspace 容量不够，触发 GC，GC 完成后重新计算 Metaspace 新容量，决定是否对 Metaspace 扩容或缩容</strong></p>
+<p>see:  <a href="https://segmentfault.com/a/1190000016036969" target="_blank" rel="noopener">阿菜:由「Metaspace容量不足触发CMS GC」从而引发的思考</a></p>
+</blockquote>
+<p>且看到metaspace<del>发生扩容</del>容量不足导致频繁的fgc, 因此考虑增大这部分大小</p>
+<blockquote>
+<p>如果没有配置<code>-XX:MetaspaceSize</code>，那么触发FGC的阈值是21807104 b（约21299.2kb, 20.8mb），可以通过jinfo -flag MetaspaceSize pid得到这个值</p>
+<p>see: <a href="https://www.jianshu.com/p/b448c21d2e71" target="_blank" rel="noopener">阿飞:JVM参数MetaspaceSize的误解</a></p>
+</blockquote>
+<h2 id="第二步-增加metaspace大小"><a href="#第二步-增加metaspace大小" class="headerlink" title="第二步:增加metaspace大小"></a>第二步:增加metaspace大小</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-Xms750m</span><br><span class="line">-Xmx750m</span><br><span class="line"><span class="meta">#</span><span class="bash">设置年轻代大小为2G。整个JVM内存大小=年轻代大小 + 年老代大小 + 持久代大小。持久代一般固定大小为64m，所以增大年轻代后，将会减小年老代大小。此值对系统性能影响较大，Sun官方推荐配置为整个堆的3/8。</span></span><br><span class="line">-Xmn280m</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">指Metaspace扩容时触发FullGC的初始化阈值，也是最小的阈值</span></span><br><span class="line"><span class="meta">#</span><span class="bash">Metaspace由于使用不断扩容到-XX:MetaspaceSize参数指定的量，就会发生FGC；且之后每次Metaspace扩容都可能会发生FGC（至于什么时候会，比较复杂，跟几个参数有关）</span></span><br><span class="line">-XX:MetaspaceSize=256m</span><br><span class="line"><span class="meta">#</span><span class="bash">如果MaxMetaspaceSize设置太小，可能会导致频繁FullGC，甚至OOM</span></span><br><span class="line"><span class="meta">#</span><span class="bash">MetaspaceSize和MaxMetaspaceSize设置一样大；</span></span><br><span class="line"><span class="meta">#</span><span class="bash">具体设置多大，建议稳定运行一段时间后通过jstat -gc pid确认且这个值大一些，对于大部分项目256m即可</span></span><br><span class="line">-XX:MaxMetaspaceSize=512m</span><br><span class="line"></span><br><span class="line">-XX:ReservedCodeCacheSize=240m</span><br><span class="line">-XX:+UseCompressedOops</span><br><span class="line">-Dfile.encoding=UTF-8</span><br><span class="line">-XX:+UseConcMarkSweepGC</span><br><span class="line">-XX:SoftRefLRUPolicyMSPerMB=50</span><br><span class="line">-ea</span><br><span class="line">-Dsun.io.useCanonCaches=false</span><br><span class="line">-Djava.net.preferIPv4Stack=true</span><br><span class="line">-XX:+HeapDumpOnOutOfMemoryError</span><br><span class="line">-XX:-OmitStackTraceInFastThrow</span><br><span class="line">-Xverify:none</span><br><span class="line"></span><br><span class="line">-XX:ErrorFile=$USER_HOME/java_error_in_idea_%p.log</span><br><span class="line">-XX:HeapDumpPath=$USER_HOME/java_error_in_idea.hprof</span><br><span class="line">-Xbootclasspath/a:../lib/boot.jar</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://ww4.sinaimg.cn/large/006y8mN6ly1g69iizra1ij30oq047go9.jpg" alt="Attachment.png"></p>
+<p>此时可以发现尽管MC一直在变大, 但是FGC没有增加. 因为没有达到metaspace Full GC 的要求(-XX:MetaspaceSize=256M)</p>
+<h2 id="第三步-显示指定垃圾收集器"><a href="#第三步-显示指定垃圾收集器" class="headerlink" title="第三步:显示指定垃圾收集器"></a>第三步:显示指定垃圾收集器</h2><p>其实这一步是不必要的,因为用jconsole查看垃圾回收器版本,在未指定的情况下已经是鲸鱼期望的 ParNew 和 CMS 了. 不过写清楚后, 下次就不需要再通过jconsole来查看了</p>
+<p><img src="http://ww1.sinaimg.cn/large/006y8mN6ly1g69ij1xqvaj31am05omyn.jpg" alt="image-20190821175654810"></p>
+<p>-XX:+UseConcMarkSweepGC<br>-XX:+UseParNewGC</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-Xms750m</span><br><span class="line">-Xmx750m</span><br><span class="line">-Xmn280m</span><br><span class="line"></span><br><span class="line">-XX:MetaspaceSize=256m</span><br><span class="line">-XX:MaxMetaspaceSize=512m</span><br><span class="line"></span><br><span class="line">-XX:+UseConcMarkSweepGC</span><br><span class="line">-XX:+UseParNewGC</span><br><span class="line"></span><br><span class="line">-XX:ReservedCodeCacheSize=240m</span><br><span class="line">-XX:+UseCompressedOops</span><br><span class="line">-Dfile.encoding=UTF-8</span><br><span class="line">-XX:+UseConcMarkSweepGC</span><br><span class="line">-XX:SoftRefLRUPolicyMSPerMB=50</span><br><span class="line">-ea</span><br><span class="line">-Dsun.io.useCanonCaches=false</span><br><span class="line">-Djava.net.preferIPv4Stack=true</span><br><span class="line">-XX:+HeapDumpOnOutOfMemoryError</span><br><span class="line">-XX:-OmitStackTraceInFastThrow</span><br><span class="line">-Xverify:none</span><br><span class="line"></span><br><span class="line">-XX:ErrorFile=$USER_HOME/java_error_in_idea_%p.log</span><br><span class="line">-XX:HeapDumpPath=$USER_HOME/java_error_in_idea.hprof</span><br><span class="line">-Xbootclasspath/a:../lib/boot.jar</span><br></pre></td></tr></table></figure>
+
+<h2 id="第四步-进一步查看启动过程中的gc原因"><a href="#第四步-进一步查看启动过程中的gc原因" class="headerlink" title="第四步:进一步查看启动过程中的gc原因"></a>第四步:进一步查看启动过程中的gc原因</h2><p><img src="http://ww2.sinaimg.cn/large/006y8mN6ly1g69ij3ab6uj30iv07bwg0.jpg" alt="image-20190822150749413"></p>
+<p>可以看到中间有一次显式调用了 <code>System.gc()</code>, 可以在jvm参数中禁止掉显式的gc调用</p>
+<p>-XX:+DisableExplicitGC</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">-Xms750m</span><br><span class="line">-Xmx750m</span><br><span class="line">-Xmn280m</span><br><span class="line"></span><br><span class="line">-XX:MetaspaceSize=256m</span><br><span class="line">-XX:MaxMetaspaceSize=512m</span><br><span class="line"></span><br><span class="line">-XX:+UseConcMarkSweepGC</span><br><span class="line">-XX:+UseParNewGC</span><br><span class="line"></span><br><span class="line">-XX:+DisableExplicitGC</span><br><span class="line"></span><br><span class="line">-XX:ReservedCodeCacheSize=240m</span><br><span class="line">-XX:+UseCompressedOops</span><br><span class="line">-Dfile.encoding=UTF-8</span><br><span class="line">-XX:+UseConcMarkSweepGC</span><br><span class="line">-XX:SoftRefLRUPolicyMSPerMB=50</span><br><span class="line">-ea</span><br><span class="line">-Dsun.io.useCanonCaches=false</span><br><span class="line">-Djava.net.preferIPv4Stack=true</span><br><span class="line">-XX:+HeapDumpOnOutOfMemoryError</span><br><span class="line">-XX:-OmitStackTraceInFastThrow</span><br><span class="line">-Xverify:none</span><br><span class="line"></span><br><span class="line">-XX:ErrorFile=$USER_HOME/java_error_in_idea_%p.log</span><br><span class="line">-XX:HeapDumpPath=$USER_HOME/java_error_in_idea.hprof</span><br><span class="line">-Xbootclasspath/a:../lib/boot.jar</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://ww4.sinaimg.cn/large/006y8mN6ly1g69ij5qt3nj30dr09b0tj.jpg" alt="image-20190822151559977"></p>
+<p><img src="http://ww1.sinaimg.cn/large/006y8mN6ly1g69ij4pmx4j30it09c40i.jpg" alt="image-20190822151615817"></p>
+<p>此时gc总时间从一开始的2.5秒优化成了目前的1.433秒,  达到了一定的优化效果</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考:"></a>参考:</h2><p><a href="https://www.jianshu.com/p/3eb976e03457" target="_blank" rel="noopener">https://www.jianshu.com/p/3eb976e03457</a></p>
+<p><a href="https://www.jianshu.com/p/ba2d613df94f" target="_blank" rel="noopener">https://www.jianshu.com/p/ba2d613df94f</a></p>
+<p><a href="https://www.cnblogs.com/yjd_hycf_space/p/7755633.html" target="_blank" rel="noopener">https://www.cnblogs.com/yjd_hycf_space/p/7755633.html</a></p>
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录:"></a>附录:</h2><p>1.原始配置</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">-Xms128m</span><br><span class="line">-Xmx750m</span><br><span class="line">-XX:ReservedCodeCacheSize=240m</span><br><span class="line">-XX:+UseCompressedOops</span><br><span class="line">-Dfile.encoding=UTF-8</span><br><span class="line">-XX:+UseConcMarkSweepGC</span><br><span class="line">-XX:SoftRefLRUPolicyMSPerMB=50</span><br><span class="line">-ea</span><br><span class="line">-Dsun.io.useCanonCaches=false</span><br><span class="line">-Djava.net.preferIPv4Stack=true</span><br><span class="line">-XX:+HeapDumpOnOutOfMemoryError</span><br><span class="line">-XX:-OmitStackTraceInFastThrow</span><br><span class="line">-Xverify:none</span><br><span class="line"></span><br><span class="line">-XX:ErrorFile=$USER_HOME/java_error_in_idea_%p.log</span><br><span class="line">-XX:HeapDumpPath=$USER_HOME/java_error_in_idea.hprof</span><br><span class="line">-Xbootclasspath/a:../lib/boot.jar</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+        
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>鲸鱼</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://palexu.github.io/2019/08/20/2019-08-20-idea-jvm/" title="JVM调优实战 - 优化2015年8G内存 Macbook Pro 上 IDEA 的打开速度">https://palexu.github.io/2019/08/20/2019-08-20-idea-jvm/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/06/20/2019-06-20-im-system-based-on-netty/" rel="next" title="基于Netty的IM系统(对网上相关资料进行整理)">
+                  <i class="fa fa-chevron-left"></i> 基于Netty的IM系统(对网上相关资料进行整理)
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/10/26/2019-10-26-snowflake/" rel="prev" title="">
+                   <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc" data-target="post-toc-wrap">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc">
+            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#调优前的程序运行状态"><span class="nav-text">调优前的程序运行状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#未修改配置"><span class="nav-text">未修改配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第一步-调整-ms-mx-mn"><span class="nav-text">第一步:调整 ms mx mn</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二步-增加metaspace大小"><span class="nav-text">第二步:增加metaspace大小</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三步-显示指定垃圾收集器"><span class="nav-text">第三步:显示指定垃圾收集器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第四步-进一步查看启动过程中的gc原因"><span class="nav-text">第四步:进一步查看启动过程中的gc原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-text">参考:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附录"><span class="nav-text">附录:</span></a></li></ol></div>
+          </div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">鲸鱼</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+        
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span>
+        
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/palexu" title="GitHub &rarr; https://github.com/palexu" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://yaoyuan2018.github.io" title="https://yaoyuan2018.github.io" rel="noopener" target="_blank">yaoyuan's blog</a>
+        </li>
+      
+    </ul>
+  </div>
+
+        </div>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-diamond"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">鲸鱼</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+<script src="/js/utils.js?v=7.3.0"></script>
+<script src="/js/schemes/muse.js?v=7.3.0"></script>
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/post-details.js?v=7.3.0"></script>
+
+
+</body>
+</html>
