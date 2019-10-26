@@ -1,3 +1,9 @@
+---
+title: 2019-10-26-snowflake.md
+date: 2019-10-26 16:10:19
+tags:
+---
+
 # 分布式id生成器-DID(Distribute Id Generator)
 
 ## 1. 需求
