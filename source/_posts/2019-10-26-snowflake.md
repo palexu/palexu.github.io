@@ -14,7 +14,7 @@
 
 
 
-![img](https://cdn.nlark.com/yuque/0/2019/png/188373/1565335431957-77a89972-0ae2-4c58-ad24-ce3300892f79.png)
+![img](https://tva1.sinaimg.cn/large/006y8mN6ly1g8bn0hbxvyj30rb049gmf.jpg)
 
 鲸鱼的公司原先使用的是snowflake算法的变种, 逻辑分片id(下称workerId)从数据库中获取,上图表示了该算法的原理.
 
@@ -47,7 +47,7 @@
 
 
 
-![img](https://cdn.nlark.com/yuque/0/2019/png/188373/1565335449458-3892d3ff-bcd6-4f58-a680-70cd40afa8cc.png)
+![img](https://tva1.sinaimg.cn/large/006y8mN6ly1g8bn0lz50oj30k008at9z.jpg)
 
 
 
@@ -69,7 +69,7 @@
 
 
 
-![img](https://cdn.nlark.com/yuque/0/2019/png/188373/1565335598952-ad9aad01-f347-4311-a7e9-e4532e9153e0.png)
+![img](https://tva1.sinaimg.cn/large/006y8mN6ly1g8bn0ppifsj30qo03iq3p.jpg)
 
 
 
@@ -121,7 +121,7 @@ k8s上部署的java应用有以下几个特点:
 
 
 
-![image-20190813163618114.png](https://cdn.nlark.com/yuque/0/2019/png/188373/1565685491583-263b69ac-10bd-4ce7-b10a-cb80c7db3cec.png)
+![image-20190813163618114.png](https://tva1.sinaimg.cn/large/006y8mN6ly1g8bn0sz3yij311c0rgwgn.jpg)
 
 
 
@@ -129,7 +129,7 @@ k8s上部署的java应用有以下几个特点:
 
 经过第三节的讨论, 建议使用3.2小节的方案: 本地根据ip生成workerId
 
-![image-20190813161459168.png](https://cdn.nlark.com/yuque/0/2019/png/188373/1565685709143-5932ff93-37ba-4ca3-b11e-8b478c5c2966.png)
+![image-20190813161459168.png](https://tva1.sinaimg.cn/large/006y8mN6ly1g8bn0x2hrpj30mo01sglx.jpg)
 
 ip的后16位参与workerId的生成:
 
