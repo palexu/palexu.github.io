@@ -134,7 +134,7 @@ route delete 155.138.138.10 "${OLDGW}"
 
 ## 客户端分流
 
-![image-20190611141859385](https://ws1.sinaimg.cn/large/006tNc79ly1g3xa5q27nlj30lg0m1q41.jpg)
+![image-20190611141859385](https://tva2.sinaimg.com/large/006tNc79ly1g3xa5q27nlj30lg0m1q41.jpg)
 
 分流主要依靠 chnroutes 项目实现, 参考[wireguard-configuration: issue mac如何分流](https://github.com/zbinlin/wireguard-configuration/issues/1)
 

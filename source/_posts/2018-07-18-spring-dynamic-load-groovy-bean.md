@@ -23,7 +23,7 @@ date: 2018-07-18 17:49
 
 当然，需要注意的细节有很多，比如服务降级、安全控制等，这里就不展开说了。
 
-![架构简图](https://ws3.sinaimg.cn/large/006tNc79gy1fte784mbcbj30hb0fvq2y.jpg)
+![架构简图](https://tva2.sinaimg.com/large/006tNc79gy1fte784mbcbj30hb0fvq2y.jpg)
 
 ## 简单实现
 

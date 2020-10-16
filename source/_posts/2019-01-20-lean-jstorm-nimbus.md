@@ -30,7 +30,7 @@ TODO ...
     2. 校验 bolt 的输入是否为空
 6. 拷贝代码二进制文件到集群
 7. 在zk上建立task信息 (supervisor会持续监控保存在zk的任务)
-    ![F7A5DEAE-BED4-4A4E-8EB9-1E4DD9726223](https://ws2.sinaimg.cn/large/006tNc79ly1fzartnvu25j31em04i0to.jpg)
+    ![F7A5DEAE-BED4-4A4E-8EB9-1E4DD9726223](https://tva2.sinaimg.com/large/006tNc79ly1fzartnvu25j31em04i0to.jpg)
     1. 为bolt/spout等创建对应的 TaskInfo (多并行度的bolt/spout会创建出多个TaskInfo)
         com.alibaba.jstorm.cluster.Common#mkTaskMaker
     2. 注意, jstorm 的 setNumTasks 其实是无效的, 只有 paralleism 并行度会起作用.(见 jstorm作者之一cody的回答: https://stackoverflow.com/a/34316700/6275014 )

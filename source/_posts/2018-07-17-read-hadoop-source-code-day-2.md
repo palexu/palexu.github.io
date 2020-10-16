@@ -8,7 +8,7 @@ date: 2018-07-16 21:25
 
 而了解项目解决了什么问题，最好的途径是浏览官网和阅读文档。当然我偷了点懒，选择的是阅读董西成的《Hadoop技术内幕》。下图是我简单做的思维脑图。
 
-![导图](https://ws2.sinaimg.cn/large/006tNc79gy1ftcmmzqw31j31321j2dm8.jpg "author:palexu")
+![导图](https://tva2.sinaimg.com/large/006tNc79gy1ftcmmzqw31j31321j2dm8.jpg "author:palexu")
 
 
 ---

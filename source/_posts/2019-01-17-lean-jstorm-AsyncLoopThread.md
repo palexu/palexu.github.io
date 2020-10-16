@@ -13,7 +13,7 @@ date: 2019-01-17
 
 com.alibaba.jstorm.callback.AsyncLoopThread
 
-![](https://ws1.sinaimg.cn/large/006tNc79ly1fz9q4g0nmjj31dk0om75n.jpg)
+![](https://tva2.sinaimg.com/large/006tNc79ly1fz9q4g0nmjj31dk0om75n.jpg)
 
 核心方法： init
 

@@ -12,7 +12,7 @@ date: 2019-01-19
 4. 至于在创建拓扑时的并行度等属性, 在提交拓扑时(?确定是这个时候么?)就已经分配好了. 例如 BoltA 并行度为 3, 那么会创建3个Task对象, 每个对象都持有BoltA? 而不是一个Task 持有多个 Executor ,每个Executor使用执行bolt的业务代码 ?
 5. 为什么创建executor时,要传递当前task进去,如 baseExecutor = new BoltExecutors(this) . 而不是传递必须的参数进去.这是否是为了强调task和executor之间的某种联系?如果是,那么又是什么联系呢?  在较早版本的源代码里面,是否有反映这个联系呢?
 
-<img src="https://ws1.sinaimg.cn/large/006tNc79ly1fzark3184pj30im09kaa6.jpg" style="zoom:50%"/>
+<img src="https://tva2.sinaimg.com/large/006tNc79ly1fzark3184pj30im09kaa6.jpg" style="zoom:50%"/>
 
 ## 创建过程:
 和worker的启动方式类似  (JStorm对初始化方法和启动方法使用了相同风格的命名, 减少了理解成本 ^_^)
@@ -32,14 +32,14 @@ date: 2019-01-19
 
 运行过程:
 
-![](https://ws2.sinaimg.cn/large/006tNc79ly1fzarn29cnbj31ei0cwmz8.jpg)
+![](https://tva2.sinaimg.com/large/006tNc79ly1fzarn29cnbj31ei0cwmz8.jpg)
 
 上文写到:task启动时,创建 Executor 并在 AsyncLoopThread 中启动.
 AsyncLoopThread 启动后, 会在 while 循环中, 不断地执行 Executor 对象的 run 方法. 
 
 Executor 对象有 3 个子类, 因为篇幅有限(为了偷懒), 这里仅介绍 BoltExecutors 所作的操作, 其他子类的原理类似, 可以自己研究.
 
-<img src="https://ws3.sinaimg.cn/large/006tNc79ly1fzarne44coj30ly0g4wfj.jpg" style="zoom:50%"/>
+<img src="https://tva2.sinaimg.com/large/006tNc79ly1fzarne44coj30ly0g4wfj.jpg" style="zoom:50%"/>
 
 
 
@@ -49,7 +49,7 @@ Executor 对象有 3 个子类, 因为篇幅有限(为了偷懒), 这里仅介�
 
 看run方法
 
-![FC74A2FD-5C12-4E09-BCCE-D052C5D3B53B](https://ws3.sinaimg.cn/large/006tNc79ly1fzaroa3w9nj31f80fegp4.jpg)
+![FC74A2FD-5C12-4E09-BCCE-D052C5D3B53B](https://tva2.sinaimg.com/large/006tNc79ly1fzaroa3w9nj31f80fegp4.jpg)
 
 BoltExecutors 会在 while 循环中不断批量消费 exeQueue(DisruptorQueue) 中的消息, 且调用时传入的 eventHandler 是自身.
 exeQueue 中存放的是待消费的消息 ( 上游Task emit的消息最终会放在这个队列中 ).
@@ -57,7 +57,7 @@ exeQueue 中存放的是待消费的消息 ( 上游Task emit的消息最终会�
 
 代码过长,只截一部分.
 
-![8524F169-452F-4D92-9192-E36E6BA2D95D](https://ws2.sinaimg.cn/large/006tNc79ly1fzaroih6toj31ei098gnp.jpg)
+![8524F169-452F-4D92-9192-E36E6BA2D95D](https://tva2.sinaimg.com/large/006tNc79ly1fzaroih6toj31ei098gnp.jpg)
 
 BoltExecutors的onEvent 方法做了以下操作:
 

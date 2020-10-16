@@ -7,7 +7,7 @@ date: 2019-01-15 23:42
 
 下图展示了一个简单的拓扑结构.
 
-![](https://ws2.sinaimg.cn/large/006tNc79ly1fz9mrm6en3j30oy0baaa1.jpg)
+![](https://tva2.sinaimg.com/large/006tNc79ly1fz9mrm6en3j30oy0baaa1.jpg)
 
 
 
@@ -25,7 +25,7 @@ tuple 在 JStorm 中的流动, 主要涉及到的有三个队列:
 
 这三个队列是 JStorm 中最最核心的队列, 所有 spuot/bolt 发射的 tuple, 以及所有 bolt 消费的 tple 都会存放在这三个队列当中. 下图画出了 tuple 在这三个队列上的流动关系:
 
-![](https://ws3.sinaimg.cn/large/006tNc79ly1fz9msa2z9vj311g0ikwev.jpg)
+![](https://tva2.sinaimg.com/large/006tNc79ly1fz9msa2z9vj311g0ikwev.jpg)
 
 如果是发送到另一个 worker , 那么 spout 发射的 tuple 会被放入到 serializeQueue (待序列化队列).  后续这些 tuple 会被序列化后通过网络传输, 发送到另一个 worker 的 deserializeQueues (待反序列化队列) 中.  worker 在启动时, 会创建专门的反序列化线程. 这些序列化进程会不断地去消费 deserializeQueues, 将其中的消息解析为 bolt 可以识别的 tuple, 并丢到 innerTaskTransfer (待task消费队列).
 
@@ -42,13 +42,13 @@ tuple 在 JStorm 中的流动, 主要涉及到的有三个队列:
 
 这几个组件是 JStorm 运行过程中, 涉及到 tuple 发送、接受、序列化等操作的核心组件. 如果想要对 JStorm 的内部逻辑有一个清晰的概念, 就必须了解上面这几个组件.后续的源码分析过程中, 会对这些组件进行详细的介绍.
 
-![](https://ws4.sinaimg.cn/large/006tNc79ly1fz9lgy4955j30za0mmdgd.jpg)
+![](https://tva2.sinaimg.com/large/006tNc79ly1fz9lgy4955j30za0mmdgd.jpg)
 
 ## 总体结构
 
 下图是一张更加详细的高清大图了. 这张图使用黑色带箭头的实线, 画出了 tuple 的流动方向. 并且引入了 Worker、AsyncLoopThread 等新的组件
 
-![jstorm](https://ws4.sinaimg.cn/large/006tNc79ly1fzbmk4h1asj30u00ultmf.jpg)
+![jstorm](https://tva2.sinaimg.com/large/006tNc79ly1fzbmk4h1asj30u00ultmf.jpg)
 
  (图片使用 OmniGraffle 绘制, 想要源文件或者高清原图的可以给我发邮件哦)
 

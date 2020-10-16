@@ -6,7 +6,7 @@ date: 2019-01-18
 > 对一个 topology，JStorm 最终会调度成一个或多个 worker，每个 worker 即为一个真正的操作系统执行进程，分布到一个集群的一台或者多台机器上并行执行。
 > 而每个 worker 中，又可以有多个 task，分别代表一个执行线程。每个 task 就是上面提到的组件(component)的实现，要么是 spout 要么是 bolt 。
 
-<img src="https://ws4.sinaimg.cn/large/006tNc79ly1fzakkrdce6j30m00e6q2u.jpg" width="300px"/>
+<img src="https://tva2.sinaimg.com/large/006tNc79ly1fzakkrdce6j30m00e6q2u.jpg" width="300px"/>
 
 如上图所示, worker 是一个独立 JVM 的进程, 它其实是由 Supervisor 通过命令行执行 Worker#main 方法来启动. worker 进程内部, 运行着许多线程, 包括: Task 线程、序列化/反序列化线程等. 其对应的代码为: com.alibaba.jstorm.daemon.worker.Worker
 
@@ -18,7 +18,7 @@ worker 有两种被启动的方式, 这个在 supervisor 一节已经提到.
 * (本地调试) 调用 mk_worker 方法来启动
 * (线上部署) 通过命令行调用 main, 在新的 JVM 中启动 Worker
 
-![](https://ws2.sinaimg.cn/large/006tNc79ly1fzajgfo71ej31di0em0to.jpg)
+![](https://tva2.sinaimg.com/large/006tNc79ly1fzajgfo71ej31di0em0to.jpg)
 
 在 mk_worker 中, 执行了如下操作:
 
@@ -49,14 +49,14 @@ threads.add(controlRvthread);
    上面所述的 recvControlQueue 中的元素会按照taskId 被分发到 VirtulPortCtrlDispatch 持有的 controlQueues 存放的task的 ctrlQueue 中.
    也就是 recvControlQueue 中装的东东会被放到 VirtulPortCtrlDispatch.controlQueues 的 ctrlQueue中.那么问题来了,  recvControlQueue 中的元素又是哪来的呢? (这个控制信息猜测是后续的)
 
-<img src="https://ws4.sinaimg.cn/large/006tNc79ly1fzajcpu50sj30gu0c6jrd.jpg" width="300px"/>
+<img src="https://tva2.sinaimg.com/large/006tNc79ly1fzajcpu50sj30gu0c6jrd.jpg" width="300px"/>
 
 
 #### 在第二步中: 创建并启动"维护task之间连接"的线程
 
 创建了一个 RefreshConnections .
 
-<img src="https://ws2.sinaimg.cn/large/006tNc79ly1fzajh0muefj30a207i0sl.jpg" width="200px"/>
+<img src="https://tva2.sinaimg.com/large/006tNc79ly1fzajh0muefj30a207i0sl.jpg" width="200px"/>
 
 为了配置这个类，需要从上下文中取出本次拓扑的拓扑结构,以及当前 worker 将会启动的 task 的taskid 列表  然后通过这两个信息算出当前 worker 会和那些 task 进行连接,不区分是本 worker 和其他 worker
 主要工作:
@@ -70,7 +70,7 @@ threads.add(controlRvthread);
 
 DrainerCtrlRunable 这名字取得挺有意思的, 排水控制？
 
-![](https://ws3.sinaimg.cn/large/006tNc79ly1fzajhtzh5nj30qe05mmx9.jpg)
+![](https://tva2.sinaimg.com/large/006tNc79ly1fzajhtzh5nj30qe05mmx9.jpg)
 
 主要工作：
 
@@ -93,13 +93,13 @@ conn.sendDirect(message);
 
 #### 第七步中: 创建并启动task线程.   (终于创建了task)
 
-<img src="https://ws2.sinaimg.cn/large/006tNc79ly1fzaji64qh9j30lu0a674e.jpg" width="300px"/>
+<img src="https://tva2.sinaimg.com/large/006tNc79ly1fzaji64qh9j30lu0a674e.jpg" width="300px"/>
 
 这里已经创建并启动了 task 线程. 
 
 #### 第八步中：创建并启动n个序列化，反序列化线程。
 
-![0A1663BC-76E3-4B6E-82A9-010A64F9E3B4](https://ws1.sinaimg.cn/large/006tNc79ly1fzal2b7hi0j30m806zjrq.jpg) 
+![0A1663BC-76E3-4B6E-82A9-010A64F9E3B4](https://tva2.sinaimg.com/large/006tNc79ly1fzal2b7hi0j30m806zjrq.jpg)
 这个n还挺讲究的，有专门的算法，代码先贴在下面，可以考虑下为啥要这么计算
 
 #### 最后一步: 初始化步骤结束
@@ -107,7 +107,7 @@ conn.sendDirect(message);
 经过哐哐哐一通创建，现在有了好多个不同的线程，这些线程被塞到workData里，然后一起返回给了 mk_worker 方法的调用者。
 sd.join是说,当worker所创建的所有线程都运行结束后,worker线程才结束.
 
-![](https://ws3.sinaimg.cn/large/006tNc79ly1fzajjvpru9j30of01r743.jpg)
+![](https://tva2.sinaimg.com/large/006tNc79ly1fzajjvpru9j30of01r743.jpg)
 
 
 那么到这里,worker已经完成了所有启动需要的操作.
