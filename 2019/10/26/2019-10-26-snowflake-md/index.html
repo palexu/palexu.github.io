@@ -62,16 +62,16 @@
 <meta property="og:site_name" content="Junyu&#39;s Blog">
 <meta property="og:description" content="1. 需求目前每个应用如果想要使用分布式id功能, 都需要在各自的数据库中新增did表,在代码中加入mapper等,使用较麻烦. 现在希望将分布式id生成器功能封装成工具类提供. 期望做到引入maven依赖即可使用, 且做到本地生成分布式id时高性能、不重复. 并且需要适用于之后容器化部署的场景. 设计简单可靠, 尽量减少第三方业务的依赖">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/006y8mN6ly1g8bn0hbxvyj30rb049gmf.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/006y8mN6ly1g8bn0lz50oj30k008at9z.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/006y8mN6ly1g8bn0ppifsj30qo03iq3p.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/006y8mN6ly1g8bn0sz3yij311c0rgwgn.jpg">
-<meta property="og:image" content="https://tva1.sinaimg.cn/large/006y8mN6ly1g8bn0x2hrpj30mo01sglx.jpg">
-<meta property="og:updated_time" content="2020-10-16T03:35:16.706Z">
+<meta property="og:image" content="https://tva2.sinaimg.com/large/006y8mN6ly1g8bn0hbxvyj30rb049gmf.jpg">
+<meta property="og:image" content="https://tva2.sinaimg.com/large/006y8mN6ly1g8bn0lz50oj30k008at9z.jpg">
+<meta property="og:image" content="https://tva2.sinaimg.com/large/006y8mN6ly1g8bn0ppifsj30qo03iq3p.jpg">
+<meta property="og:image" content="https://tva2.sinaimg.com/large/006y8mN6ly1g8bn0sz3yij311c0rgwgn.jpg">
+<meta property="og:image" content="https://tva2.sinaimg.com/large/006y8mN6ly1g8bn0x2hrpj30mo01sglx.jpg">
+<meta property="og:updated_time" content="2020-10-16T03:39:28.205Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="分布式id生成器-DID(Distribute Id Generator)">
 <meta name="twitter:description" content="1. 需求目前每个应用如果想要使用分布式id功能, 都需要在各自的数据库中新增did表,在代码中加入mapper等,使用较麻烦. 现在希望将分布式id生成器功能封装成工具类提供. 期望做到引入maven依赖即可使用, 且做到本地生成分布式id时高性能、不重复. 并且需要适用于之后容器化部署的场景. 设计简单可靠, 尽量减少第三方业务的依赖">
-<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/006y8mN6ly1g8bn0hbxvyj30rb049gmf.jpg">
+<meta name="twitter:image" content="https://tva2.sinaimg.com/large/006y8mN6ly1g8bn0hbxvyj30rb049gmf.jpg">
   <link rel="canonical" href="https://palexu.github.io/2019/10/26/2019-10-26-snowflake-md/">
 
 
@@ -237,7 +237,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-16 11:35:16" itemprop="dateModified" datetime="2020-10-16T11:35:16+08:00">2020-10-16</time>
+                <time title="修改时间：2020-10-16 11:39:28" itemprop="dateModified" datetime="2020-10-16T11:39:28+08:00">2020-10-16</time>
               </span>
             
           
@@ -259,7 +259,7 @@
 <li>设计简单可靠, 尽量减少第三方业务的依赖</li>
 </ul><a id="more"></a>
 
-<h2 id="2-现状"><a href="#2-现状" class="headerlink" title="2. 现状"></a>2. 现状</h2><p><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g8bn0hbxvyj30rb049gmf.jpg" alt="img"></p>
+<h2 id="2-现状"><a href="#2-现状" class="headerlink" title="2. 现状"></a>2. 现状</h2><p><img src="https://tva2.sinaimg.com/large/006y8mN6ly1g8bn0hbxvyj30rb049gmf.jpg" alt="img"></p>
 <p>鲸鱼的公司原先使用的是snowflake算法的变种, 逻辑分片id(下称workerId)从数据库中获取,上图表示了该算法的原理.</p>
 <h2 id="3-改造的方向"><a href="#3-改造的方向" class="headerlink" title="3. 改造的方向:"></a>3. 改造的方向:</h2><ol>
 <li><p>仍是在外部(数据库/缓存)管理workerId, 应用启动时去获取</p>
@@ -280,7 +280,7 @@
 <h3 id="3-1-适用于物理机器直接部署-本地根据hostName直接生成workerId"><a href="#3-1-适用于物理机器直接部署-本地根据hostName直接生成workerId" class="headerlink" title="3.1 适用于物理机器直接部署:本地根据hostName直接生成workerId"></a>3.1 适用于物理机器直接部署:本地根据hostName直接生成workerId</h3><p>原理: 使用机房+机器编号生成worker.</p>
 <p>目前线上机器具有良好的命名规范: {env}-{appName}-{机房}{机器编号}, 如 prod-miniapp-b01, 因此可以考虑这种形式.</p>
 <p>例如: 打卡小程序与用户中心业务分离良好,  打卡小程序不会去本地生成用户id并创建新用户, 因此即使打卡小程序的某一台机器与用户中心的某一台机器使用了相同的workerid, 也不会存在业务上使用的id重复的情况.</p>
-<p><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g8bn0lz50oj30k008at9z.jpg" alt="img"></p>
+<p><img src="https://tva2.sinaimg.com/large/006y8mN6ly1g8bn0lz50oj30k008at9z.jpg" alt="img"></p>
 <ul>
 <li>机房支持: 2^2=4</li>
 <li>机器支持: 2^8=256</li>
@@ -290,7 +290,7 @@
 <p>优点: 无任何外部依赖, 相同业务的机器不会出现重复id的情况.</p>
 <p>缺点: 不同业务、相同后缀名的机器,  同一毫秒内生成的id可能会重复</p>
 <h4 id="改进-扩展逻辑分片位-分配4bit给业务"><a href="#改进-扩展逻辑分片位-分配4bit给业务" class="headerlink" title="改进:扩展逻辑分片位,分配4bit给业务"></a>改进:扩展逻辑分片位,分配4bit给业务</h4><p>通过减少每秒生成的最大id数, 增加逻辑分片的位数.(逻辑分片位数 10bit-&gt;12bit, 自增序列号 12bit-&gt;10bit)</p>
-<p><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g8bn0ppifsj30qo03iq3p.jpg" alt="img"></p>
+<p><img src="https://tva2.sinaimg.com/large/006y8mN6ly1g8bn0ppifsj30qo03iq3p.jpg" alt="img"></p>
 <ul>
 <li>业务支持:2^4=16</li>
 <li>机房支持:2^2=4</li>
@@ -327,9 +327,9 @@
 <li>不确定ip的分配方式, 连续or随机<br> 因此需要保证在ip连续分配时, 具有一定的随机性</li>
 </ol>
 <p>综上, 考虑使用 ip 的后16个比特进行 workerId 的生成.</p>
-<h2 id="4-具体实现"><a href="#4-具体实现" class="headerlink" title="4. 具体实现"></a>4. 具体实现</h2><h4 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h4><p><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g8bn0sz3yij311c0rgwgn.jpg" alt="image-20190813163618114.png"></p>
+<h2 id="4-具体实现"><a href="#4-具体实现" class="headerlink" title="4. 具体实现"></a>4. 具体实现</h2><h4 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h4><p><img src="https://tva2.sinaimg.com/large/006y8mN6ly1g8bn0sz3yij311c0rgwgn.jpg" alt="image-20190813163618114.png"></p>
 <h4 id="workerId的生成"><a href="#workerId的生成" class="headerlink" title="workerId的生成"></a>workerId的生成</h4><p>经过第三节的讨论, 建议使用3.2小节的方案: 本地根据ip生成workerId</p>
-<p><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g8bn0x2hrpj30mo01sglx.jpg" alt="image-20190813161459168.png"></p>
+<p><img src="https://tva2.sinaimg.com/large/006y8mN6ly1g8bn0x2hrpj30mo01sglx.jpg" alt="image-20190813161459168.png"></p>
 <p>ip的后16位参与workerId的生成:</p>
 <ul>
 <li>多次输入相同的ip,将生成相同的workerId</li>
