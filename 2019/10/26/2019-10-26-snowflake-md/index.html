@@ -55,22 +55,22 @@
   };
 </script>
 
-  <meta name="description" content="分布式id生成器-DID(Distribute Id Generator)1. 需求目前每个应用如果想要使用分布式id功能, 都需要在各自的数据库中新增did表,在代码中加入mapper等,使用较麻烦. 现在希望将分布式id生成器功能封装成工具类提供. 期望做到引入maven依赖即可使用, 且做到本地生成分布式id时高性能、不重复. 并且需要适用于之后容器化部署的场景. 设计简单可靠, 尽量减少第">
+  <meta name="description" content="1. 需求目前每个应用如果想要使用分布式id功能, 都需要在各自的数据库中新增did表,在代码中加入mapper等,使用较麻烦. 现在希望将分布式id生成器功能封装成工具类提供. 期望做到引入maven依赖即可使用, 且做到本地生成分布式id时高性能、不重复. 并且需要适用于之后容器化部署的场景. 设计简单可靠, 尽量减少第三方业务的依赖">
 <meta property="og:type" content="article">
 <meta property="og:title" content="分布式id生成器-DID(Distribute Id Generator)">
 <meta property="og:url" content="https://palexu.github.io/2019/10/26/2019-10-26-snowflake-md/index.html">
 <meta property="og:site_name" content="Junyu&#39;s Blog">
-<meta property="og:description" content="分布式id生成器-DID(Distribute Id Generator)1. 需求目前每个应用如果想要使用分布式id功能, 都需要在各自的数据库中新增did表,在代码中加入mapper等,使用较麻烦. 现在希望将分布式id生成器功能封装成工具类提供. 期望做到引入maven依赖即可使用, 且做到本地生成分布式id时高性能、不重复. 并且需要适用于之后容器化部署的场景. 设计简单可靠, 尽量减少第">
+<meta property="og:description" content="1. 需求目前每个应用如果想要使用分布式id功能, 都需要在各自的数据库中新增did表,在代码中加入mapper等,使用较麻烦. 现在希望将分布式id生成器功能封装成工具类提供. 期望做到引入maven依赖即可使用, 且做到本地生成分布式id时高性能、不重复. 并且需要适用于之后容器化部署的场景. 设计简单可靠, 尽量减少第三方业务的依赖">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/006y8mN6ly1g8bn0hbxvyj30rb049gmf.jpg">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/006y8mN6ly1g8bn0lz50oj30k008at9z.jpg">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/006y8mN6ly1g8bn0ppifsj30qo03iq3p.jpg">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/006y8mN6ly1g8bn0sz3yij311c0rgwgn.jpg">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/006y8mN6ly1g8bn0x2hrpj30mo01sglx.jpg">
-<meta property="og:updated_time" content="2019-10-26T08:11:19.752Z">
+<meta property="og:updated_time" content="2020-10-16T03:12:06.319Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="分布式id生成器-DID(Distribute Id Generator)">
-<meta name="twitter:description" content="分布式id生成器-DID(Distribute Id Generator)1. 需求目前每个应用如果想要使用分布式id功能, 都需要在各自的数据库中新增did表,在代码中加入mapper等,使用较麻烦. 现在希望将分布式id生成器功能封装成工具类提供. 期望做到引入maven依赖即可使用, 且做到本地生成分布式id时高性能、不重复. 并且需要适用于之后容器化部署的场景. 设计简单可靠, 尽量减少第">
+<meta name="twitter:description" content="1. 需求目前每个应用如果想要使用分布式id功能, 都需要在各自的数据库中新增did表,在代码中加入mapper等,使用较麻烦. 现在希望将分布式id生成器功能封装成工具类提供. 期望做到引入maven依赖即可使用, 且做到本地生成分布式id时高性能、不重复. 并且需要适用于之后容器化部署的场景. 设计简单可靠, 尽量减少第三方业务的依赖">
 <meta name="twitter:image" content="https://tva1.sinaimg.cn/large/006y8mN6ly1g8bn0hbxvyj30rb049gmf.jpg">
   <link rel="canonical" href="https://palexu.github.io/2019/10/26/2019-10-26-snowflake-md/">
 
@@ -226,11 +226,19 @@
                 
               
 
-              <time title="创建时间：2019-10-26 16:10:19 / 修改时间：16:11:19" itemprop="dateCreated datePublished" datetime="2019-10-26T16:10:19+08:00">2019-10-26</time>
+              <time title="创建时间：2019-10-26 16:10:19" itemprop="dateCreated datePublished" datetime="2019-10-26T16:10:19+08:00">2019-10-26</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-16 11:12:06" itemprop="dateModified" datetime="2020-10-16T11:12:06+08:00">2020-10-16</time>
+              </span>
             
           
 
@@ -245,7 +253,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="分布式id生成器-DID-Distribute-Id-Generator"><a href="#分布式id生成器-DID-Distribute-Id-Generator" class="headerlink" title="分布式id生成器-DID(Distribute Id Generator)"></a>分布式id生成器-DID(Distribute Id Generator)</h1><h2 id="1-需求"><a href="#1-需求" class="headerlink" title="1. 需求"></a>1. 需求</h2><p>目前每个应用如果想要使用分布式id功能, 都需要在各自的数据库中新增did表,在代码中加入mapper等,使用较麻烦. 现在希望将分布式id生成器功能封装成工具类提供.</p><ul>
+        <h2 id="1-需求"><a href="#1-需求" class="headerlink" title="1. 需求"></a>1. 需求</h2><p>目前每个应用如果想要使用分布式id功能, 都需要在各自的数据库中新增did表,在代码中加入mapper等,使用较麻烦. 现在希望将分布式id生成器功能封装成工具类提供.</p><ul>
 <li>期望做到引入maven依赖即可使用, 且做到本地生成分布式id时高性能、不重复.</li>
 <li><strong>并且需要适用于之后容器化部署的场景</strong>.</li>
 <li>设计简单可靠, 尽量减少第三方业务的依赖</li>
@@ -431,7 +439,7 @@
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
           <div class="post-toc">
-            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#分布式id生成器-DID-Distribute-Id-Generator"><span class="nav-text">分布式id生成器-DID(Distribute Id Generator)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-需求"><span class="nav-text">1. 需求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-现状"><span class="nav-text">2. 现状</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-改造的方向"><span class="nav-text">3. 改造的方向:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-适用于物理机器直接部署-本地根据hostName直接生成workerId"><span class="nav-text">3.1 适用于物理机器直接部署:本地根据hostName直接生成workerId</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#改进-扩展逻辑分片位-分配4bit给业务"><span class="nav-text">改进:扩展逻辑分片位,分配4bit给业务</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-同时适用于物理机及K8S部署-本地根据ip生成workerId"><span class="nav-text">3.2 同时适用于物理机及K8S部署:本地根据ip生成workerId</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-具体实现"><span class="nav-text">4. 具体实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#流程图"><span class="nav-text">流程图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#workerId的生成"><span class="nav-text">workerId的生成</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-注意"><span class="nav-text">5. 注意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-text">参考资料</span></a></li></ol></li></ol></div>
+            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-需求"><span class="nav-text">1. 需求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-现状"><span class="nav-text">2. 现状</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-改造的方向"><span class="nav-text">3. 改造的方向:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-适用于物理机器直接部署-本地根据hostName直接生成workerId"><span class="nav-text">3.1 适用于物理机器直接部署:本地根据hostName直接生成workerId</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#改进-扩展逻辑分片位-分配4bit给业务"><span class="nav-text">改进:扩展逻辑分片位,分配4bit给业务</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-同时适用于物理机及K8S部署-本地根据ip生成workerId"><span class="nav-text">3.2 同时适用于物理机及K8S部署:本地根据ip生成workerId</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-具体实现"><span class="nav-text">4. 具体实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#流程图"><span class="nav-text">流程图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#workerId的生成"><span class="nav-text">workerId的生成</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-注意"><span class="nav-text">5. 注意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-text">参考资料</span></a></li></ol></div>
           </div>
         
       </div>
@@ -510,7 +518,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-diamond"></i>
   </span>
@@ -530,6 +538,15 @@
 
 
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-132653813-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-132653813-1');
+</script>
 
         
       </div>

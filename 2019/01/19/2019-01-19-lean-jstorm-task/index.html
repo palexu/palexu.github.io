@@ -67,7 +67,7 @@
 <meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNc79ly1fzarne44coj30ly0g4wfj.jpg">
 <meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNc79ly1fzaroa3w9nj31f80fegp4.jpg">
 <meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNc79ly1fzaroih6toj31ei098gnp.jpg">
-<meta property="og:updated_time" content="2019-10-26T05:04:44.413Z">
+<meta property="og:updated_time" content="2019-10-26T05:04:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JStorm 源码分析 - Task 的启动与运行">
 <meta name="twitter:description" content="本篇主要介绍task的创建与运行过程文章开头, 先抛出一些疑问: 为什么TaskTransfer、TaskReceiver 要在初始化Task的时候创建, 为什么不在Worker里直接创建好? 这么做有什么好处呢? TaskTransfer/Receiver 与 Task 是1对1的关系么?  如果是,为什么? 如果不是,那设置了怎样的值, 为什么? start up bolt 发给系统 bolt">
@@ -484,7 +484,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-diamond"></i>
   </span>
@@ -504,6 +504,15 @@
 
 
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-132653813-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-132653813-1');
+</script>
 
         
       </div>

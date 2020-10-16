@@ -216,11 +216,19 @@
                 
               
 
-              <time title="创建时间：2019-10-26 16:10:19 / 修改时间：16:11:19" itemprop="dateCreated datePublished" datetime="2019-10-26T16:10:19+08:00">2019-10-26</time>
+              <time title="创建时间：2019-10-26 16:10:19" itemprop="dateCreated datePublished" datetime="2019-10-26T16:10:19+08:00">2019-10-26</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-16 11:12:06" itemprop="dateModified" datetime="2020-10-16T11:12:06+08:00">2020-10-16</time>
+              </span>
             
           
 
@@ -235,7 +243,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="分布式id生成器-DID-Distribute-Id-Generator"><a href="#分布式id生成器-DID-Distribute-Id-Generator" class="headerlink" title="分布式id生成器-DID(Distribute Id Generator)"></a>分布式id生成器-DID(Distribute Id Generator)</h1><h2 id="1-需求"><a href="#1-需求" class="headerlink" title="1. 需求"></a>1. 需求</h2><p>目前每个应用如果想要使用分布式id功能, 都需要在各自的数据库中新增did表,在代码中加入mapper等,使用较麻烦. 现在希望将分布式id生成器功能封装成工具类提供.</p><ul>
+          <h2 id="1-需求"><a href="#1-需求" class="headerlink" title="1. 需求"></a>1. 需求</h2><p>目前每个应用如果想要使用分布式id功能, 都需要在各自的数据库中新增did表,在代码中加入mapper等,使用较麻烦. 现在希望将分布式id生成器功能封装成工具类提供.</p><ul>
 <li>期望做到引入maven依赖即可使用, 且做到本地生成分布式id时高性能、不重复.</li>
 <li><strong>并且需要适用于之后容器化部署的场景</strong>.</li>
 <li>设计简单可靠, 尽量减少第三方业务的依赖</li>
@@ -1212,7 +1220,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-diamond"></i>
   </span>
@@ -1232,6 +1240,15 @@
 
 
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-132653813-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-132653813-1');
+</script>
 
         
       </div>

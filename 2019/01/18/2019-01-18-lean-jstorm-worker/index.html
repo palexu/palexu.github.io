@@ -70,7 +70,7 @@
 <meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNc79ly1fzaji64qh9j30lu0a674e.jpg">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNc79ly1fzal2b7hi0j30m806zjrq.jpg">
 <meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNc79ly1fzajjvpru9j30of01r743.jpg">
-<meta property="og:updated_time" content="2019-10-26T05:04:44.413Z">
+<meta property="og:updated_time" content="2019-10-26T05:04:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JStorm 源码分析 - Worker 的启动与运行">
 <meta name="twitter:description" content="对一个 topology，JStorm 最终会调度成一个或多个 worker，每个 worker 即为一个真正的操作系统执行进程，分布到一个集群的一台或者多台机器上并行执行。而每个 worker 中，又可以有多个 task，分别代表一个执行线程。每个 task 就是上面提到的组件(component)的实现，要么是 spout 要么是 bolt 。">
@@ -490,7 +490,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-diamond"></i>
   </span>
@@ -510,6 +510,15 @@
 
 
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-132653813-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-132653813-1');
+</script>
 
         
       </div>

@@ -62,7 +62,7 @@
 <meta property="og:site_name" content="Junyu&#39;s Blog">
 <meta property="og:description" content="在上一篇文章中( JStorm 源码分析 - tuple 在整个拓扑中的流转过程), 我们多次提到 JStorm 使用了 3 个队列来完成 tuple 的缓冲与消费. 因此这些队列的性能会制约 JStorm 的总体的吞吐量. 在日常的工程实践当中, 我们会使用一些 Java 的内置队列来完成这个工作, 比如 ArrayBlockingQueue. 实际上, 如果要追求更高的性能, Disrupto">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-26T05:04:44.413Z">
+<meta property="og:updated_time" content="2019-10-26T05:04:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JStorm 源码分析 - 高性能队列 DisruptorQueue">
 <meta name="twitter:description" content="在上一篇文章中( JStorm 源码分析 - tuple 在整个拓扑中的流转过程), 我们多次提到 JStorm 使用了 3 个队列来完成 tuple 的缓冲与消费. 因此这些队列的性能会制约 JStorm 的总体的吞吐量. 在日常的工程实践当中, 我们会使用一些 Java 的内置队列来完成这个工作, 比如 ArrayBlockingQueue. 实际上, 如果要追求更高的性能, Disrupto">
@@ -446,7 +446,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-diamond"></i>
   </span>
@@ -466,6 +466,15 @@
 
 
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-132653813-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-132653813-1');
+</script>
 
         
       </div>

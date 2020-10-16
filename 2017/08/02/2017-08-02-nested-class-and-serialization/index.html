@@ -62,7 +62,7 @@
 <meta property="og:site_name" content="Junyu&#39;s Blog">
 <meta property="og:description" content="有时候开发时为了方便，在代码中使用了不少嵌套类(nested class)，但是使用过程中如果不了解嵌套类的特性，可能会造成意想不到的情况。Java对象想要通过网络传输，必须实现序列化接口，于是我们在Service中定义了了一个实现了序列化接口的内部类，然后调用远程接口将其传输到网络上。一运行报异常：不能将没有实现序列化接口的Object序列化。怎么回事，这是一个很简单的内部类，的确已经实现了序列">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-26T05:04:44.411Z">
+<meta property="og:updated_time" content="2019-10-26T05:04:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="嵌套类与序列化问题">
 <meta name="twitter:description" content="有时候开发时为了方便，在代码中使用了不少嵌套类(nested class)，但是使用过程中如果不了解嵌套类的特性，可能会造成意想不到的情况。Java对象想要通过网络传输，必须实现序列化接口，于是我们在Service中定义了了一个实现了序列化接口的内部类，然后调用远程接口将其传输到网络上。一运行报异常：不能将没有实现序列化接口的Object序列化。怎么回事，这是一个很简单的内部类，的确已经实现了序列">
@@ -431,7 +431,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-diamond"></i>
   </span>
@@ -451,6 +451,15 @@
 
 
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-132653813-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-132653813-1');
+</script>
 
         
       </div>

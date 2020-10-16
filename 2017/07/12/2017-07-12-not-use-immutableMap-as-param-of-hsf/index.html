@@ -62,7 +62,7 @@
 <meta property="og:site_name" content="Junyu&#39;s Blog">
 <meta property="og:description" content="hsf的服务不能传guava的ImmutableList和ImmutableMap。原因使用时，其内部实现如下：public static &amp;lt;E&amp;gt; ImmutableList&amp;lt;E&amp;gt; of(E element) &amp;#123;   return new SingletonImmutableList&amp;lt;E&amp;gt;(element); &amp;#125;">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-26T05:04:44.411Z">
+<meta property="og:updated_time" content="2019-10-26T05:04:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="不要使用Guava的ImmutableList、ImmutableMap 来传递hsf的参数">
 <meta name="twitter:description" content="hsf的服务不能传guava的ImmutableList和ImmutableMap。原因使用时，其内部实现如下：public static &amp;lt;E&amp;gt; ImmutableList&amp;lt;E&amp;gt; of(E element) &amp;#123;   return new SingletonImmutableList&amp;lt;E&amp;gt;(element); &amp;#125;">
@@ -433,7 +433,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-diamond"></i>
   </span>
@@ -453,6 +453,15 @@
 
 
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-132653813-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-132653813-1');
+</script>
 
         
       </div>
