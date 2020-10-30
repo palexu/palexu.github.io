@@ -34,9 +34,9 @@
     back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
     bookmark: {"enable":false,"color":"#222","save":"auto"},
     fancybox: false,
-    mediumzoom: false,
+    mediumzoom: true,
     lazyload: false,
-    pangu: false,
+    pangu: true,
     algolia: {
       appID: '',
       apiKey: '',
@@ -151,6 +151,8 @@
         <li class="menu-item menu-item-home">
       
     
+      
+    
 
     <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
 
@@ -162,8 +164,10 @@
         <li class="menu-item menu-item-archives">
       
     
+      
+    
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">22</span></a>
 
   </li>
   </ul>
@@ -180,6 +184,101 @@
           <div id="content" class="content page-home">
             
   <section id="posts" class="posts-expand">
+      
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://palexu.github.io/2020/10/29/2020-10-29-eureka-basic/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="鲸鱼">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Junyu's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+            
+            <a href="/2020/10/29/2020-10-29-eureka-basic/" class="post-title-link" itemprop="url">Eureka 原理、组件生命周期、流程简介</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-10-29 19:02:57 / 修改时间：19:33:23" itemprop="dateCreated datePublished" datetime="2020-10-29T19:02:57+08:00">2020-10-29</time>
+            </span>
+          
+            
+
+            
+          
+
+          
+            <span id="/2020/10/29/2020-10-29-eureka-basic/" class="post-meta-item leancloud_visitors" data-flag-title="Eureka 原理、组件生命周期、流程简介" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Eureka-简介"><a href="#Eureka-简介" class="headerlink" title="Eureka 简介"></a>Eureka 简介</h2><p>Eureka 是 Netflix 出品的用于实现服务注册和发现的工具。 Spring Cloud 集成了 Eureka，并提供了开箱即用的支持。其中， Eureka 又可细分为 Eureka Server 和 Eureka Client。</p><h5 id="Eureka-有哪些组件？"><a href="#Eureka-有哪些组件？" class="headerlink" title="Eureka 有哪些组件？"></a>Eureka 有哪些组件？</h5><p><img src="https://tva1.sinaimg.cn/large/0081Kckwly1gk6et3jj5ij30sg0dhtch.jpg" alt="9A94ADCB-5226-46C1-97F0-878E5B76DC31"></p><p>从组件功能看：</p><ul>
+<li>黄色注册中心集群，分别部署在北京、天津、青岛机房；</li>
+<li>红色服务提供者，分别部署北京和青岛机房；</li>
+<li>淡绿色服务消费者，分别部署在北京和天津机房；</li>
+</ul>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2020/10/29/2020-10-29-eureka-basic/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+          <div class="post-eof"></div>
+        
+      </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
       
 
   <article class="post" itemscope itemtype="http://schema.org/Article">
@@ -232,6 +331,14 @@
             
           
 
+          
+            <span id="/2019/10/26/2019-10-26-snowflake-md/" class="post-meta-item leancloud_visitors" data-flag-title="分布式id生成器-DID(Distribute Id Generator)" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
           
 
         </div>
@@ -328,6 +435,14 @@
           
 
           
+            <span id="/2019/08/20/2019-08-20-idea-jvm/" class="post-meta-item leancloud_visitors" data-flag-title="JVM调优实战 - 优化2015年8G内存 Macbook Pro 上 IDEA 的打开速度" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+          
 
         </div>
       </header>
@@ -418,6 +533,14 @@
             
           
 
+          
+            <span id="/2019/06/20/2019-06-20-im-system-based-on-netty/" class="post-meta-item leancloud_visitors" data-flag-title="基于Netty的IM系统(对网上相关资料进行整理)" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
           
 
         </div>
@@ -510,6 +633,14 @@
           
 
           
+            <span id="/2019/06/10/2019-06-10-install-wireguard/" class="post-meta-item leancloud_visitors" data-flag-title="ubuntu(vps)与mac(client)上安装wireguard, 并对出口流量分流" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+          
 
         </div>
       </header>
@@ -600,6 +731,14 @@
             
           
 
+          
+            <span id="/2019/01/19/2019-01-20-lean-jstorm-nimbus/" class="post-meta-item leancloud_visitors" data-flag-title="JStorm 源码分析 - Nimbus" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
           
 
         </div>
@@ -694,6 +833,14 @@
             
           
 
+          
+            <span id="/2019/01/19/2019-01-19-lean-jstorm-task/" class="post-meta-item leancloud_visitors" data-flag-title="JStorm 源码分析 - Task 的启动与运行" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
           
 
         </div>
@@ -792,6 +939,14 @@
           
 
           
+            <span id="/2019/01/18/2019-01-18-lean-jstorm-worker/" class="post-meta-item leancloud_visitors" data-flag-title="JStorm 源码分析 - Worker 的启动与运行" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+          
 
         </div>
       </header>
@@ -884,6 +1039,14 @@
             
           
 
+          
+            <span id="/2019/01/17/2019-01-17-lean-jstorm-AsyncLoopThread/" class="post-meta-item leancloud_visitors" data-flag-title="JStorm 源码分析 - 异步循环线程 AsyncLoopThread" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
           
 
         </div>
@@ -979,6 +1142,14 @@
           
 
           
+            <span id="/2019/01/16/2019-01-16-lean-jstorm-source-queue/" class="post-meta-item leancloud_visitors" data-flag-title="JStorm 源码分析 - 高性能队列 DisruptorQueue" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+          
 
         </div>
       </header>
@@ -994,97 +1165,6 @@
           
             <div class="post-button text-center">
               <a class="btn" href="/2019/01/16/2019-01-16-lean-jstorm-source-queue/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://palexu.github.io/2019/01/15/2019-01-15-lean-jstorm-source-code-01/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="鲸鱼">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Junyu's Blog">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2019/01/15/2019-01-15-lean-jstorm-source-code-01/" class="post-title-link" itemprop="url">JStorm 源码分析 - tuple 在整个拓扑中的流转过程</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              
-                
-              
-
-              <time title="创建时间：2019-01-15 23:42:00" itemprop="dateCreated datePublished" datetime="2019-01-15T23:42:00+08:00">2019-01-15</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-16 11:35:16" itemprop="dateModified" datetime="2020-10-16T11:35:16+08:00">2020-10-16</time>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>我们先引入一些基本的概念, 对 JStorm 源码中使用的一些组件有一个基础的认识, 再在这个基础上加入源码的分析, 这样才能更好地学习源码. ^_^</p><p>下图展示了一个简单的拓扑结构.</p><p><img src="https://tva2.sinaimg.com/large/006tNc79ly1fz9mrm6en3j30oy0baaa1.jpg" alt></p><p>上图中共有 3 个 task, 其中 1 个 spout, 2 个 bolt, 它们分别被分配在 Worker 1、Worker 2 中. Spout 与 Bolt A 处在同一个 Worker 中,  属于同一个 JVM. 而 Bolt B 在另一个 Worker 中, 属于另一台机器的另一个 JVM 中.</p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/01/15/2019-01-15-lean-jstorm-source-code-01/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1158,7 +1238,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-count">22</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1173,7 +1253,9 @@
         
           
         
-        <span class="site-state-item-count">2</span>
+          
+        
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">标签</span>
         
       </div>
@@ -1220,9 +1302,9 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; 2019 – <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
-    <i class="fa fa-diamond"></i>
+    <i class="fa fa-terminal"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">鲸鱼</span>
 </div>
@@ -1235,6 +1317,100 @@
 
 
 
+  
+  <script>
+  function leancloudSelector(url) {
+    return document.getElementById(url).querySelector('.leancloud-visitors-count');
+  }
+  if (CONFIG.page.isPost) {
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = visitors.getAttribute('id').trim();
+      var title = visitors.getAttribute('data-flag-title').trim();
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .then(response => response.json())
+              .then(() => {
+                leancloudSelector(url).innerText = counter.time + 1;
+              })
+            
+              .catch(error => {
+                console.log('Failed to save visitor count', error);
+              })
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.log('LeanCloud Counter Error', error);
+        });
+    }
+  } else {
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return element.getAttribute('id').trim();
+      });
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url: { '$in': entries } })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length === 0) {
+            document.querySelectorAll('.leancloud_visitors .leancloud-visitors-count').forEach(element => {
+              element.innerText = 0;
+            });
+            return;
+          }
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.url;
+            var time = item.time;
+            leancloudSelector(url).innerText = time;
+          }
+          for (var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = leancloudSelector(url);
+            if (element.innerText == '') {
+              element.innerText = 0;
+            }
+          }
+        })
+        .catch(error => {
+          console.log('LeanCloud Counter Error', error);
+        });
+    }
+  }
+
+  fetch('https://app-router.leancloud.cn/2/route?appId=4BRFkGSk6eBRPAYOXCzBrR4w-gzGzoHsz')
+    .then(response => response.json())
+    .then(({ api_server }) => {
+      var Counter = (method, url, data) => {
+        return fetch(`https://${api_server}/1.1${url}`, {
+          method: method,
+          headers: {
+            'X-LC-Id': '4BRFkGSk6eBRPAYOXCzBrR4w-gzGzoHsz',
+            'X-LC-Key': 'GqMw546aB1PLmKTT2kypSU3h',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        const localhost = /http:\/\/(localhost|127.0.0.1|0.0.0.0)/;
+        if (localhost.test(document.URL)) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
 
 
 
@@ -1259,11 +1435,14 @@
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
+  <div class="reading-progress-bar"></div>
 
   </div>
 
   
   <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
 <script src="/js/utils.js?v=7.3.0"></script>
 <script src="/js/schemes/muse.js?v=7.3.0"></script>
 
@@ -1301,5 +1480,6 @@
 
 
   
+
 </body>
 </html>

@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+  <meta name="google-site-verification" content="_ujkMPErh9_k7Fd1un4W2MnMWcSMitpMkB15Tf5RwgA">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=-apple-system,BlinkMacSystemFont,avenir next,avenir,helvetica neue,helvetica,ubuntu,roboto,noto,segoe ui,arial,sans-serif,"PingFang SC", "Microsoft YaHei":300,300italic,400,400italic,700,700italic|0.5:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.3.0',
+    exturl: false,
+    sidebar: {"position":"right","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: true,
+    lazyload: false,
+    pangu: true,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="Eureka 简介Eureka 是 Netflix 出品的用于实现服务注册和发现的工具。 Spring Cloud 集成了 Eureka，并提供了开箱即用的支持。其中， Eureka 又可细分为 Eureka Server 和 Eureka Client。Eureka 有哪些组件？从组件功能看： 黄色注册中心集群，分别部署在北京、天津、青岛机房； 红色服务提供者，分别部署北京和青岛机房； 淡绿色服">
+<meta name="keywords" content="Eureka">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Eureka 原理、组件生命周期、流程简介">
+<meta property="og:url" content="https://palexu.github.io/2020/10/29/2020-10-29-eureka-basic/index.html">
+<meta property="og:site_name" content="Junyu&#39;s Blog">
+<meta property="og:description" content="Eureka 简介Eureka 是 Netflix 出品的用于实现服务注册和发现的工具。 Spring Cloud 集成了 Eureka，并提供了开箱即用的支持。其中， Eureka 又可细分为 Eureka Server 和 Eureka Client。Eureka 有哪些组件？从组件功能看： 黄色注册中心集群，分别部署在北京、天津、青岛机房； 红色服务提供者，分别部署北京和青岛机房； 淡绿色服">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/0081Kckwly1gk6et3jj5ij30sg0dhtch.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/0081Kckwly1gk6fassvduj30kw0j8mzi.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/0081Kckwly1gk6fax1qfsj30ll0a5gm2.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/0081Kckwly1gk6fb0u6rcj30i00a0t9y.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/0081Kckwly1gk6fb2pqatj30ck0a13yx.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/0081Kckwly1gk6fb65g7yj30a0067jrk.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/0081Kckwly1gk6fb8qrxlj30sg0cq0v5.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/0081Kckwly1gk6fbbqyrlj30sg0bodi1.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/0081Kckwly1gk6fbpobjgj30sg0bb76p.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/0081Kckwly1gk6fbuz1tzj30sg0bb76q.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/0081Kckwly1gk6fbzddckj30i70n7wnd.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/0081Kckwly1gk6fc2yj6qj30sg0qjdi0.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/0081Kckwly1gk6fc77eh8j30sg0irjv8.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/0081Kckwly1gk6fcegm0lj30sg07yq54.jpg">
+<meta property="og:updated_time" content="2020-10-29T11:33:23.951Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Eureka 原理、组件生命周期、流程简介">
+<meta name="twitter:description" content="Eureka 简介Eureka 是 Netflix 出品的用于实现服务注册和发现的工具。 Spring Cloud 集成了 Eureka，并提供了开箱即用的支持。其中， Eureka 又可细分为 Eureka Server 和 Eureka Client。Eureka 有哪些组件？从组件功能看： 黄色注册中心集群，分别部署在北京、天津、青岛机房； 红色服务提供者，分别部署北京和青岛机房； 淡绿色服">
+<meta name="twitter:image" content="https://tva1.sinaimg.cn/large/0081Kckwly1gk6et3jj5ij30sg0dhtch.jpg">
+  <link rel="canonical" href="https://palexu.github.io/2020/10/29/2020-10-29-eureka-basic/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Eureka 原理、组件生命周期、流程简介 | Junyu's Blog</title>
+  <meta name="generator" content="Hexo 3.9.0">
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <!-- <span class="logo-line-before"><i></i></span> -->
+        <span class="site-title">Junyu's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">22</span></a>
+
+  </li>
+  </ul>
+
+    
+
+</nav>
+</div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content page-post-detail">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://palexu.github.io/2020/10/29/2020-10-29-eureka-basic/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="鲸鱼">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Junyu's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Eureka 原理、组件生命周期、流程简介
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2020-10-29 19:02:57 / 修改时间：19:33:23" itemprop="dateCreated datePublished" datetime="2020-10-29T19:02:57+08:00">2020-10-29</time>
+            </span>
+          
+            
+
+            
+          
+
+          
+            <span id="/2020/10/29/2020-10-29-eureka-basic/" class="post-meta-item leancloud_visitors" data-flag-title="Eureka 原理、组件生命周期、流程简介" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Eureka-简介"><a href="#Eureka-简介" class="headerlink" title="Eureka 简介"></a>Eureka 简介</h2><p>Eureka 是 Netflix 出品的用于实现服务注册和发现的工具。 Spring Cloud 集成了 Eureka，并提供了开箱即用的支持。其中， Eureka 又可细分为 Eureka Server 和 Eureka Client。</p><h5 id="Eureka-有哪些组件？"><a href="#Eureka-有哪些组件？" class="headerlink" title="Eureka 有哪些组件？"></a>Eureka 有哪些组件？</h5><p><img src="https://tva1.sinaimg.cn/large/0081Kckwly1gk6et3jj5ij30sg0dhtch.jpg" alt="9A94ADCB-5226-46C1-97F0-878E5B76DC31"></p><p>从组件功能看：</p><ul>
+<li>黄色注册中心集群，分别部署在北京、天津、青岛机房；</li>
+<li>红色服务提供者，分别部署北京和青岛机房；</li>
+<li>淡绿色服务消费者，分别部署在北京和天津机房；</li>
+</ul><a id="more"></a>
+
+
+
+<p>从机房分布看：</p>
+<ul>
+<li>北京机房部署了注册中心、服务提供者和服务消费者；</li>
+<li>天津机房部署了注册中心和服务消费者；</li>
+<li>青岛机房部署了注册中心和服务提供者；</li>
+</ul>
+<h5 id="Eureka-各组件（client-server）-的生命周期是怎么样？"><a href="#Eureka-各组件（client-server）-的生命周期是怎么样？" class="headerlink" title="Eureka 各组件（client/server） 的生命周期是怎么样？"></a>Eureka 各组件（client/server） 的生命周期是怎么样？</h5><h6 id="client-服务提供者"><a href="#client-服务提供者" class="headerlink" title="client-服务提供者"></a>client-服务提供者</h6><p>启动后（心跳+注册）</p>
+<ul>
+<li>首先会创建一个心跳的定时任务（默认30秒），定时向服务端发送心跳信息，服务端会对客户端心跳做出响应。</li>
+<li>如果响应状态码为404时，表示服务端没有该客户端的服务信息，那么客户端则会向服务端发送注册请求，注册信息包括服务名、ip、端口、唯一实例ID等信息。</li>
+</ul>
+<p>停止时（注销）</p>
+<ul>
+<li>向注册中心发起 cancel 请求，清空当前服务注册信息。</li>
+</ul>
+<h6 id="client-服务消费者"><a href="#client-服务消费者" class="headerlink" title="client-服务消费者"></a>client-服务消费者</h6><ul>
+<li>启动后，从注册中心拉取服务注册信息，并存放本地</li>
+<li>运行中，定时更新本地服务注册信息。</li>
+<li>发起远程调用：<ul>
+<li>服务消费者会从服务注册信息中优先选择同机房的服务提供者，发起远程调用。只有同机房的服务提供者挂了才会选择其他机房的服务提供者。</li>
+<li>服务消费者因为同机房内没有服务提供者，则会按负载均衡算法选择其他机房服务提供者，发起远程调用。</li>
+</ul>
+</li>
+</ul>
+<h6 id="server-注册中心"><a href="#server-注册中心" class="headerlink" title="server-注册中心"></a>server-注册中心</h6><ul>
+<li>启动后，从其他节点拉取服务注册信息。</li>
+<li>运行过程中，定时运行 evict 任务，剔除没有按时 renew 的服务（包括非正常停止和网络故障的服务）。<blockquote>
+<p>Eureka Server 检测到服务提供者因为宕机、网络原因不可用时，则在服务注册中心将服务置为DOWN状态，并把当前服务提供者状态向订阅者发布，订阅过的服务消费者更新本地缓存。<br>Eureka Server在一定的时间（默认90秒）未收到客户端的心跳，则认为服务宕机，注销该实例。</p>
+</blockquote>
+</li>
+<li>运行过程中，接收到的 register、renew、cancel 请求，都会同步至其他注册中心节点。</li>
+</ul>
+<h2 id="Eureka的自我保护机制"><a href="#Eureka的自我保护机制" class="headerlink" title="Eureka的自我保护机制"></a>Eureka的自我保护机制</h2><p>在默认配置中，Eureka Server在默认90s没有得到客户端的心跳，则注销该实例，但是往往因为微服务跨进程调用，网络通信往往会面临着各种问题，比如微服务状态正常，但是因为网络分区故障时，Eureka Server注销服务实例则会让大部分微服务不可用，这很危险，因为服务明明没有问题。</p>
+<p>为了解决这个问题，Eureka 有自我保护机制，通过在Eureka Server配置如下参数，可启动保护机制 : <code>eureka.server.enable-self-preservation=true</code>。</p>
+<p>它的原理是，当Eureka Server节点在短时间内丢失过多的客户端时（可能发送了网络故障），那么这个节点将进入自我保护模式，不再注销任何微服务，当网络故障回复后，该节点会自动退出自我保护模式。<br>自我保护模式的架构哲学是宁可放过一个，决不可错杀一千。</p>
+<h5 id="作为服务注册中心，Eureka与Zookeeper的优缺点？"><a href="#作为服务注册中心，Eureka与Zookeeper的优缺点？" class="headerlink" title="作为服务注册中心，Eureka与Zookeeper的优缺点？"></a>作为服务注册中心，Eureka与Zookeeper的优缺点？</h5><p>著名的CAP理论指出，一个分布式系统不可能同时满足C(一致性)、A(可用性)和P(分区容错性)。由于分区容错性在是分布式系统中必须要保证的，因此我们只能在A和C之间进行权衡。在此Zookeeper保证的是CP, 而Eureka则是AP。</p>
+<p><img src="https://tva1.sinaimg.cn/large/0081Kckwly1gk6fassvduj30kw0j8mzi.jpg" alt="777CF324-1FC4-45F8-A260-72B9AE87AE5A"></p>
+<p><img src="https://tva1.sinaimg.cn/large/0081Kckwly1gk6fax1qfsj30ll0a5gm2.jpg" alt="A6EC5809-521A-4FB3-9BDB-554187402DA0"></p>
+<h6 id="Zookeeper保证CP"><a href="#Zookeeper保证CP" class="headerlink" title="Zookeeper保证CP"></a>Zookeeper保证CP</h6><p>当向注册中心查询服务列表时，我们可以容忍注册中心返回的是几分钟以前的注册信息，但不能接受服务直接down掉不可用。也就是说，服务注册功能对可用性的要求要高于一致性。但是zk会出现这样一种情况，当master节点因为网络故障与其他节点失去联系时，剩余节点会重新进行leader选举。问题在于，选举leader的时间太长，30 ~ 120s, 且选举期间整个 zk 集群都是不可用的，这就导致在选举期间注册服务瘫痪。在云部署的环境下，因网络问题使得zk集群失去master节点是较大概率会发生的事，虽然服务能够最终恢复，但是漫长的选举时间导致的注册长期不可用是不能容忍的。</p>
+<h6 id="Eureka保证AP"><a href="#Eureka保证AP" class="headerlink" title="Eureka保证AP"></a>Eureka保证AP</h6><p>Eureka 在设计时就优先保证可用性。Eureka各个节点都是平等的，几个节点挂掉不会影响正常节点的工作，剩余的节点依然可以提供注册和查询服务。而Eureka的客户端在向某个Eureka注册或时如果发现连接失败，则会自动切换至其它节点，只要有一台Eureka还在，就能保证注册服务可用(保证可用性)，只不过查到的信息可能不是最新的(不保证强一致性)。</p>
+<p>除此之外，Eureka还有一种自我保护机制，如果在15分钟内超过85%的节点都没有正常的心跳，那么Eureka就认为客户端与注册中心出现了网络故障，此时会出现以下几种情况： </p>
+<ol>
+<li>Eureka不再从注册列表中移除因为长时间没收到心跳而应该过期的服务 </li>
+<li>Eureka仍然能够接受新服务的注册和查询请求，但是不会被同步到其它节点上(即保证当前节点依然可用) </li>
+<li>当网络稳定时，当前实例新的注册信息会被同步到其它节点中</li>
+</ol>
+<p>因此，Eureka可以很好的应对因网络故障导致部分节点失去联系的情况，而不会像zookeeper那样使整个注册服务瘫痪。</p>
+<p>eureka有哪些不足： eureka consumer 本身有缓存，服务状态更新滞后，最常见的状况就是，服务下线了但是服务消费者还未及时感知，此时调用到已下线服务会导致请求失败，只能依靠consumer端的容错机制来保证。</p>
+<h2 id="数据存储结构"><a href="#数据存储结构" class="headerlink" title="数据存储结构"></a>数据存储结构</h2><p>既然是服务注册中心，必然要存储服务的信息，我们知道 ZK 是将服务信息保存在树形节点上。</p>
+<p><img src="https://tva1.sinaimg.cn/large/0081Kckwly1gk6fb0u6rcj30i00a0t9y.jpg" alt="fa1a581644096db7d30fba646b1a1445a681bc72"></p>
+<p>而下面是 Eureka 的数据存储结构：</p>
+<p><img src="https://tva1.sinaimg.cn/large/0081Kckwly1gk6fb2pqatj30ck0a13yx.jpg" alt="55FC9DA4-0049-4760-9FFB-91D8B2567D6B"></p>
+<p>Eureka 的数据存储分了两层：</p>
+<ul>
+<li>存储</li>
+<li>缓存</li>
+</ul>
+<p>Eureka Client 在拉取服务信息时：</p>
+<ol>
+<li>先从缓存层获取</li>
+<li>如果获取不到，先把数据存储层的数据加载到缓存中，再从缓存中获取</li>
+</ol>
+<p>Eureka 这样的数据结构设计是把内部的数据存储结构与对外的数据结构隔离开了，就像是我们平时在进行接口设计一样，对外输出的数据结构和数据库中的数据结构往往都是不一样的。</p>
+<h6 id="数据存储层-服务信息"><a href="#数据存储层-服务信息" class="headerlink" title="数据存储层( 服务信息 )"></a><strong>数据存储层( 服务信息 )</strong></h6><p> rigistry 本质上是一个双层的 ConcurrentHashMap，存储在内存中的。</p>
+<p><img src="https://tva1.sinaimg.cn/large/0081Kckwly1gk6fb65g7yj30a0067jrk.jpg" alt="5083627B-FCAE-45B6-BD46-4D03DBBB908B"></p>
+<p>第一层Map：spring.application.name —&gt; Map&lt;InstancId,Lease&gt;<br>第二层Map：InstanceId —&gt; Lease(Lease 对象包含了服务详情和服务治理相关的属性。)</p>
+<h6 id="缓存层-二级缓存-经过处理加工过的、可以直接传输到-Eureka-Client-的数据结构"><a href="#缓存层-二级缓存-经过处理加工过的、可以直接传输到-Eureka-Client-的数据结构" class="headerlink" title="缓存层 (二级缓存  经过处理加工过的、可以直接传输到 Eureka Client 的数据结构)"></a><strong>缓存层 (二级缓存  经过处理加工过的、可以直接传输到 Eureka Client 的数据结构)</strong></h6><p>Eureka 实现了二级缓存来保存即将要对外传输的服务信息，数据结构完全相同。</p>
+<p>一级缓存：<br>ConcurrentHashMap&lt;Key,Value&gt; readOnlyCacheMap<br>无过期时间，保存服务信息的对外输出数据结构。</p>
+<p>二级缓存：<br>Guava.Loading&lt;Key,Value&gt; readWriteCacheMap<br>包含失效机制，保存服务信息的对外输出数据结构。</p>
+<h5 id="缓存的更新机制："><a href="#缓存的更新机制：" class="headerlink" title="缓存的更新机制："></a>缓存的更新机制：</h5><p><img src="https://tva1.sinaimg.cn/large/0081Kckwly1gk6fb8qrxlj30sg0cq0v5.jpg" alt="3FEF2C9E-BD22-4556-B0DD-0EC958A90987"></p>
+<p>更新机制包含删除和加载两个部分，上图黑色箭头表示删除缓存的动作，绿色表示加载或触发加载的动作。</p>
+<h6 id="删除二级缓存："><a href="#删除二级缓存：" class="headerlink" title="删除二级缓存："></a>删除二级缓存：</h6><p>Eureka Client 发送 register、renew 和 cancel 请求并更新 registry 注册表之后，删除二级缓存；<br>Eureka Server 自身的 Evict Task 剔除服务后，删除二级缓存；<br>二级缓存本身设置了 guava 的失效机制，隔一段时间后自己自动失效；</p>
+<h6 id="加载二级缓存："><a href="#加载二级缓存：" class="headerlink" title="加载二级缓存："></a>加载二级缓存：</h6><p>Eureka Client 发送 getRegistry 请求后，如果二级缓存中没有，就触发 guava 的 load，即从 registry 中获取原始服务信息后进行处理加工，再加载到二级缓存中。<br>Eureka Server 更新一级缓存的时候，如果二级缓存没有数据，也会触发 guava 的 load。</p>
+<h6 id="更新一级缓存："><a href="#更新一级缓存：" class="headerlink" title="更新一级缓存："></a>更新一级缓存：</h6><p>Eureka Server 内置了一个 TimerTask，定时将二级缓存中的数据同步到一级缓存（这个动作包括了删除和加载）。<br>关于缓存的实现参考 ResponseCacheImpl</p>
+<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><h3 id="服务续约机制（心跳）"><a href="#服务续约机制（心跳）" class="headerlink" title="服务续约机制（心跳）"></a>服务续约机制（心跳）</h3><p>服务注册后，要定时（默认 30S，可自己配置）向注册中心发送续约请求，告诉注册中心“我还活着”。</p>
+<p><img src="https://tva1.sinaimg.cn/large/0081Kckwly1gk6fbbqyrlj30sg0bodi1.jpg" alt="6E19F5AA-BDDE-4D7F-8DEB-FD5DF3A88C3F"></p>
+<p>注册中心收到续约请求后：<br>更新服务对象的最近续约时间，即 Lease 对象的 lastUpdateTimestamp;<br>同步服务信息，将此事件同步至其他的 Eureka Server 节点。</p>
+<h3 id="服务注册机制"><a href="#服务注册机制" class="headerlink" title="服务注册机制"></a>服务注册机制</h3><p>服务提供者、服务消费者、以及服务注册中心自己，启动后都会向注册中心注册服务（如果配置了注册）。<br>下图是介绍如何完成服务注册的：</p>
+<p><img src="https://tva1.sinaimg.cn/large/0081Kckwly1gk6fbpobjgj30sg0bb76p.jpg" alt="27814EF0-C28C-4A69-B924-074031923AA9"></p>
+<p>注册中心服务接收到 register 请求后：</p>
+<p>保存服务信息： 将服务信息保存到 registry 中，并清空读写缓存，即 readWriteCacheMap。<br>更新队列，将此事件添加到更新队列中，供 Eureka Client 增量同步服务信息使用。<br>更新阈值，供剔除服务使用。<br>同步服务信息，将此事件同步至其他的 Eureka Server 节点。</p>
+<h3 id="服务注销机制"><a href="#服务注销机制" class="headerlink" title="服务注销机制"></a>服务注销机制</h3><p>服务正常停止之前会向注册中心发送注销请求，告诉注册中心“我要下线了”。</p>
+<p><img src="https://tva1.sinaimg.cn/large/0081Kckwly1gk6fbuz1tzj30sg0bb76q.jpg" alt="FDC3826C-678B-4432-A005-96B8CF422D53"></p>
+<p>注册中心服务接收到 cancel 请求后：</p>
+<p>删除服务信息：将服务信息从 registry 中删除，清空读写缓存，即 readWriteCacheMap。<br>更新队列，将此事件添加到更新队列中，供 Eureka Client 增量同步服务信息使用。<br>更新阈值，供剔除服务使用。<br>同步服务信息，将此事件同步至其他的 Eureka Server 节点。</p>
+<p>ps：服务正常停止才会发送 Cancel，如果是非正常停止，则不会发送（ Eureka Server 会定期扫描并移除非优雅停机的服务）</p>
+<h3 id="服务剔除机制（补偿机制，处理非正常下线的服务）"><a href="#服务剔除机制（补偿机制，处理非正常下线的服务）" class="headerlink" title="服务剔除机制（补偿机制，处理非正常下线的服务）"></a>服务剔除机制（补偿机制，处理非正常下线的服务）</h3><p>Eureka Server 提供了服务剔除的机制，用于剔除没有正常下线的服务。</p>
+<p><img src="https://tva1.sinaimg.cn/large/0081Kckwly1gk6fbzddckj30i70n7wnd.jpg" alt="0C8790DB-9A7F-4062-9DA7-ACA403CE7C8E"></p>
+<p>服务的剔除包括三个步骤:</p>
+<ol>
+<li>首先判断是否满足服务剔除的条件</li>
+<li>然后找出过期的服务，</li>
+<li>最后执行剔除。</li>
+</ol>
+<p>判断是否满足服务剔除的条件<br>有两种情况可以满足服务剔除的条件：</p>
+<ul>
+<li>if 关闭了自我保护<br>统统认为是 Eureka Client 的问题，把没按时续约的服务都剔除掉（这里有剔除的最大值限制）。</li>
+<li>if 开启了自我保护<br>需要进一步判断是 Eureka Server（自己） 出了问题，还是 Eureka Client 出了问题，如果是 Eureka Client 出了问题则进行剔除。</li>
+</ul>
+<p>Eureka 自我保护机制<br>Eureka 自我保护机制是为了防止误杀服务而提供的一个机制。<br>Eureka 的自我保护机制“谦虚”的认为如果大量服务都续约失败，则认为是自己出问题了（如自己断网了），也就不剔除了；反之，则是 Eureka Client 的问题，需要进行剔除。<br>而自我保护阈值是区分 Eureka Client 还是 Eureka Server 出问题的临界值：</p>
+<ul>
+<li>如果超出阈值就表示大量服务可用，少量服务不可用，则判定是 Eureka Client 出了问题。</li>
+<li>如果未超出阈值就表示大量服务不可用，则判定是 Eureka Server 出了问题。<br>这里比较难理解的是阈值的计算：<br>  自我保护阈值 = 服务总数 * 每分钟续约数 * 自我保护阈值因子。<br>  每分钟续约数 =（60S/ 客户端续约间隔）<br>最后自我保护阈值的计算公式为：<br>  自我保护阈值 = 服务总数 * （60S/ 客户端续约间隔） * 自我保护阈值因子。<br>举例：如果有 100 个服务，续约间隔是 30S，自我保护阈值 0.85。<br>  自我保护阈值 =100 * 60 / 30 * 0.85 = 170。<br>  如果上一分钟的续约数 =180&gt;170，则说明大量服务可用，是服务问题，进入剔除流程；<br>  如果上一分钟的续约数 =150&lt;170，则说明大量服务不可用，是注册中心自己的问题，进入自我保护模式，不进入剔除流程。</li>
+</ul>
+<p>找出过期的服务<br>遍历所有的服务，判断上次续约时间距离当前时间大于阈值就标记为过期。并将这些过期的服务保存到集合中。<br>剔除服务<br>在剔除服务之前先计算剔除的数量，然后遍历过期服务，通过洗牌算法确保每次都公平的选择出要剔除的任务，最后进行剔除。<br>执行剔除服务后：</p>
+<ol>
+<li>删除服务信息，从 registry 中删除服务。</li>
+<li>更新队列，将当前剔除事件保存到更新队列中。</li>
+<li>清空二级缓存，保证数据的一致性。<br>实现过程参考 AbstractInstanceRegistry.evict() 方法。</li>
+</ol>
+<h3 id="服务获取机制"><a href="#服务获取机制" class="headerlink" title="服务获取机制"></a>服务获取机制</h3><p>Eureka Client 获取服务有两种方式，全量同步和增量同步。获取流程是根据 Eureka Server 的多层数据结构进行的：</p>
+<p><img src="https://tva1.sinaimg.cn/large/0081Kckwly1gk6fc2yj6qj30sg0qjdi0.jpg" alt="2019012928"></p>
+<p>无论是全量同步还是增量同步，都是先从缓存中获取，如果缓存中没有，则先加载到缓存中，再从缓存中获取。（registry 只保存数据结构，缓存中保存 ready 的服务信息。）</p>
+<p>先从一级缓存中获取</p>
+<ol>
+<li>先判断是否开启了一级缓存</li>
+<li>如果开启了则从一级缓存中获取，如果存在则返回，如果没有，则从二级缓存中获取</li>
+<li>如果未开启，则跳过一级缓存，从二级缓存中获取<br>再从二级缓存中获取</li>
+<li>如果二级缓存中存在，则直接返回；</li>
+<li>如果二级缓存中不存在，则先将数据加载到二级缓存中，再从二级缓存中获取。注意加载时需要判断是增量同步还是全量同步，增量同步从 recentlyChangedQueue 中 load，全量同步从 registry 中 load。</li>
+</ol>
+<h3 id="服务同步机制"><a href="#服务同步机制" class="headerlink" title="服务同步机制"></a>服务同步机制</h3><p>服务同步机制是用来同步 Eureka Server 节点之间服务信息的。它包括 :</p>
+<ul>
+<li>Eureka Server 启动时的同步</li>
+<li>和运行过程中的同步。</li>
+</ul>
+<p>启动时同步</p>
+<p><img src="https://tva1.sinaimg.cn/large/0081Kckwly1gk6fc77eh8j30sg0irjv8.jpg" alt="C175BE44-1C7C-47F6-9662-BF25F5F92499"></p>
+<p>Eureka Server 启动后，遍历 eurekaClient.getApplications 获取服务信息，并将服务信息注册到自己的 registry 中。<br>注意这里是两层循环，第一层循环是为了保证已经拉取到服务信息，第二层循环是遍历拉取到的服务信息。</p>
+<p>运行过程中同步</p>
+<p><img src="https://tva1.sinaimg.cn/large/0081Kckwly1gk6fcegm0lj30sg07yq54.jpg" alt="FF270C49-B048-4FCD-AB5A-82B9A9222B97"></p>
+<p>当 Eureka Server 节点有 register、renew、cancel 请求进来时，会将这个请求封装成 TaskHolder 放到 acceptorQueue 队列中，然后经过一系列的处理，放到 batchWorkQueue 中。<br>TaskExecutor.BatchWorkerRunnable是个线程池，不断的从 batchWorkQueue 队列中 poll 出 TaskHolder，然后向其他 Eureka Server 节点发送同步请求。<br>这里省略了两个部分：<br>一个是在 acceptorQueue 向 batchWorkQueue 转化时，省略了中间的 processingOrder 和 pendingTasks 过程。<br>另一个是当同步失败时，会将失败的 TaskHolder 保存到 reprocessQueue 中，重试处理。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Eureka作为单纯的服务注册中心来说要比zookeeper更加“专业”，因为注册服务更重要的是可用性，我们可以接受短期内达不到一致性的状况。不过Eureka目前1.X版本的实现是基于servlet的Java web应用，它的极限性能肯定会受到影响。期待正在开发之中的2.X版本能够从servlet中独立出来成为单独可部署执行的服务。<br>没有最好的选择，最好的选择是根据业务场景来进行架构设计；<br>如果要求一致性，则选择zookeeper，如金融行业。<br>如果要求可用性，则Eureka，如电商系统。</p>
+<h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><p>1、<a href="https://www.cnblogs.com/linjiqin/p/10080444.html" target="_blank" rel="noopener">https://www.cnblogs.com/linjiqin/p/10080444.html</a><br>2、<a href="https://blog.csdn.net/u012105931/article/details/104659073" target="_blank" rel="noopener">https://blog.csdn.net/u012105931/article/details/104659073</a><br>3、<a href="https://developer.aliyun.com/article/705399" target="_blank" rel="noopener">https://developer.aliyun.com/article/705399</a><br>4、<a href="https://zhuanlan.zhihu.com/p/88385121" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/88385121</a><br>5、<a href="http://www.iocoder.cn/Eureka/server-cluster/?vip" target="_blank" rel="noopener">http://www.iocoder.cn/Eureka/server-cluster/?vip</a><br>6、<a href="https://zhuanlan.zhihu.com/p/138542807" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/138542807</a></p>
+
+    </div>
+
+    
+    
+    
+        
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>鲸鱼</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://palexu.github.io/2020/10/29/2020-10-29-eureka-basic/" title="Eureka 原理、组件生命周期、流程简介">https://palexu.github.io/2020/10/29/2020-10-29-eureka-basic/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/Eureka/" rel="tag"># Eureka</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/10/26/2019-10-26-snowflake-md/" rel="next" title="分布式id生成器-DID(Distribute Id Generator)">
+                  <i class="fa fa-chevron-left"></i> 分布式id生成器-DID(Distribute Id Generator)
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="gitalk-container"></div>
+  
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc" data-target="post-toc-wrap">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc">
+            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Eureka-简介"><span class="nav-text">Eureka 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Eureka的自我保护机制"><span class="nav-text">Eureka的自我保护机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据存储结构"><span class="nav-text">数据存储结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流程"><span class="nav-text">流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#服务续约机制（心跳）"><span class="nav-text">服务续约机制（心跳）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务注册机制"><span class="nav-text">服务注册机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务注销机制"><span class="nav-text">服务注销机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务剔除机制（补偿机制，处理非正常下线的服务）"><span class="nav-text">服务剔除机制（补偿机制，处理非正常下线的服务）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务获取机制"><span class="nav-text">服务获取机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务同步机制"><span class="nav-text">服务同步机制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考："><span class="nav-text">参考：</span></a></li></ol></div>
+          </div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">鲸鱼</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+        
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span>
+        
+      </div>
+    
+  </nav>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/palexu" title="GitHub &rarr; https://github.com/palexu" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://yaoyuan2018.github.io" title="https://yaoyuan2018.github.io" rel="noopener" target="_blank">yaoyuan's blog</a>
+        </li>
+      
+    </ul>
+  </div>
+
+        </div>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2019 – <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-terminal"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">鲸鱼</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+
+        
+
+
+
+
+
+
+  
+  <script>
+  function leancloudSelector(url) {
+    return document.getElementById(url).querySelector('.leancloud-visitors-count');
+  }
+  if (CONFIG.page.isPost) {
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = visitors.getAttribute('id').trim();
+      var title = visitors.getAttribute('data-flag-title').trim();
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .then(response => response.json())
+              .then(() => {
+                leancloudSelector(url).innerText = counter.time + 1;
+              })
+            
+              .catch(error => {
+                console.log('Failed to save visitor count', error);
+              })
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.log('LeanCloud Counter Error', error);
+        });
+    }
+  } else {
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return element.getAttribute('id').trim();
+      });
+
+      Counter('get', `/classes/Counter?where=${JSON.stringify({ url: { '$in': entries } })}`)
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length === 0) {
+            document.querySelectorAll('.leancloud_visitors .leancloud-visitors-count').forEach(element => {
+              element.innerText = 0;
+            });
+            return;
+          }
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.url;
+            var time = item.time;
+            leancloudSelector(url).innerText = time;
+          }
+          for (var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = leancloudSelector(url);
+            if (element.innerText == '') {
+              element.innerText = 0;
+            }
+          }
+        })
+        .catch(error => {
+          console.log('LeanCloud Counter Error', error);
+        });
+    }
+  }
+
+  fetch('https://app-router.leancloud.cn/2/route?appId=4BRFkGSk6eBRPAYOXCzBrR4w-gzGzoHsz')
+    .then(response => response.json())
+    .then(({ api_server }) => {
+      var Counter = (method, url, data) => {
+        return fetch(`https://${api_server}/1.1${url}`, {
+          method: method,
+          headers: {
+            'X-LC-Id': '4BRFkGSk6eBRPAYOXCzBrR4w-gzGzoHsz',
+            'X-LC-Key': 'GqMw546aB1PLmKTT2kypSU3h',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        const localhost = /http:\/\/(localhost|127.0.0.1|0.0.0.0)/;
+        if (localhost.test(document.URL)) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-132653813-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-132653813-1');
+</script>
+
+        
+      </div>
+    </footer>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+<script src="/js/utils.js?v=7.3.0"></script>
+<script src="/js/schemes/muse.js?v=7.3.0"></script>
+
+<script src="/js/next-boot.js?v=7.3.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/post-details.js?v=7.3.0"></script>
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: 'c45344d39200f53a6a40',
+      clientSecret: '8096f5eda89f0c278ddb12fd861e6a7840846ce8',
+      repo: 'palexu.github.io',
+      owner: 'palexu',
+      admin: ['palexu'],
+      id: 'b35f481a3a4730bf9c0c840c2750baab',
+        language: 'zh-CN',
+      
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
+
+</body>
+</html>
