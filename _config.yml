@@ -78,6 +78,30 @@ theme: next
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type: git
-  repo: git@github.com:palexu/palexu.github.io.git
-  branch: master
+#- type: git
+#  repo: git@github.com:palexu/palexu.github.io.git
+#  branch: master
+#- type: leancloud_counter_sync
+- type: leancloud_counter_security_sync
+
+
+##https://leaferx.online/2018/02/11/lc-security/
+leancloud_counter_security:
+  server_url: blogapi.palexu.top
+  enable_sync: true
+  app_id: 4BRFkGSk6eBRPAYOXCzBrR4w-gzGzoHsz
+  app_key: GqMw546aB1PLmKTT2kypSU3h
+  username: palexu
+  password: xujunyu520
+
+#leancloud_counter:
+#  enable: true
+#  app_id: 4BRFkGSk6eBRPAYOXCzBrR4w-gzGzoHsz
+#  app_key: GqMw546aB1PLmKTT2kypSU3h
+#  master_key: # (可选) master key
+
+excerpt:
+  depth: 5
+  excerpt_excludes: []
+  more_excludes: []
+  hideWholePostExcerpts: true

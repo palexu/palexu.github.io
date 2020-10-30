@@ -1,0 +1,213 @@
+footer:
+  # Specify the date when the site was setup. If not defined, current year will be used.
+  since: 2019
+
+  # Icon between year and copyright info.
+  icon:
+    # Icon name in Font Awesome. See: https://fontawesome.com/icons
+    name: fa fa-heart
+    # If you want to animate the icon, set it to true.
+    animated: true
+    # Change the color of icon, using Hex Code.
+    color: "#ff0000"
+
+  # If not defined, `author` from Hexo `_config.yml` will be used.
+  copyright:
+
+  # Powered by Hexo & NexT
+  powered: true
+
+  # Beian ICP and gongan information for Chinese users. See: https://beian.miit.gov.cn, http://www.beian.gov.cn
+  beian:
+    enable: false
+    icp:
+    # The digit in the num of gongan beian.
+    gongan_id:
+    # The full num of gongan beian.
+    gongan_num:
+    # The icon for gongan beian. See: http://www.beian.gov.cn/portal/download
+    gongan_icon_url:
+
+# Enable / Disable menu icons / item badges.
+menu_settings:
+  icons: true
+  badges: true
+
+links:
+  #Title: http://example.com
+  yaoyuan's blog: https://yaoyuan2018.github.io
+
+# Table Of Contents in the Sidebar
+toc:
+  enable: true
+  # Automatically add list number to toc.
+  number: false
+  # If true, all words will placed on next lines if header width longer then sidebar width.
+  wrap: true
+  # If true, all level of TOC in a post will be displayed, rather than the activated part of it.
+  expand_all: true
+  # Maximum heading depth of generated toc. You can set it in one post through `toc_max_depth` in Front-matter.
+  max_depth: 4
+
+sidebar:
+  # Sidebar Position.
+  #position: left
+  position: right
+
+
+codeblock:
+  # Code Highlight theme
+  # Available values: normal | night | night eighties | night blue | night bright
+  # See: https://github.com/chriskempson/tomorrow-theme
+  highlight_theme: normal
+  # Add copy button on codeblock
+  copy_button:
+    enable: false
+    # Show text copy result.
+    show_result: false
+    # Available values: default | flat | mac
+    style:
+
+# Reading progress bar
+reading_progress:
+  enable: true
+  # Available values: top | bottom
+  position: top
+  color: "#37c6c0"
+  height: 2px
+
+# Bookmark Support
+bookmark:
+  enable: false
+  # Customize the color of the bookmark.
+  color: "#222"
+  # If auto, save the reading progress when closing the page or clicking the bookmark-icon.
+  # If manual, only save it by clicking the bookmark-icon.
+  save: auto
+
+# `Follow me on GitHub` banner in the top-right corner.
+github_banner:
+  enable: false
+  permalink: https://github.com/palexu
+  title: Follow me on GitHub
+
+font:
+  # Use custom fonts families or not.
+  # Depended options: `external` and `family`.
+  enable: true
+
+  # Uri of fonts host, e.g. //fonts.googleapis.com (Default).
+  host:
+
+  # Font options:
+  # `external: true` will load this font family from `host` above.
+  # `family: Times New Roman`. Without any quotes.
+  # `size: x.x`. Use `em` as unit. Default: 1 (16px)
+
+  # Global font settings used for all elements inside <body>.
+  global:
+    external: true
+    family: -apple-system,BlinkMacSystemFont,avenir next,avenir,helvetica neue,helvetica,ubuntu,roboto,noto,segoe ui,arial,sans-serif,"PingFang SC", "Microsoft YaHei"
+    size: 0.875
+
+  # Font settings for site title (.site-title).
+  title:
+    external: true
+    family:
+    size:
+
+  # Font settings for headlines (<h1> to <h6>).
+  headings:
+    external: true
+    family:
+    size:
+
+  # Font settings for posts (.post-body).
+  posts:
+    external: true
+    family:
+
+  # Font settings for <code> and code blocks.
+  codes:
+    external: true
+    family: 0.5
+
+
+# A JavaScript library for zooming images like Medium.
+# Do not enable both `fancybox` and `mediumzoom`.
+# For more information: https://github.com/francoischalifour/medium-zoom
+mediumzoom: true
+
+# Pangu Support
+# For more information: https://github.com/vinta/pangu.js
+pangu: true
+
+# Gitalk
+# Demo: https://gitalk.github.io
+# For more information: https://github.com/gitalk/gitalk
+gitalk:
+  enable: true
+  github_id: palexu
+  repo: palexu.github.io
+  client_id: c45344d39200f53a6a40
+  client_secret: 8096f5eda89f0c278ddb12fd861e6a7840846ce8
+  admin_user: palexu
+  distraction_free_mode: true # Facebook-like distraction free mode
+  # Gitalk's display language depends on user's browser or system environment
+  # If you want everyone visiting your site to see a uniform language, you can set a force language value
+  # Available values: en | es-ES | fr | ru | zh-CN | zh-TW
+  language: zh-CN
+
+# Show number of visitors to each article.
+# You can visit https://leancloud.cn to get AppID and AppKey.
+leancloud_visitors:
+  enable: true
+  app_id: 4BRFkGSk6eBRPAYOXCzBrR4w-gzGzoHsz
+  app_key: GqMw546aB1PLmKTT2kypSU3h
+  server_url: blogapi.palexu.top
+  # Dependencies: https://github.com/theme-next/hexo-leancloud-counter-security
+  # If you don't care about security in leancloud counter and just want to use it directly
+  # (without hexo-leancloud-counter-security plugin), set `security` to `false`.
+  security: true
+  betterPerformance: false
+  username: palexu
+  password: xujunyu520
+
+# Automatically excerpt (Not recommend).
+# Use <!-- more --> in the post to control excerpt accurately.
+auto_excerpt:
+  enable: true
+  length: 150
+
+scheme: Mist
+
+#动画效果
+motion:
+  enable: false
+  async: false
+  transition:
+    # Transition variants:
+    # fadeIn | flipXIn | flipYIn | flipBounceXIn | flipBounceYIn
+    # swoopIn | whirlIn | shrinkIn | expandIn
+    # bounceIn | bounceUpIn | bounceDownIn | bounceLeftIn | bounceRightIn
+    # slideUpIn | slideDownIn | slideLeftIn | slideRightIn
+    # slideUpBigIn | slideDownBigIn | slideLeftBigIn | slideRightBigIn
+    # perspectiveUpIn | perspectiveDownIn | perspectiveLeftIn | perspectiveRightIn
+    post_block: fadeIn
+    post_header: slideDownIn
+    post_body: slideDownIn
+    coll_header: slideLeftIn
+    # Only for Pisces | Gemini.
+    sidebar: slideUpIn
+
+# Google Analytics
+google_analytics:
+  tracking_id: UA-132653813-1
+  # By default, NexT will load an external gtag.js script on your site.
+  # If you only need the pageview feature, set the following option to true to get a better performance.
+  only_pageview: false
+
+# Google Webmaster tools verification.
+# See: https://www.google.com/webmasters
+google_site_verification: _ujkMPErh9_k7Fd1un4W2MnMWcSMitpMkB15Tf5RwgA
+
