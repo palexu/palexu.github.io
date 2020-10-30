@@ -1,59 +1,25 @@
 <!DOCTYPE html>
-
-
-
-
-
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
-  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
   <meta name="google-site-verification" content="_ujkMPErh9_k7Fd1un4W2MnMWcSMitpMkB15Tf5RwgA">
 
-<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+<link rel="stylesheet" href="/css/main.css">
 
 <link rel="stylesheet" href="//fonts.googleapis.com/css?family=-apple-system,BlinkMacSystemFont,avenir next,avenir,helvetica neue,helvetica,ubuntu,roboto,noto,segoe ui,arial,sans-serif,"PingFang SC", "Microsoft YaHei":300,300italic,400,400italic,700,700italic|0.5:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
-
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
 <script id="hexo-configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Mist',
-    version: '7.3.0',
-    exturl: false,
-    sidebar: {"position":"right","display":"post","offset":12,"onmobile":false},
-    copycode: {"enable":false,"show_result":false,"style":null},
-    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
-    bookmark: {"enable":false,"color":"#222","save":"auto"},
-    fancybox: false,
-    mediumzoom: true,
-    lazyload: false,
-    pangu: true,
-    algolia: {
-      appID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    },
-    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
-    path: '',
-    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    translation: {
-      copy_button: '复制',
-      copy_success: '复制成功',
-      copy_failure: '复制失败'
-    }
-  };
-</script>
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"palexu.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":true,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
   <meta property="og:type" content="website">
 <meta property="og:title" content="Junyu&#39;s Blog">
@@ -62,25 +28,31 @@
 <meta property="og:locale" content="zh-CN">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Junyu&#39;s Blog">
-  <link rel="canonical" href="https://palexu.github.io/">
+
+<link rel="canonical" href="https://palexu.github.io/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome: true,
-    isPost: false,
-    isPage: false,
-    isArchive: false
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
   };
 </script>
 
   <title>Junyu's Blog</title>
-  <meta name="generator" content="Hexo 3.9.0">
   
-
-
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132653813-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-132653813-1');
+      }
+    </script>
 
 
 
@@ -89,7 +61,6 @@
 
   <noscript>
   <style>
-  .use-motion .motion-element,
   .use-motion .brand,
   .use-motion .menu-item,
   .sidebar-inner,
@@ -100,7 +71,6 @@
   .use-motion .post-body,
   .use-motion .collection-header { opacity: initial; }
 
-  .use-motion .logo,
   .use-motion .site-title,
   .use-motion .site-subtitle {
     opacity: initial;
@@ -114,119 +84,105 @@
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+<body itemscope itemtype="http://schema.org/WebPage">
   <div class="container">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta">
-
-    <div>
-      <a href="/" class="brand" rel="start">
-        <!-- <span class="logo-line-before"><i></i></span> -->
-        <span class="site-title">Junyu's Blog</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
 
-  <div class="site-nav-toggle">
-    <button aria-label="切换导航栏">
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Junyu's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
 
-<nav class="site-nav">
-  
-  <ul id="menu" class="menu">
-      
-      
-      
-        
-        <li class="menu-item menu-item-home">
-      
-    
-      
-    
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
 
   </li>
-      
-      
-      
-        
         <li class="menu-item menu-item-archives">
-      
-    
-      
-    
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">22</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">22</span></a>
 
   </li>
   </ul>
-
-    
-
 </nav>
+
+
+
+
 </div>
     </header>
 
-    <main id="main" class="main">
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
       <div class="main-inner">
         <div class="content-wrap">
-          <div id="content" class="content page-home">
-            
-  <section id="posts" class="posts-expand">
-      
+          
 
-  <article class="post" itemscope itemtype="http://schema.org/Article">
+          <div class="content index posts-expand">
+            
+      
   
   
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://palexu.github.io/2020/10/29/2020-10-29-eureka-basic/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="鲸鱼">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Junyu's Blog">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2020/10/29/2020-10-29-eureka-basic/" class="post-title-link" itemprop="url">Eureka 原理、组件生命周期、流程简介</a>
+        <h2 class="post-title" itemprop="name headline">
           
-        </h1>
+            <a href="/2020/10/29/2020-10-29-eureka-basic/" class="post-title-link" itemprop="url">Eureka 原理、组件生命周期、流程简介</a>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-
-              
-                
               
 
               <time title="创建时间：2020-10-29 19:02:57 / 修改时间：19:33:23" itemprop="dateCreated datePublished" datetime="2020-10-29T19:02:57+08:00">2020-10-29</time>
             </span>
-          
-            
-
-            
-          
 
           
             <span id="/2020/10/29/2020-10-29-eureka-basic/" class="post-meta-item leancloud_visitors" data-flag-title="Eureka 原理、组件生命周期、流程简介" title="阅读次数">
@@ -236,7 +192,6 @@
               <span class="post-meta-item-text">阅读次数：</span>
               <span class="leancloud-visitors-count"></span>
             </span>
-          
 
         </div>
       </header>
@@ -247,19 +202,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="Eureka-简介"><a href="#Eureka-简介" class="headerlink" title="Eureka 简介"></a>Eureka 简介</h2><p>Eureka 是 Netflix 出品的用于实现服务注册和发现的工具。 Spring Cloud 集成了 Eureka，并提供了开箱即用的支持。其中， Eureka 又可细分为 Eureka Server 和 Eureka Client。</p><h5 id="Eureka-有哪些组件？"><a href="#Eureka-有哪些组件？" class="headerlink" title="Eureka 有哪些组件？"></a>Eureka 有哪些组件？</h5><p><img src="https://tva1.sinaimg.cn/large/0081Kckwly1gk6et3jj5ij30sg0dhtch.jpg" alt="9A94ADCB-5226-46C1-97F0-878E5B76DC31"></p><p>从组件功能看：</p><ul>
-<li>黄色注册中心集群，分别部署在北京、天津、青岛机房；</li>
-<li>红色服务提供者，分别部署北京和青岛机房；</li>
-<li>淡绿色服务消费者，分别部署在北京和天津机房；</li>
-</ul>
+          <h2 id="Eureka-简介"><a href="#Eureka-简介" class="headerlink" title="Eureka 简介"></a>Eureka 简介</h2><p>Eureka 是 Netflix 出品的用于实现服务注册和发现的工具。 Spring Cloud 集成了 Eureka，并提供了开箱即用的支持。其中， Eureka 又可细分为 Eureka Server 和 Eureka Client。</p>
+<h5 id="Eureka-有哪些组件？"><a href="#Eureka-有哪些组件？" class="headerlink" title="Eureka 有哪些组件？"></a>Eureka 有哪些组件？</h5><p><img src="https://tva1.sinaimg.cn/large/0081Kckwly1gk6et3jj5ij30sg0dhtch.jpg" alt="9A94ADCB-5226-46C1-97F0-878E5B76DC31"></p>
+<p>从组件功能看：</p>
           <!--noindex-->
-          
-            <div class="post-button text-center">
+            <div class="post-button">
               <a class="btn" href="/2020/10/29/2020-10-29-eureka-basic/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
-          
           <!--/noindex-->
         
       
@@ -269,67 +220,50 @@
     
     
       <footer class="post-footer">
-          <div class="post-eof"></div>
-        
+        <div class="post-eof"></div>
       </footer>
-  </div>
-  
-  
-  
   </article>
+  
+  
+  
 
-    
       
-
-  <article class="post" itemscope itemtype="http://schema.org/Article">
   
   
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://palexu.github.io/2019/10/26/2019-10-26-snowflake-md/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="鲸鱼">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Junyu's Blog">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2019/10/26/2019-10-26-snowflake-md/" class="post-title-link" itemprop="url">分布式id生成器-DID(Distribute Id Generator)</a>
+        <h2 class="post-title" itemprop="name headline">
           
-        </h1>
+            <a href="/2019/10/26/2019-10-26-snowflake-md/" class="post-title-link" itemprop="url">分布式id生成器-DID(Distribute Id Generator)</a>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              
-                
-              
-
               <time title="创建时间：2019-10-26 16:10:19" itemprop="dateCreated datePublished" datetime="2019-10-26T16:10:19+08:00">2019-10-26</time>
             </span>
-          
-            
-
-            
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2020-10-16 11:39:28" itemprop="dateModified" datetime="2020-10-16T11:39:28+08:00">2020-10-16</time>
               </span>
-            
-          
 
           
             <span id="/2019/10/26/2019-10-26-snowflake-md/" class="post-meta-item leancloud_visitors" data-flag-title="分布式id生成器-DID(Distribute Id Generator)" title="阅读次数">
@@ -339,7 +273,6 @@
               <span class="post-meta-item-text">阅读次数：</span>
               <span class="leancloud-visitors-count"></span>
             </span>
-          
 
         </div>
       </header>
@@ -350,19 +283,19 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="1-需求"><a href="#1-需求" class="headerlink" title="1. 需求"></a>1. 需求</h2><p>目前每个应用如果想要使用分布式id功能, 都需要在各自的数据库中新增did表,在代码中加入mapper等,使用较麻烦. 现在希望将分布式id生成器功能封装成工具类提供.</p><ul>
+          <h2 id="1-需求"><a href="#1-需求" class="headerlink" title="1. 需求"></a>1. 需求</h2><p>目前每个应用如果想要使用分布式id功能, 都需要在各自的数据库中新增did表,在代码中加入mapper等,使用较麻烦. 现在希望将分布式id生成器功能封装成工具类提供.</p>
+<ul>
 <li>期望做到引入maven依赖即可使用, 且做到本地生成分布式id时高性能、不重复.</li>
 <li><strong>并且需要适用于之后容器化部署的场景</strong>.</li>
 <li>设计简单可靠, 尽量减少第三方业务的依赖</li>
 </ul>
+<h2 id="2-现状"><a href="#2-现状" class="headerlink" title="2. 现状"></a>2. 现状</h2><p><img src="https://tva2.sinaimg.com/large/006y8mN6ly1g8bn0hbxvyj30rb049gmf.jpg" alt="img"></p>
           <!--noindex-->
-          
-            <div class="post-button text-center">
+            <div class="post-button">
               <a class="btn" href="/2019/10/26/2019-10-26-snowflake-md/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
-          
           <!--/noindex-->
         
       
@@ -372,67 +305,50 @@
     
     
       <footer class="post-footer">
-          <div class="post-eof"></div>
-        
+        <div class="post-eof"></div>
       </footer>
-  </div>
-  
-  
-  
   </article>
+  
+  
+  
 
-    
       
-
-  <article class="post" itemscope itemtype="http://schema.org/Article">
   
   
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://palexu.github.io/2019/08/20/2019-08-20-idea-jvm/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="鲸鱼">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Junyu's Blog">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2019/08/20/2019-08-20-idea-jvm/" class="post-title-link" itemprop="url">JVM调优实战 - 优化2015年8G内存 Macbook Pro 上 IDEA 的打开速度</a>
+        <h2 class="post-title" itemprop="name headline">
           
-        </h1>
+            <a href="/2019/08/20/2019-08-20-idea-jvm/" class="post-title-link" itemprop="url">JVM调优实战 - 优化2015年8G内存 Macbook Pro 上 IDEA 的打开速度</a>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              
-                
-              
-
               <time title="创建时间：2019-08-20 00:00:00" itemprop="dateCreated datePublished" datetime="2019-08-20T00:00:00+08:00">2019-08-20</time>
             </span>
-          
-            
-
-            
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2020-10-16 11:39:28" itemprop="dateModified" datetime="2020-10-16T11:39:28+08:00">2020-10-16</time>
               </span>
-            
-          
 
           
             <span id="/2019/08/20/2019-08-20-idea-jvm/" class="post-meta-item leancloud_visitors" data-flag-title="JVM调优实战 - 优化2015年8G内存 Macbook Pro 上 IDEA 的打开速度" title="阅读次数">
@@ -442,7 +358,6 @@
               <span class="post-meta-item-text">阅读次数：</span>
               <span class="leancloud-visitors-count"></span>
             </span>
-          
 
         </div>
       </header>
@@ -453,15 +368,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="调优前的程序运行状态"><a href="#调优前的程序运行状态" class="headerlink" title="调优前的程序运行状态"></a>调优前的程序运行状态</h2><p>机器:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">MacBook Pro (Retina, 13-inch, Early 2015)</span><br><span class="line">cpu 	2.7 GHz Intel Core i5</span><br><span class="line">mem 	8 GB 1867 MHz DDR3</span><br></pre></td></tr></table></figure><p>IDEA 信息</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">IntelliJ IDEA 2019.1.4 (Ultimate Edition)</span><br><span class="line">Build #IU-191.8026.42, built on July 30, 2019</span><br><span class="line">JRE: 1.8.0_212-release-1586-b4 x86_64</span><br><span class="line">JVM: OpenJDK 64-Bit Server VM by JetBrains s.r.o</span><br><span class="line">macOS 10.14</span><br></pre></td></tr></table></figure>
+          <h2 id="调优前的程序运行状态"><a href="#调优前的程序运行状态" class="headerlink" title="调优前的程序运行状态"></a>调优前的程序运行状态</h2><p>机器:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">MacBook Pro (Retina, 13-inch, Early 2015)</span><br><span class="line">cpu 	2.7 GHz Intel Core i5</span><br><span class="line">mem 	8 GB 1867 MHz DDR3</span><br></pre></td></tr></table></figure>
+
+<p>IDEA 信息</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">IntelliJ IDEA 2019.1.4 (Ultimate Edition)</span><br><span class="line">Build #IU-191.8026.42, built on July 30, 2019</span><br><span class="line">JRE: 1.8.0_212-release-1586-b4 x86_64</span><br><span class="line">JVM: OpenJDK 64-Bit Server VM by JetBrains s.r.o</span><br><span class="line">macOS 10.14</span><br></pre></td></tr></table></figure>
           <!--noindex-->
-          
-            <div class="post-button text-center">
+            <div class="post-button">
               <a class="btn" href="/2019/08/20/2019-08-20-idea-jvm/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
-          
           <!--/noindex-->
         
       
@@ -471,67 +388,50 @@
     
     
       <footer class="post-footer">
-          <div class="post-eof"></div>
-        
+        <div class="post-eof"></div>
       </footer>
-  </div>
-  
-  
-  
   </article>
+  
+  
+  
 
-    
       
-
-  <article class="post" itemscope itemtype="http://schema.org/Article">
   
   
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://palexu.github.io/2019/06/20/2019-06-20-im-system-based-on-netty/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="鲸鱼">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Junyu's Blog">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2019/06/20/2019-06-20-im-system-based-on-netty/" class="post-title-link" itemprop="url">基于Netty的IM系统(对网上相关资料进行整理)</a>
+        <h2 class="post-title" itemprop="name headline">
           
-        </h1>
+            <a href="/2019/06/20/2019-06-20-im-system-based-on-netty/" class="post-title-link" itemprop="url">基于Netty的IM系统(对网上相关资料进行整理)</a>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              
-                
-              
-
               <time title="创建时间：2019-06-20 00:00:00" itemprop="dateCreated datePublished" datetime="2019-06-20T00:00:00+08:00">2019-06-20</time>
             </span>
-          
-            
-
-            
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2019-10-26 13:04:44" itemprop="dateModified" datetime="2019-10-26T13:04:44+08:00">2019-10-26</time>
               </span>
-            
-          
 
           
             <span id="/2019/06/20/2019-06-20-im-system-based-on-netty/" class="post-meta-item leancloud_visitors" data-flag-title="基于Netty的IM系统(对网上相关资料进行整理)" title="阅读次数">
@@ -541,7 +441,6 @@
               <span class="post-meta-item-text">阅读次数：</span>
               <span class="leancloud-visitors-count"></span>
             </span>
-          
 
         </div>
       </header>
@@ -552,15 +451,26 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>处于学习netty的目的, 需要进行一些项目时间. 目前的工作暂时接触不到相关的内容,  所以考虑自己造一个项目.</p><p>目前网上已经有对应的项目了: <a href="https://juejin.im/book/5b4bc28bf265da0f60130116" target="_blank" rel="noopener">Netty 入门与实战：仿写微信 IM 即时通讯系统</a>, 花了几分钟看了一下, 似乎没有看到比较困难的点, 基本上就是实现了基础功能吧. 这篇文章主要介绍的还是netty的一些常用操作和属性, 适合我用来入门查看.</p>
+          <p>处于学习netty的目的, 需要进行一些项目时间. 目前的工作暂时接触不到相关的内容,  所以考虑自己造一个项目.</p>
+<p>目前网上已经有对应的项目了: <a href="https://juejin.im/book/5b4bc28bf265da0f60130116" target="_blank" rel="noopener">Netty 入门与实战：仿写微信 IM 即时通讯系统</a>, 花了几分钟看了一下, 似乎没有看到比较困难的点, 基本上就是实现了基础功能吧. 这篇文章主要介绍的还是netty的一些常用操作和属性, 适合我用来入门查看.</p>
+<p>开新项目的目标:</p>
+<ul>
+<li>学习 netty, 上手netty的使用方法</li>
+<li>不要太关注im系统的详细设计, 而是围绕基本的功能点进行底层原理的学习, 做到掌握 netty.</li>
+<li>从基本的原型开始 , 不断迭代, 并记录每一次优化后的性能差距, 形成文档.</li>
+<li>对一些技术难点, 一定要做好记录.</li>
+<li>最好能够应用到一些场景, 如实时客服等.</li>
+<li>其次, 希望能运用上ddd的思想</li>
+<li>在跑满本机性能的情况下(90%cpu, 6G jvm), 尽可能多得优化代码性能, 并作出总结.                                                       baidu</li>
+<li>掌握压测工具: jmeter 高并发压测</li>
+</ul>
+<p>任务安排:</p>
           <!--noindex-->
-          
-            <div class="post-button text-center">
+            <div class="post-button">
               <a class="btn" href="/2019/06/20/2019-06-20-im-system-based-on-netty/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
-          
           <!--/noindex-->
         
       
@@ -570,67 +480,50 @@
     
     
       <footer class="post-footer">
-          <div class="post-eof"></div>
-        
+        <div class="post-eof"></div>
       </footer>
-  </div>
-  
-  
-  
   </article>
+  
+  
+  
 
-    
       
-
-  <article class="post" itemscope itemtype="http://schema.org/Article">
   
   
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://palexu.github.io/2019/06/10/2019-06-10-install-wireguard/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="鲸鱼">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Junyu's Blog">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2019/06/10/2019-06-10-install-wireguard/" class="post-title-link" itemprop="url">ubuntu(vps)与mac(client)上安装wireguard, 并对出口流量分流</a>
+        <h2 class="post-title" itemprop="name headline">
           
-        </h1>
+            <a href="/2019/06/10/2019-06-10-install-wireguard/" class="post-title-link" itemprop="url">ubuntu(vps)与mac(client)上安装wireguard, 并对出口流量分流</a>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              
-                
-              
-
               <time title="创建时间：2019-06-10 00:00:00" itemprop="dateCreated datePublished" datetime="2019-06-10T00:00:00+08:00">2019-06-10</time>
             </span>
-          
-            
-
-            
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2020-10-16 11:35:16" itemprop="dateModified" datetime="2020-10-16T11:35:16+08:00">2020-10-16</time>
               </span>
-            
-          
 
           
             <span id="/2019/06/10/2019-06-10-install-wireguard/" class="post-meta-item leancloud_visitors" data-flag-title="ubuntu(vps)与mac(client)上安装wireguard, 并对出口流量分流" title="阅读次数">
@@ -640,7 +533,6 @@
               <span class="post-meta-item-text">阅读次数：</span>
               <span class="leancloud-visitors-count"></span>
             </span>
-          
 
         </div>
       </header>
@@ -652,14 +544,15 @@
 
       
           <h2 id="基本"><a href="#基本" class="headerlink" title="基本"></a>基本</h2><h3 id="server-以ubuntu为例"><a href="#server-以ubuntu为例" class="headerlink" title="server, 以ubuntu为例"></a>server, 以ubuntu为例</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 一键安装wireguard 脚本 Ubuntu</span></span><br><span class="line"><span class="comment"># 该脚本由 https://github.com/hongwenjun 提供, 建议自行查看该脚本内容, 了解原理</span></span><br><span class="line">$ wget https://raw.githubusercontent.com/hongwenjun/vps_setup/master/ubuntu_wireguard_install.sh | bash</span><br></pre></td></tr></table></figure>
+
+<p>之后拷贝生成的 client.conf 内容</p>
+<h3 id="client-以mac为例"><a href="#client-以mac为例" class="headerlink" title="client, 以mac为例"></a>client, 以mac为例</h3>
           <!--noindex-->
-          
-            <div class="post-button text-center">
+            <div class="post-button">
               <a class="btn" href="/2019/06/10/2019-06-10-install-wireguard/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
-          
           <!--/noindex-->
         
       
@@ -669,67 +562,50 @@
     
     
       <footer class="post-footer">
-          <div class="post-eof"></div>
-        
+        <div class="post-eof"></div>
       </footer>
-  </div>
-  
-  
-  
   </article>
+  
+  
+  
 
-    
       
-
-  <article class="post" itemscope itemtype="http://schema.org/Article">
   
   
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://palexu.github.io/2019/01/19/2019-01-20-lean-jstorm-nimbus/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="鲸鱼">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Junyu's Blog">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2019/01/19/2019-01-20-lean-jstorm-nimbus/" class="post-title-link" itemprop="url">JStorm 源码分析 - Nimbus</a>
+        <h2 class="post-title" itemprop="name headline">
           
-        </h1>
+            <a href="/2019/01/19/2019-01-20-lean-jstorm-nimbus/" class="post-title-link" itemprop="url">JStorm 源码分析 - Nimbus</a>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              
-                
-              
-
               <time title="创建时间：2019-01-19 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-19T00:00:00+08:00">2019-01-19</time>
             </span>
-          
-            
-
-            
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2020-10-16 11:35:16" itemprop="dateModified" datetime="2020-10-16T11:35:16+08:00">2020-10-16</time>
               </span>
-            
-          
 
           
             <span id="/2019/01/19/2019-01-20-lean-jstorm-nimbus/" class="post-meta-item leancloud_visitors" data-flag-title="JStorm 源码分析 - Nimbus" title="阅读次数">
@@ -739,7 +615,6 @@
               <span class="post-meta-item-text">阅读次数：</span>
               <span class="leancloud-visitors-count"></span>
             </span>
-          
 
         </div>
       </header>
@@ -750,18 +625,19 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>拓扑会通过 Nimbus 分发给 supervisor, 那么 Nimbus 内部是怎么操作的?<br>这里以本地模式为例, 对拓扑的提交过程做一个分析.</p><p>参考资料:<br><a href="https://meta.tn/a/4dd64fdd491b30afba2893e0a570ca8eb8fc1bfb21ccb8d8f8f44cbdc2bb6be4" target="_blank" rel="noopener">理解storm拓扑并行度</a></p><h2 id="疑问"><a href="#疑问" class="headerlink" title="疑问:"></a>疑问:</h2><ol>
+          <p>拓扑会通过 Nimbus 分发给 supervisor, 那么 Nimbus 内部是怎么操作的?<br>这里以本地模式为例, 对拓扑的提交过程做一个分析.</p>
+<p>参考资料:<br><a href="https://meta.tn/a/4dd64fdd491b30afba2893e0a570ca8eb8fc1bfb21ccb8d8f8f44cbdc2bb6be4" target="_blank" rel="noopener">理解storm拓扑并行度</a></p>
+<h2 id="疑问"><a href="#疑问" class="headerlink" title="疑问:"></a>疑问:</h2><ol>
 <li>在zk上建立task信息,这些信息是用来做什么的?</li>
 <li>notifyTopologyActionListener 做了什么?</li>
 </ol>
+<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2>
           <!--noindex-->
-          
-            <div class="post-button text-center">
+            <div class="post-button">
               <a class="btn" href="/2019/01/19/2019-01-20-lean-jstorm-nimbus/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
-          
           <!--/noindex-->
         
       
@@ -771,67 +647,50 @@
     
     
       <footer class="post-footer">
-          <div class="post-eof"></div>
-        
+        <div class="post-eof"></div>
       </footer>
-  </div>
-  
-  
-  
   </article>
+  
+  
+  
 
-    
       
-
-  <article class="post" itemscope itemtype="http://schema.org/Article">
   
   
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://palexu.github.io/2019/01/19/2019-01-19-lean-jstorm-task/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="鲸鱼">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Junyu's Blog">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2019/01/19/2019-01-19-lean-jstorm-task/" class="post-title-link" itemprop="url">JStorm 源码分析 - Task 的启动与运行</a>
+        <h2 class="post-title" itemprop="name headline">
           
-        </h1>
+            <a href="/2019/01/19/2019-01-19-lean-jstorm-task/" class="post-title-link" itemprop="url">JStorm 源码分析 - Task 的启动与运行</a>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              
-                
-              
-
               <time title="创建时间：2019-01-19 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-19T00:00:00+08:00">2019-01-19</time>
             </span>
-          
-            
-
-            
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2020-10-16 11:35:16" itemprop="dateModified" datetime="2020-10-16T11:35:16+08:00">2020-10-16</time>
               </span>
-            
-          
 
           
             <span id="/2019/01/19/2019-01-19-lean-jstorm-task/" class="post-meta-item leancloud_visitors" data-flag-title="JStorm 源码分析 - Task 的启动与运行" title="阅读次数">
@@ -841,7 +700,6 @@
               <span class="post-meta-item-text">阅读次数：</span>
               <span class="leancloud-visitors-count"></span>
             </span>
-          
 
         </div>
       </header>
@@ -852,21 +710,23 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>本篇主要介绍task的创建与运行过程</p><h2 id="文章开头-先抛出一些疑问"><a href="#文章开头-先抛出一些疑问" class="headerlink" title="文章开头, 先抛出一些疑问:"></a>文章开头, 先抛出一些疑问:</h2><ol>
+          <p>本篇主要介绍task的创建与运行过程</p>
+<h2 id="文章开头-先抛出一些疑问"><a href="#文章开头-先抛出一些疑问" class="headerlink" title="文章开头, 先抛出一些疑问:"></a>文章开头, 先抛出一些疑问:</h2><ol>
 <li>为什么TaskTransfer、TaskReceiver 要在初始化Task的时候创建, 为什么不在Worker里直接创建好? 这么做有什么好处呢?</li>
 <li>TaskTransfer/Receiver 与 Task 是1对1的关系么?  如果是,为什么? 如果不是,那设置了怎样的值, 为什么?</li>
 <li>start up bolt 发给系统 bolt 是做什么用的?</li>
 <li>至于在创建拓扑时的并行度等属性, 在提交拓扑时(?确定是这个时候么?)就已经分配好了. 例如 BoltA 并行度为 3, 那么会创建3个Task对象, 每个对象都持有BoltA? 而不是一个Task 持有多个 Executor ,每个Executor使用执行bolt的业务代码 ?</li>
 <li>为什么创建executor时,要传递当前task进去,如 baseExecutor = new BoltExecutors(this) . 而不是传递必须的参数进去.这是否是为了强调task和executor之间的某种联系?如果是,那么又是什么联系呢?  在较早版本的源代码里面,是否有反映这个联系呢?</li>
 </ol>
+<img src="https://tva2.sinaimg.com/large/006tNc79ly1fzark3184pj30im09kaa6.jpg" style="zoom:50%">
+
+<h2 id="创建过程"><a href="#创建过程" class="headerlink" title="创建过程:"></a>创建过程:</h2>
           <!--noindex-->
-          
-            <div class="post-button text-center">
+            <div class="post-button">
               <a class="btn" href="/2019/01/19/2019-01-19-lean-jstorm-task/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
-          
           <!--/noindex-->
         
       
@@ -876,67 +736,50 @@
     
     
       <footer class="post-footer">
-          <div class="post-eof"></div>
-        
+        <div class="post-eof"></div>
       </footer>
-  </div>
-  
-  
-  
   </article>
+  
+  
+  
 
-    
       
-
-  <article class="post" itemscope itemtype="http://schema.org/Article">
   
   
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://palexu.github.io/2019/01/18/2019-01-18-lean-jstorm-worker/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="鲸鱼">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Junyu's Blog">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2019/01/18/2019-01-18-lean-jstorm-worker/" class="post-title-link" itemprop="url">JStorm 源码分析 - Worker 的启动与运行</a>
+        <h2 class="post-title" itemprop="name headline">
           
-        </h1>
+            <a href="/2019/01/18/2019-01-18-lean-jstorm-worker/" class="post-title-link" itemprop="url">JStorm 源码分析 - Worker 的启动与运行</a>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              
-                
-              
-
               <time title="创建时间：2019-01-18 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-18T00:00:00+08:00">2019-01-18</time>
             </span>
-          
-            
-
-            
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2020-10-16 11:35:16" itemprop="dateModified" datetime="2020-10-16T11:35:16+08:00">2020-10-16</time>
               </span>
-            
-          
 
           
             <span id="/2019/01/18/2019-01-18-lean-jstorm-worker/" class="post-meta-item leancloud_visitors" data-flag-title="JStorm 源码分析 - Worker 的启动与运行" title="阅读次数">
@@ -946,7 +789,6 @@
               <span class="post-meta-item-text">阅读次数：</span>
               <span class="leancloud-visitors-count"></span>
             </span>
-          
 
         </div>
       </header>
@@ -960,14 +802,17 @@
           <blockquote>
 <p>对一个 topology，JStorm 最终会调度成一个或多个 worker，每个 worker 即为一个真正的操作系统执行进程，分布到一个集群的一台或者多台机器上并行执行。<br>而每个 worker 中，又可以有多个 task，分别代表一个执行线程。每个 task 就是上面提到的组件(component)的实现，要么是 spout 要么是 bolt 。</p>
 </blockquote>
+<img src="https://tva2.sinaimg.com/large/006tNc79ly1fzakkrdce6j30m00e6q2u.jpg" width="300px">
+
+<p>如上图所示, worker 是一个独立 JVM 的进程, 它其实是由 Supervisor 通过命令行执行 Worker#main 方法来启动. worker 进程内部, 运行着许多线程, 包括: Task 线程、序列化/反序列化线程等. 其对应的代码为: com.alibaba.jstorm.daemon.worker.Worker</p>
+<p>注意: Storm 与 JStorm 的 worker 模型有所不同, JStorm 移除了 executor 的概念, 详见“<a href>JStorm 中 task 与 executor 的关系</a>”.</p>
+<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2>
           <!--noindex-->
-          
-            <div class="post-button text-center">
+            <div class="post-button">
               <a class="btn" href="/2019/01/18/2019-01-18-lean-jstorm-worker/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
-          
           <!--/noindex-->
         
       
@@ -977,67 +822,50 @@
     
     
       <footer class="post-footer">
-          <div class="post-eof"></div>
-        
+        <div class="post-eof"></div>
       </footer>
-  </div>
-  
-  
-  
   </article>
+  
+  
+  
 
-    
       
-
-  <article class="post" itemscope itemtype="http://schema.org/Article">
   
   
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://palexu.github.io/2019/01/17/2019-01-17-lean-jstorm-AsyncLoopThread/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="鲸鱼">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Junyu's Blog">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2019/01/17/2019-01-17-lean-jstorm-AsyncLoopThread/" class="post-title-link" itemprop="url">JStorm 源码分析 - 异步循环线程 AsyncLoopThread</a>
+        <h2 class="post-title" itemprop="name headline">
           
-        </h1>
+            <a href="/2019/01/17/2019-01-17-lean-jstorm-AsyncLoopThread/" class="post-title-link" itemprop="url">JStorm 源码分析 - 异步循环线程 AsyncLoopThread</a>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              
-                
-              
-
               <time title="创建时间：2019-01-17 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-17T00:00:00+08:00">2019-01-17</time>
             </span>
-          
-            
-
-            
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2020-10-16 11:35:16" itemprop="dateModified" datetime="2020-10-16T11:35:16+08:00">2020-10-16</time>
               </span>
-            
-          
 
           
             <span id="/2019/01/17/2019-01-17-lean-jstorm-AsyncLoopThread/" class="post-meta-item leancloud_visitors" data-flag-title="JStorm 源码分析 - 异步循环线程 AsyncLoopThread" title="阅读次数">
@@ -1047,7 +875,6 @@
               <span class="post-meta-item-text">阅读次数：</span>
               <span class="leancloud-visitors-count"></span>
             </span>
-          
 
         </div>
       </header>
@@ -1062,14 +889,15 @@
 <p>“虽然池化和重用线程相对于简单地为每个任务都创建和销毁线程是一种进步，但是它并不能消除由上下文切换所带来的开销，其将随着线程数量的增加很快变得明显，并且在高负载下愈演愈烈。此外，仅仅由于应用程序的整体复杂性或者并发需求，在项目的生命周期内也可能会出现其他和线程相关的问题。”</p>
 <p>摘录来自: [美] Norman Maurer Marvin Allen Wolfthal. “Netty实战。” </p>
 </blockquote>
+<p>与 Netty 中的 EventLoop 类似, JStorm 中也建立了一套线程模型, 用于简化创建线程的过程, 并提高性能. 其具体的实现便是 AsyncLoopThread .</p>
+<h2 id="AsyncLoopThread"><a href="#AsyncLoopThread" class="headerlink" title="AsyncLoopThread"></a>AsyncLoopThread</h2><p>com.alibaba.jstorm.callback.AsyncLoopThread</p>
+<p><img src="https://tva2.sinaimg.com/large/006tNc79ly1fz9q4g0nmjj31dk0om75n.jpg" alt></p>
           <!--noindex-->
-          
-            <div class="post-button text-center">
+            <div class="post-button">
               <a class="btn" href="/2019/01/17/2019-01-17-lean-jstorm-AsyncLoopThread/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
-          
           <!--/noindex-->
         
       
@@ -1079,67 +907,50 @@
     
     
       <footer class="post-footer">
-          <div class="post-eof"></div>
-        
+        <div class="post-eof"></div>
       </footer>
-  </div>
-  
-  
-  
   </article>
+  
+  
+  
 
-    
       
-
-  <article class="post" itemscope itemtype="http://schema.org/Article">
   
   
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://palexu.github.io/2019/01/16/2019-01-16-lean-jstorm-source-queue/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="鲸鱼">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="Junyu's Blog">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2019/01/16/2019-01-16-lean-jstorm-source-queue/" class="post-title-link" itemprop="url">JStorm 源码分析 - 高性能队列 DisruptorQueue</a>
+        <h2 class="post-title" itemprop="name headline">
           
-        </h1>
+            <a href="/2019/01/16/2019-01-16-lean-jstorm-source-queue/" class="post-title-link" itemprop="url">JStorm 源码分析 - 高性能队列 DisruptorQueue</a>
+        </h2>
 
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              
-                
-              
-
               <time title="创建时间：2019-01-16 21:13:00" itemprop="dateCreated datePublished" datetime="2019-01-16T21:13:00+08:00">2019-01-16</time>
             </span>
-          
-            
-
-            
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2019-10-26 13:04:44" itemprop="dateModified" datetime="2019-10-26T13:04:44+08:00">2019-10-26</time>
               </span>
-            
-          
 
           
             <span id="/2019/01/16/2019-01-16-lean-jstorm-source-queue/" class="post-meta-item leancloud_visitors" data-flag-title="JStorm 源码分析 - 高性能队列 DisruptorQueue" title="阅读次数">
@@ -1149,7 +960,6 @@
               <span class="post-meta-item-text">阅读次数：</span>
               <span class="leancloud-visitors-count"></span>
             </span>
-          
 
         </div>
       </header>
@@ -1160,15 +970,20 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>在上一篇文章中( <a href="lean-jstorm-source-code-01">JStorm 源码分析 - tuple 在整个拓扑中的流转过程</a>), 我们多次提到 JStorm 使用了 3 个队列来完成 tuple 的缓冲与消费. 因此这些队列的性能会制约 JStorm 的总体的吞吐量. </p><p>在日常的工程实践当中, 我们会使用一些 Java 的内置队列来完成这个工作, 比如 ArrayBlockingQueue. 实际上, 如果要追求更高的性能, DisruptorQueue 是一个更好的选择, 它虽然降低了 API 的易用性, 但是在性能上相比于 ArrayBlockingQueue 这类队列提升很大.</p>
+          <p>在上一篇文章中( <a href="lean-jstorm-source-code-01">JStorm 源码分析 - tuple 在整个拓扑中的流转过程</a>), 我们多次提到 JStorm 使用了 3 个队列来完成 tuple 的缓冲与消费. 因此这些队列的性能会制约 JStorm 的总体的吞吐量. </p>
+<p>在日常的工程实践当中, 我们会使用一些 Java 的内置队列来完成这个工作, 比如 ArrayBlockingQueue. 实际上, 如果要追求更高的性能, DisruptorQueue 是一个更好的选择, 它虽然降低了 API 的易用性, 但是在性能上相比于 ArrayBlockingQueue 这类队列提升很大.</p>
+<p>Disruptor 是英国外汇交易公司 LMAX 开发的一个高性能队列,研发的初衷是解决内存队列的延迟问题 ( 在性能测试中发现竟然与I/O操作处于同样的数量级 ).需要特别指出的是，这里所说的队列是系统内部的内存队列，而不是Kafka这样的分布式队列.</p>
+<p>关于 Disruptor 的原理与使用, 网上已经有很多优秀的文章, 可以阅读以下文章来学习:</p>
+<ol>
+<li><a href="https://tech.meituan.com/disruptor.html" target="_blank" rel="noopener">美团技术团队 2016-11-18 高性能队列–Disruptor</a>  这篇文章深入浅出,写的很好.</li>
+<li><a href="https://lmax-exchange.github.io/disruptor/" target="_blank" rel="noopener">官方文档 https://lmax-exchange.github.io/disruptor/</a></li>
+</ol>
           <!--noindex-->
-          
-            <div class="post-button text-center">
+            <div class="post-button">
               <a class="btn" href="/2019/01/16/2019-01-16-lean-jstorm-source-queue/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
-          
           <!--/noindex-->
         
       
@@ -1178,17 +993,13 @@
     
     
       <footer class="post-footer">
-          <div class="post-eof"></div>
-        
+        <div class="post-eof"></div>
       </footer>
-  </div>
-  
-  
-  
   </article>
+  
+  
+  
 
-    
-  </section>
 
   
   <nav class="pagination">
@@ -1196,28 +1007,49 @@
   </nav>
 
 
+
           </div>
           
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
 
         </div>
           
   
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
   </div>
 
-  <aside id="sidebar" class="sidebar">
+  <aside class="sidebar">
     <div class="sidebar-inner">
 
       <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc" data-target="post-toc-wrap">
+        <li class="sidebar-nav-toc">
           文章目录
         </li>
-        <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+        <li class="sidebar-nav-overview">
           站点概览
         </li>
       </ul>
@@ -1228,68 +1060,38 @@
       <!--/noindex-->
 
       <div class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">鲸鱼</p>
-  <div class="site-description motion-element" itemprop="description"></div>
+  <div class="site-description" itemprop="description"></div>
 </div>
-  <nav class="site-state motion-element">
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
       <div class="site-state-item site-state-posts">
-        
           <a href="/archives/">
         
           <span class="site-state-item-count">22</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
-    
-      
-      
       <div class="site-state-item site-state-tags">
-        
-        
-        
-          
-        
-          
-        
-          
-        
         <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">标签</span>
-        
       </div>
-    
   </nav>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-      
-      
-        
-      
-      
-        
-      
-        <a href="https://github.com/palexu" title="GitHub &rarr; https://github.com/palexu" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
-      </span>
-    
-  </div>
+</div>
 
 
   <div class="links-of-blogroll motion-element">
-    <div class="links-of-blogroll-title">
-      <i class="fa fa-fw fa-link"></i>
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
       Links
     </div>
     <ul class="links-of-blogroll-list">
         <li class="links-of-blogroll-item">
           <a href="https://yaoyuan2018.github.io" title="https://yaoyuan2018.github.io" rel="noopener" target="_blank">yaoyuan's blog</a>
         </li>
-      
     </ul>
   </div>
 
-        </div>
       </div>
 
     </div>
@@ -1300,15 +1102,23 @@
       </div>
     </main>
 
-    <footer id="footer" class="footer">
+    <footer class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2019 – <span itemprop="copyrightYear">2020</span>
-  <span class="with-love" id="animate">
-    <i class="fa fa-terminal"></i>
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">鲸鱼</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
 
         
 
@@ -1317,31 +1127,28 @@
 
 
 
-  
-  <script>
-  function leancloudSelector(url) {
-    return document.getElementById(url).querySelector('.leancloud-visitors-count');
-  }
-  if (CONFIG.page.isPost) {
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
     function addCount(Counter) {
       var visitors = document.querySelector('.leancloud_visitors');
-      var url = visitors.getAttribute('id').trim();
-      var title = visitors.getAttribute('data-flag-title').trim();
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
 
-      Counter('get', `/classes/Counter?where=${JSON.stringify({ url })}`)
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
         .then(response => response.json())
         .then(({ results }) => {
           if (results.length > 0) {
             var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
             Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
-              .then(response => response.json())
-              .then(() => {
-                leancloudSelector(url).innerText = counter.time + 1;
-              })
-            
               .catch(error => {
-                console.log('Failed to save visitor count', error);
-              })
+                console.error('Failed to save visitor count', error);
+              });
           } else {
               leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
               console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
@@ -1349,114 +1156,80 @@
           }
         })
         .catch(error => {
-          console.log('LeanCloud Counter Error', error);
+          console.error('LeanCloud Counter Error', error);
         });
     }
-  } else {
+
     function showTime(Counter) {
       var visitors = document.querySelectorAll('.leancloud_visitors');
       var entries = [...visitors].map(element => {
-        return element.getAttribute('id').trim();
+        return decodeURI(element.id);
       });
 
-      Counter('get', `/classes/Counter?where=${JSON.stringify({ url: { '$in': entries } })}`)
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
         .then(response => response.json())
         .then(({ results }) => {
-          if (results.length === 0) {
-            document.querySelectorAll('.leancloud_visitors .leancloud-visitors-count').forEach(element => {
-              element.innerText = 0;
-            });
-            return;
-          }
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.url;
-            var time = item.time;
-            leancloudSelector(url).innerText = time;
-          }
-          for (var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = leancloudSelector(url);
-            if (element.innerText == '') {
-              element.innerText = 0;
-            }
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
           }
         })
         .catch(error => {
-          console.log('LeanCloud Counter Error', error);
+          console.error('LeanCloud Counter Error', error);
         });
     }
-  }
 
-  fetch('https://app-router.leancloud.cn/2/route?appId=4BRFkGSk6eBRPAYOXCzBrR4w-gzGzoHsz')
-    .then(response => response.json())
-    .then(({ api_server }) => {
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"4BRFkGSk6eBRPAYOXCzBrR4w-gzGzoHsz","app_key":"GqMw546aB1PLmKTT2kypSU3h","server_url":"blogapi.palexu.top","security":true,"betterPerformance":false,"username":"palexu","password":"xujunyu520"};
+    function fetchData(api_server) {
       var Counter = (method, url, data) => {
-        return fetch(`https://${api_server}/1.1${url}`, {
-          method: method,
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
           headers: {
-            'X-LC-Id': '4BRFkGSk6eBRPAYOXCzBrR4w-gzGzoHsz',
-            'X-LC-Key': 'GqMw546aB1PLmKTT2kypSU3h',
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(data)
         });
       };
       if (CONFIG.page.isPost) {
-        const localhost = /http:\/\/(localhost|127.0.0.1|0.0.0.0)/;
-        if (localhost.test(document.URL)) return;
+        if (CONFIG.hostname !== location.hostname) return;
         addCount(Counter);
       } else if (document.querySelectorAll('.post-title-link').length >= 1) {
         showTime(Counter);
       }
-    });
-  </script>
+    }
 
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
 
-
-
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-132653813-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-132653813-1');
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
 </script>
 
-        
+
       </div>
     </footer>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-  <div class="reading-progress-bar"></div>
-
   </div>
 
   
-  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/anime.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/medium-zoom@1/dist/medium-zoom.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
-<script src="/js/utils.js?v=7.3.0"></script>
-<script src="/js/schemes/muse.js?v=7.3.0"></script>
-
-<script src="/js/next-boot.js?v=7.3.0"></script>
+<script src="/js/utils.js"></script>
+<script src="/js/schemes/muse.js"></script>
+<script src="/js/next-boot.js"></script>
 
 
 
   
-
-
-
-
-
-
 
 
 
@@ -1476,10 +1249,6 @@
 
   
 
-  
-
-
-  
 
 </body>
 </html>
