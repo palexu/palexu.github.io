@@ -93,9 +93,7 @@ eureka有哪些不足： eureka consumer 本身有缓存，服务状态更新滞
 
 ![55FC9DA4-0049-4760-9FFB-91D8B2567D6B](https://tva1.sinaimg.cn/large/0081Kckwly1gk6fb2pqatj30ck0a13yx.jpg)
 
-Eureka 的数据存储分了两层：
-* 存储
-* 缓存
+Eureka 的数据存储分了两层：存储、缓存
 
 Eureka Client 在拉取服务信息时：
 1. 先从缓存层获取
