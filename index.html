@@ -179,10 +179,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-10-29 19:02:57 / 修改时间：19:33:23" itemprop="dateCreated datePublished" datetime="2020-10-29T19:02:57+08:00">2020-10-29</time>
+              <time title="创建时间：2020-10-29 19:02:57" itemprop="dateCreated datePublished" datetime="2020-10-29T19:02:57+08:00">2020-10-29</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-11-04 17:48:14" itemprop="dateModified" datetime="2020-11-04T17:48:14+08:00">2020-11-04</time>
+              </span>
 
           
             <span id="/2020/10/29/2020-10-29-eureka-basic/" class="post-meta-item leancloud_visitors" data-flag-title="Eureka 原理、组件生命周期、流程简介" title="阅读次数">
@@ -202,9 +208,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="Eureka-简介"><a href="#Eureka-简介" class="headerlink" title="Eureka 简介"></a>Eureka 简介</h2><p>Eureka 是 Netflix 出品的用于实现服务注册和发现的工具。 Spring Cloud 集成了 Eureka，并提供了开箱即用的支持。其中， Eureka 又可细分为 Eureka Server 和 Eureka Client。</p>
+          <blockquote>
+<p>这样一篇文章，主要是对自己近期所学重新梳理时，所做下的一篇笔记。</p>
+<p>网络上已经存在大量对Eureka的介绍和原理剖析，不过这些文章存在很多重复雷同，对知识点总结不够清晰，对原理流程介绍又不够形象。本篇文章不算是完全原创，主要还是对这些文章的整理（见文末参考），对格式、内容有所删选，图片也来自不同的文章，在此感谢各个作者的分享。</p>
+</blockquote>
+<h2 id="Eureka-简介"><a href="#Eureka-简介" class="headerlink" title="Eureka 简介"></a>Eureka 简介</h2><p>Eureka 是 Netflix 出品的用于实现服务注册和发现的工具。 Spring Cloud 集成了 Eureka，并提供了开箱即用的支持。其中， Eureka 又可细分为 Eureka Server 和 Eureka Client。</p>
 <h5 id="Eureka-有哪些组件？"><a href="#Eureka-有哪些组件？" class="headerlink" title="Eureka 有哪些组件？"></a>Eureka 有哪些组件？</h5><p><img src="https://tva1.sinaimg.cn/large/0081Kckwly1gk6et3jj5ij30sg0dhtch.jpg" alt="9A94ADCB-5226-46C1-97F0-878E5B76DC31"></p>
-<p>从组件功能看：</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2020/10/29/2020-10-29-eureka-basic/#more" rel="contents">
@@ -573,91 +582,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://palexu.github.io/2019/01/19/2019-01-20-lean-jstorm-nimbus/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="鲸鱼">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Junyu's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/01/19/2019-01-20-lean-jstorm-nimbus/" class="post-title-link" itemprop="url">JStorm 源码分析 - Nimbus</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-01-19 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-19T00:00:00+08:00">2019-01-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-16 11:35:16" itemprop="dateModified" datetime="2020-10-16T11:35:16+08:00">2020-10-16</time>
-              </span>
-
-          
-            <span id="/2019/01/19/2019-01-20-lean-jstorm-nimbus/" class="post-meta-item leancloud_visitors" data-flag-title="JStorm 源码分析 - Nimbus" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>拓扑会通过 Nimbus 分发给 supervisor, 那么 Nimbus 内部是怎么操作的?<br>这里以本地模式为例, 对拓扑的提交过程做一个分析.</p>
-<p>参考资料:<br><a href="https://meta.tn/a/4dd64fdd491b30afba2893e0a570ca8eb8fc1bfb21ccb8d8f8f44cbdc2bb6be4" target="_blank" rel="noopener">理解storm拓扑并行度</a></p>
-<h2 id="疑问"><a href="#疑问" class="headerlink" title="疑问:"></a>疑问:</h2><ol>
-<li>在zk上建立task信息,这些信息是用来做什么的?</li>
-<li>notifyTopologyActionListener 做了什么?</li>
-</ol>
-<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/01/19/2019-01-20-lean-jstorm-nimbus/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://palexu.github.io/2019/01/19/2019-01-19-lean-jstorm-task/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -724,6 +648,91 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2019/01/19/2019-01-19-lean-jstorm-task/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://palexu.github.io/2019/01/19/2019-01-20-lean-jstorm-nimbus/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="鲸鱼">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Junyu's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/01/19/2019-01-20-lean-jstorm-nimbus/" class="post-title-link" itemprop="url">JStorm 源码分析 - Nimbus</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-01-19 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-19T00:00:00+08:00">2019-01-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-16 11:35:16" itemprop="dateModified" datetime="2020-10-16T11:35:16+08:00">2020-10-16</time>
+              </span>
+
+          
+            <span id="/2019/01/19/2019-01-20-lean-jstorm-nimbus/" class="post-meta-item leancloud_visitors" data-flag-title="JStorm 源码分析 - Nimbus" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>拓扑会通过 Nimbus 分发给 supervisor, 那么 Nimbus 内部是怎么操作的?<br>这里以本地模式为例, 对拓扑的提交过程做一个分析.</p>
+<p>参考资料:<br><a href="https://meta.tn/a/4dd64fdd491b30afba2893e0a570ca8eb8fc1bfb21ccb8d8f8f44cbdc2bb6be4" target="_blank" rel="noopener">理解storm拓扑并行度</a></p>
+<h2 id="疑问"><a href="#疑问" class="headerlink" title="疑问:"></a>疑问:</h2><ol>
+<li>在zk上建立task信息,这些信息是用来做什么的?</li>
+<li>notifyTopologyActionListener 做了什么?</li>
+</ol>
+<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/01/19/2019-01-20-lean-jstorm-nimbus/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1179,7 +1188,7 @@
         });
     }
 
-    let { app_id, app_key, server_url } = {"enable":true,"app_id":"4BRFkGSk6eBRPAYOXCzBrR4w-gzGzoHsz","app_key":"GqMw546aB1PLmKTT2kypSU3h","server_url":"blogapi.palexu.top","security":true,"betterPerformance":false,"username":"palexu","password":"xujunyu520"};
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"4BRFkGSk6eBRPAYOXCzBrR4w-gzGzoHsz","app_key":"GqMw546aB1PLmKTT2kypSU3h","server_url":"https://blogapi.palexu.top","security":true,"betterPerformance":false,"username":"palexu","password":"xujunyu520"};
     function fetchData(api_server) {
       var Counter = (method, url, data) => {
         return fetch(`${api_server}/1.1${url}`, {

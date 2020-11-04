@@ -21,13 +21,13 @@
     var CONFIG = {"hostname":"palexu.github.io","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":true,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Eureka 简介Eureka 是 Netflix 出品的用于实现服务注册和发现的工具。 Spring Cloud 集成了 Eureka，并提供了开箱即用的支持。其中， Eureka 又可细分为 Eureka Server 和 Eureka Client。 Eureka 有哪些组件？ 从组件功能看：">
+  <meta name="description" content="这样一篇文章，主要是对自己近期所学重新梳理时，所做下的一篇笔记。 网络上已经存在大量对Eureka的介绍和原理剖析，不过这些文章存在很多重复雷同，对知识点总结不够清晰，对原理流程介绍又不够形象。本篇文章不算是完全原创，主要还是对这些文章的整理（见文末参考），对格式、内容有所删选，图片也来自不同的文章，在此感谢各个作者的分享。  Eureka 简介Eureka 是 Netflix 出品的用于实现服">
 <meta name="keywords" content="Eureka">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Eureka 原理、组件生命周期、流程简介">
 <meta property="og:url" content="https://palexu.github.io/2020/10/29/2020-10-29-eureka-basic/index.html">
 <meta property="og:site_name" content="Junyu&#39;s Blog">
-<meta property="og:description" content="Eureka 简介Eureka 是 Netflix 出品的用于实现服务注册和发现的工具。 Spring Cloud 集成了 Eureka，并提供了开箱即用的支持。其中， Eureka 又可细分为 Eureka Server 和 Eureka Client。 Eureka 有哪些组件？ 从组件功能看：">
+<meta property="og:description" content="这样一篇文章，主要是对自己近期所学重新梳理时，所做下的一篇笔记。 网络上已经存在大量对Eureka的介绍和原理剖析，不过这些文章存在很多重复雷同，对知识点总结不够清晰，对原理流程介绍又不够形象。本篇文章不算是完全原创，主要还是对这些文章的整理（见文末参考），对格式、内容有所删选，图片也来自不同的文章，在此感谢各个作者的分享。  Eureka 简介Eureka 是 Netflix 出品的用于实现服">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/0081Kckwly1gk6et3jj5ij30sg0dhtch.jpg">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/0081Kckwly1gk6fassvduj30kw0j8mzi.jpg">
@@ -43,10 +43,10 @@
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/0081Kckwly1gk6fc2yj6qj30sg0qjdi0.jpg">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/0081Kckwly1gk6fc77eh8j30sg0irjv8.jpg">
 <meta property="og:image" content="https://tva1.sinaimg.cn/large/0081Kckwly1gk6fcegm0lj30sg07yq54.jpg">
-<meta property="og:updated_time" content="2020-10-29T11:33:23.951Z">
+<meta property="og:updated_time" content="2020-11-04T09:48:14.283Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Eureka 原理、组件生命周期、流程简介">
-<meta name="twitter:description" content="Eureka 简介Eureka 是 Netflix 出品的用于实现服务注册和发现的工具。 Spring Cloud 集成了 Eureka，并提供了开箱即用的支持。其中， Eureka 又可细分为 Eureka Server 和 Eureka Client。 Eureka 有哪些组件？ 从组件功能看：">
+<meta name="twitter:description" content="这样一篇文章，主要是对自己近期所学重新梳理时，所做下的一篇笔记。 网络上已经存在大量对Eureka的介绍和原理剖析，不过这些文章存在很多重复雷同，对知识点总结不够清晰，对原理流程介绍又不够形象。本篇文章不算是完全原创，主要还是对这些文章的整理（见文末参考），对格式、内容有所删选，图片也来自不同的文章，在此感谢各个作者的分享。  Eureka 简介Eureka 是 Netflix 出品的用于实现服">
 <meta name="twitter:image" content="https://tva1.sinaimg.cn/large/0081Kckwly1gk6et3jj5ij30sg0dhtch.jpg">
 
 <link rel="canonical" href="https://palexu.github.io/2020/10/29/2020-10-29-eureka-basic/">
@@ -199,10 +199,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-10-29 19:02:57 / 修改时间：19:33:23" itemprop="dateCreated datePublished" datetime="2020-10-29T19:02:57+08:00">2020-10-29</time>
+              <time title="创建时间：2020-10-29 19:02:57" itemprop="dateCreated datePublished" datetime="2020-10-29T19:02:57+08:00">2020-10-29</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-11-04 17:48:14" itemprop="dateModified" datetime="2020-11-04T17:48:14+08:00">2020-11-04</time>
+              </span>
 
           
             <span id="/2020/10/29/2020-10-29-eureka-basic/" class="post-meta-item leancloud_visitors" data-flag-title="Eureka 原理、组件生命周期、流程简介" title="阅读次数">
@@ -222,7 +228,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="Eureka-简介"><a href="#Eureka-简介" class="headerlink" title="Eureka 简介"></a>Eureka 简介</h2><p>Eureka 是 Netflix 出品的用于实现服务注册和发现的工具。 Spring Cloud 集成了 Eureka，并提供了开箱即用的支持。其中， Eureka 又可细分为 Eureka Server 和 Eureka Client。</p>
+        <blockquote>
+<p>这样一篇文章，主要是对自己近期所学重新梳理时，所做下的一篇笔记。</p>
+<p>网络上已经存在大量对Eureka的介绍和原理剖析，不过这些文章存在很多重复雷同，对知识点总结不够清晰，对原理流程介绍又不够形象。本篇文章不算是完全原创，主要还是对这些文章的整理（见文末参考），对格式、内容有所删选，图片也来自不同的文章，在此感谢各个作者的分享。</p>
+</blockquote>
+<h2 id="Eureka-简介"><a href="#Eureka-简介" class="headerlink" title="Eureka 简介"></a>Eureka 简介</h2><p>Eureka 是 Netflix 出品的用于实现服务注册和发现的工具。 Spring Cloud 集成了 Eureka，并提供了开箱即用的支持。其中， Eureka 又可细分为 Eureka Server 和 Eureka Client。</p>
 <h5 id="Eureka-有哪些组件？"><a href="#Eureka-有哪些组件？" class="headerlink" title="Eureka 有哪些组件？"></a>Eureka 有哪些组件？</h5><p><img src="https://tva1.sinaimg.cn/large/0081Kckwly1gk6et3jj5ij30sg0dhtch.jpg" alt="9A94ADCB-5226-46C1-97F0-878E5B76DC31"></p>
 <p>从组件功能看：</p>
 <ul>
@@ -282,11 +292,7 @@
 <p><img src="https://tva1.sinaimg.cn/large/0081Kckwly1gk6fb0u6rcj30i00a0t9y.jpg" alt="fa1a581644096db7d30fba646b1a1445a681bc72"></p>
 <p>而下面是 Eureka 的数据存储结构：</p>
 <p><img src="https://tva1.sinaimg.cn/large/0081Kckwly1gk6fb2pqatj30ck0a13yx.jpg" alt="55FC9DA4-0049-4760-9FFB-91D8B2567D6B"></p>
-<p>Eureka 的数据存储分了两层：</p>
-<ul>
-<li>存储</li>
-<li>缓存</li>
-</ul>
+<p>Eureka 的数据存储分了两层：存储、缓存</p>
 <p>Eureka Client 在拉取服务信息时：</p>
 <ol>
 <li>先从缓存层获取</li>
@@ -569,7 +575,7 @@
         });
     }
 
-    let { app_id, app_key, server_url } = {"enable":true,"app_id":"4BRFkGSk6eBRPAYOXCzBrR4w-gzGzoHsz","app_key":"GqMw546aB1PLmKTT2kypSU3h","server_url":"blogapi.palexu.top","security":true,"betterPerformance":false,"username":"palexu","password":"xujunyu520"};
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"4BRFkGSk6eBRPAYOXCzBrR4w-gzGzoHsz","app_key":"GqMw546aB1PLmKTT2kypSU3h","server_url":"https://blogapi.palexu.top","security":true,"betterPerformance":false,"username":"palexu","password":"xujunyu520"};
     function fetchData(api_server) {
       var Counter = (method, url, data) => {
         return fetch(`${api_server}/1.1${url}`, {
